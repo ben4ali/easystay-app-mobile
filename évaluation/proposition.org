@@ -2,7 +2,7 @@
 
 Proposition de projet de développement dans le cadre du cours 420-G55.
 
-La proposition doit être approuvée par l'enseignant. Par contre, les détails (sauf les membres de l'équipe) sont sujets à changement selon les circonstances au cours du développement.
+La proposition doit être approuvée par l'enseignant. Par contre, les détails (sauf les membres de l'équipe) sont sujets à changement selon les circonstances au cours du développement avec l'accord de l'enseignant.
 
 ** Équipe
 
