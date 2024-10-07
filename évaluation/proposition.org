@@ -1,0 +1,57 @@
+* Proposition de projet
+
+Proposition de projet de développement dans le cadre du cours 420-G55.
+
+La proposition doit être approuvée par l'enseignant. Par contre, les détails (sauf les membres de l'équipe) sont sujets à changement selon les circonstances au cours du développement.
+
+** Équipe
+
+- Nom des coéquipiers (3 ou 4 personnes) :
+  1 :
+  2 :
+  3 :
+  4 :
+  
+- Horaire de rencontre hebdomadaire (1h) : 
+
+** Projet
+
+- Thématique (quel est le domaine d'application de votre travail) :
+  
+- Problème à résoudre (du point de vue de l'utilisateur, quel sera la plus-value de votre app) :
+  
+- Analyse comparative (nommez au moins deux applications (Android ou non) déjà existantes qui font plus ou moins la même chose) :
+
+  
+** Fonctionnalités minimales :
+
+*** Sauvegarde locale d'informations utilisateurs
+Quelles données comptez-vous stoquer localement sur l'appareil? :
+
+*** Échange de données avec un service extérieur
+Quelles données comptez-vous échanger avec un service extérieur? :
+
+
+L'API existe-t-il déjà? :
+Si oui, est-il accessible librement? gratuitement? devez-vous l'héberger vous-même? : 
+Si non, sera-t-il développé et par qui? ou simulé? : 
+Si déjà connu, de quel type d'API s'agit-il?
+  - REST
+  - OpenAPI
+  - GraphQL
+  - RPC
+  - Autre :
+
+*** Interaction avec d'autres applications du système Android
+Quelle(s) fonctionnalité(s] fer(a|ont) appel à une autre application du système?
+(ex.: prise de photo/vidéo, envoie de courriel, ajout de rendez-vous au calendrier, etc.) :
+
+
+*** Licence choisie :
+- ☐ Propriétaire
+- Libre
+  ☐ GPLv2 : (peut être utilisée au cœur d'un système non-libre)
+  ☐ GPLv3 : (ne peut pas être utilisée au cœur d'un système non-libre)
+  ☐ MIT : peut être utilisée dans n'importe quelle circonstance
+  ☐ Autre, laquelle? :
+  ☐ à déterminer
