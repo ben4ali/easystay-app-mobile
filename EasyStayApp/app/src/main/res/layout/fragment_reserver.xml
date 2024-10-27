@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ReserverFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Titre pour l'image et le type de chambre -->
+        <TextView
+            android:id="@+id/roomTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chambre Deluxe"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#424242"
+            android:paddingBottom="8dp" />
+
+        <!-- Section image et détails de la chambre -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/roomImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/chambre_exemple1"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="Image de la chambre" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="8dp">
+
+                <TextView
+                    android:id="@+id/roomDescriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vue sur la ville, lit king-size, Wi-Fi gratuit"
+                    android:textSize="14sp"
+                    android:textColor="#757575"
+                    android:paddingTop="4dp" />
+
+                <TextView
+                    android:id="@+id/ratingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="★ 4.9 (200 avis)"
+                    android:textSize="14sp"
+                    android:textColor="#FFC107"
+                    android:paddingTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Titre et Description -->
+        <TextView
+            android:id="@+id/descriptionTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description de la chambre"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#424242"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/roomFullDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cette chambre deluxe offre une vue imprenable sur la ville, un lit king-size confortable et un accès Wi-Fi rapide. Profitez de commodités modernes, d'un mini-bar, et d'un espace de travail. Idéale pour les séjours d'affaires ou de loisirs."
+                android:textSize="16sp"
+                android:textColor="#757575" />
+        </LinearLayout>
+
+        <!-- Titre et Services inclus -->
+        <TextView
+            android:id="@+id/servicesIncludedTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Services inclus"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#424242"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/amenitiesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓ Wi-Fi gratuit"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                android:paddingVertical="4dp" />
+        </LinearLayout>
+
+        <!-- Titre et Informations de réservation -->
+        <TextView
+            android:id="@+id/reservationInfoTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informations de réservation"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#424242"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/datesTitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dates"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/datesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24-29 juillet"
+                    android:textSize="16sp"
+                    android:textColor="#1976D2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/guestsTitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Invités"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/guestsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 adultes, 1 enfant"
+                    android:textSize="16sp"
+                    android:textColor="#1976D2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Titre et Détails du prix -->
+        <TextView
+            android:id="@+id/priceDetailsTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Détails du prix"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#424242"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/pricePerNightTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="$150 x 5 nuits"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/subtotalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$750"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/taxesTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Taxes"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/taxesAmountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$112.50"
+                    android:textSize="16sp"
+                    android:textColor="#424242" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/totalTitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total (CAD)"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/totalAmountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$862.50"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#424242" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Bouton Réserver maintenant -->
+        <Button
+            android:id="@+id/reserveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Réserver maintenant"
+            android:textSize="18sp"
+            android:backgroundTint="#D32F2F"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+    </LinearLayout>
+</ScrollView>
