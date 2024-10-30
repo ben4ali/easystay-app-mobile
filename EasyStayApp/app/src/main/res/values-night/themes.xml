@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Thème de base pour le mode sombre -->
+    <style name="Base.Theme.EasyStayApp" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.EasyStayApp" parent="Base.Theme.EasyStayApp" />
+</resources>
