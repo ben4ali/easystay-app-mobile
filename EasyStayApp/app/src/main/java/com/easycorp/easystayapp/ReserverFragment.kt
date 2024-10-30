@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 
 class ReserverFragment : Fragment() {
@@ -25,9 +26,12 @@ class ReserverFragment : Fragment() {
     private lateinit var totalTextView: TextView
     private lateinit var boutonReserver: Button
 
+    private var isNightMode = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         return inflater.inflate(R.layout.fragment_reserver, container, false)
     }
@@ -74,5 +78,15 @@ class ReserverFragment : Fragment() {
         sousTotalTextView.text = "$${donneesReservation.prixParNuit * donneesReservation.nuits}"
         taxesTextView.text = "$${donneesReservation.taxes}"
         totalTextView.text = "Total (CAD): $${donneesReservation.prixTotal()}"
+        // Écouteur de clic pour basculer entre les thèmes
+        boutonReserver.setOnClickListener {
+            isNightMode = !isNightMode // Alterne l'état du mode
+            if (isNightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
+
 }
