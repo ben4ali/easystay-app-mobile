@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/colorBackground">
 
     <!-- En-tête -->
 
@@ -47,9 +47,11 @@
         android:id="@+id/modeSombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#ABABAB"
         android:text="Thème noir"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="559dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="556dp" />
 
     <TextView
         android:id="@+id/compte"
@@ -98,8 +100,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="150dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/colorPrimary"
         android:text="Enregistrer"
+        app:cornerRadius="4dp"
         tools:layout_editor_absoluteX="135dp"
         tools:layout_editor_absoluteY="642dp" />
 
@@ -117,7 +120,8 @@
         android:id="@+id/buttonRetour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/colorPrimary"
+        app:cornerRadius="4dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="30dp" />
 
