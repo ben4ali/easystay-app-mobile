@@ -21,9 +21,9 @@
     </fragment>
     <fragment
         android:id="@+id/chambreDetailsFragment"
-        android:name="com.easycorp.easystayapp.ChambreDetailsFragment"
+        android:name="com.easycorp.easystayapp.FragmentChambreDetails"
         android:label="fragment_chambre_details"
-        tools:layout="@layout/fragment_chambre_details" >
+        tools:layout="@layout/fragment_chambre_details">
         <action
             android:id="@+id/action_chambreDetailsFragment_to_reserverFragment"
             app:destination="@id/reserverFragment" />
