@@ -5,9 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:navGraph="@navigation/fragment_nav"
     tools:context=".MainActivity">
 
     <!-- Conteneur de fragment principal -->
+
     <FrameLayout
         android:id="@+id/fragment_conteneur"
         android:layout_width="0dp"
@@ -18,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
+            android:id="@+id/navFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,6 +41,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,6 +63,12 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="25dp">
 
+                <ImageView
+                    android:id="@+id/imageViewHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home_icon" />
+
                 <Button
                     android:id="@+id/buttonHome"
                     android:layout_width="wrap_content"
@@ -59,11 +76,6 @@
                     android:text=""
                     android:background="#00FFFFFF" />
 
-                <ImageView
-                    android:id="@+id/imageViewHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/home_icon" />
             </FrameLayout>
 
             <!-- Bouton Profil -->
@@ -72,19 +84,19 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="25dp">
 
-                <Button
-                    android:id="@+id/buttonProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:background="#00FFFFFF" />
-
                 <ImageView
                     android:id="@+id/imageViewProfile"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:src="@drawable/user_icon" />
+
+                <Button
+                    android:id="@+id/buttonProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00C73434"
+                    android:text="" />
             </FrameLayout>
 
             <!-- Bouton Hôtel principal -->
@@ -92,20 +104,22 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp">
 
-                <Button
-                    android:id="@+id/buttonMainHotel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text=""
-                    android:background="@color/colorPrimary"
-                    app:cornerRadius="100dp" />
-
                 <ImageView
                     android:id="@+id/imageViewHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/hotel_icon"
                     android:layout_gravity="center" />
+
+                <Button
+                    android:id="@+id/buttonMainHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:background="@color/colorPrimary"
+                    android:text=""
+                    app:cornerRadius="100dp" />
+
             </FrameLayout>
 
             <!-- Bouton Réglages -->
@@ -114,19 +128,19 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="25dp">
 
-                <Button
-                    android:id="@+id/buttonSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:background="#00FFFFFF" />
-
                 <ImageView
                     android:id="@+id/imageViewSettings"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:src="@drawable/setting_icon" />
+
+                <Button
+                    android:id="@+id/buttonSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:text="" />
             </FrameLayout>
 
             <!-- Bouton Déconnexion -->
@@ -135,19 +149,19 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="25dp">
 
-                <Button
-                    android:id="@+id/buttonLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:background="#00FFFFFF" />
-
                 <ImageView
                     android:id="@+id/imageViewLogout"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:src="@drawable/logout_icon" />
+
+                <Button
+                    android:id="@+id/buttonLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:text="" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
