@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        val myFragment = ReserverFragment()
+        val myFragment = fragment_accueil()
 
         fragmentTransaction.replace(R.id.fragment_conteneur, myFragment)
         fragmentTransaction.commit()
