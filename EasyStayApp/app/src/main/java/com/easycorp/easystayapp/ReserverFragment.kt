@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import java.util.Calendar
 
 class ReserverFragment : Fragment() {
 
@@ -26,12 +27,12 @@ class ReserverFragment : Fragment() {
     private lateinit var totalTextView: TextView
     private lateinit var boutonReserver: Button
 
-    private var isNightMode = true
+    private var startDate: Calendar? = null
+    private var endDate: Calendar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
     ): View? {
         return inflater.inflate(R.layout.fragment_reserver, container, false)
     }
@@ -78,15 +79,51 @@ class ReserverFragment : Fragment() {
         sousTotalTextView.text = "$${donneesReservation.prixParNuit * donneesReservation.nuits}"
         taxesTextView.text = "$${donneesReservation.taxes}"
         totalTextView.text = "Total (CAD): $${donneesReservation.prixTotal()}"
-        // Écouteur de clic pour basculer entre les thèmes
-        boutonReserver.setOnClickListener {
-            isNightMode = !isNightMode // Alterne l'état du mode
-            if (isNightMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+
+        datesTextView.setOnClickListener {
+            showStartDatePicker()
         }
     }
 
+    private fun showStartDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            // Enregistre la date de début
+            startDate = Calendar.getInstance().apply {
+                set(selectedYear, selectedMonth, selectedDay)
+            }
+            // Affiche le sélecteur de date de fin
+            showEndDatePicker()
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
+    private fun showEndDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            // Enregistre la date de fin
+            endDate = Calendar.getInstance().apply {
+                set(selectedYear, selectedMonth, selectedDay)
+            }
+
+            // Met à jour le champ de texte avec la plage de dates sélectionnée
+            val startText = "${startDate?.get(Calendar.DAY_OF_MONTH)}-${startDate?.get(Calendar.MONTH)?.plus(1)}-${startDate?.get(Calendar.YEAR)}"
+            val endText = "${endDate?.get(Calendar.DAY_OF_MONTH)}-${endDate?.get(Calendar.MONTH)?.plus(1)}-${endDate?.get(Calendar.YEAR)}"
+            datesTextView.text = "Du $startText au $endText"
+        }, year, month, day)
+
+        // Assurez-vous que la date de fin ne peut pas être antérieure à la date de début
+        datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
+        datePickerDialog.show()
+    }
 }
+
