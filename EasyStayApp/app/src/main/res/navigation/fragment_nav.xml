@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_nav"
+    app:startDestination="@id/fragment_accueil">
+    <fragment
+        android:id="@+id/fragment_accueil"
+        android:name="com.easycorp.easystayapp.fragment_accueil"
+        android:label="fragment_accueil"
+        tools:layout="@layout/fragment_accueil" >
+        <action
+            android:id="@+id/action_fragment_accueil_to_fragment_chambres"
+            app:destination="@id/fragment_chambres" />
+    </fragment>
+    <fragment
+        android:id="@+id/chambreDetailsFragment"
+        android:name="com.easycorp.easystayapp.ChambreDetailsFragment"
+        android:label="fragment_chambre_details"
+        tools:layout="@layout/fragment_chambre_details" >
+        <action
+            android:id="@+id/action_chambreDetailsFragment_to_reserverFragment"
+            app:destination="@id/reserverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reserverFragment"
+        android:name="com.easycorp.easystayapp.ReserverFragment"
+        android:label="fragment_reserver"
+        tools:layout="@layout/fragment_reserver" />
+    <fragment
+        android:id="@+id/fragment_chambres"
+        android:name="com.easycorp.easystayapp.fragment_chambres"
+        android:label="fragment_chambres"
+        tools:layout="@layout/fragment_chambres" >
+        <action
+            android:id="@+id/action_fragment_chambres_to_chambreDetailsFragment"
+            app:destination="@id/chambreDetailsFragment" />
+    </fragment>
+</navigation>
