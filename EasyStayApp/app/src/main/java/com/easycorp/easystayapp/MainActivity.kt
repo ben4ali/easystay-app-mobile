@@ -11,14 +11,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main)
 
         // Charger le fragment dans le conteneur
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        val myFragment = fragment_chambre_details()
+        val myFragment = fragment_accueil()
 
         fragmentTransaction.replace(R.id.fragment_conteneur, myFragment)
         fragmentTransaction.commit()

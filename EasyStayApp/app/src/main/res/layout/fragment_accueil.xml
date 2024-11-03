@@ -7,564 +7,599 @@
     android:background="@color/colorBackground"
     tools:context=".fragment_accueil" >
 
-    <View
-        android:id="@+id/view3"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorPrimary" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:text="VOS RÉSERVATIONS (3)"
-            android:textColor="@color/colorText"
-            android:textSize="25sp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
-            <androidx.cardview.widget.CardView
+            <View
+                android:id="@+id/view3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:outlineAmbientShadowColor="#282828"
-                app:cardCornerRadius="5dp">
+                android:layout_height="15dp"
+                android:background="@color/colorPrimary" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:background="@color/colorSecondary"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="15dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:background="#5AE44F" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="708 - CHAMBRES 2 LITS" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2024-11-03" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
-                android:outlineAmbientShadowColor="#282828"
-                app:cardCornerRadius="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:background="@color/colorSecondary"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="15dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:background="#E49A4F" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="702 - CHAMBRES 2 LITS" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2024-11-12" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:outlineAmbientShadowColor="#282828"
-                app:cardCornerRadius="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:background="@color/colorSecondary"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="15dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:background="#E44F4F" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="701 - CHAMBRES 2 LITS" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2024-11-25" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/colorSecondary"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="25dp"
-                android:text="VOS FAVORIS (2)"
-                android:textColor="@color/colorText"
-                android:textSize="25sp" />
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="25dp">
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="248dp"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="239dp"
+                        android:foreground="@drawable/radial_gradient"
+                        android:foregroundTint="#9E1F1F1F"
+                        android:src="@drawable/background_hotel" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="80dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="Bienvenue chez EasyStay, Ali"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="28sp"
+                        android:translationY="110dp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="VOS RÉSERVATIONS (3)"
+                    android:textColor="@color/colorText"
+                    android:textSize="25sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        app:cardBackgroundColor="@android:color/transparent"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp">
-
-                        <ImageButton
-                            android:id="@+id/imageButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="185dp"
-                            android:foreground="@drawable/radial_gradient"
-                            android:foregroundTint="#C9090909"
-                            android:src="@drawable/chambre_exemple1" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="7.5dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="291dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="0"
-                                    android:src="@drawable/etoile" />
-
-                                <TextView
-                                    android:id="@+id/textView3"
-                                    android:layout_width="186dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_weight="1"
-                                    android:text="75%"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView2"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="1"
-                                    android:alpha="0.76"
-                                    android:src="@drawable/bookmark_fill" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="110dp">
-
-                            <TextView
-                                android:id="@+id/textView5"
-                                android:layout_width="253dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="CHAMBRE 2 LITS"
-                                android:textColor="#FFFFFF"
-                                android:textSize="22sp" />
-
-                            <TextView
-                                android:id="@+id/textView6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="320$/nuit"
-                                android:textColor="#FFFFFF"
-                                android:textSize="21sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="135dp">
-
-                            <TextView
-                                android:id="@+id/textView7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Vue sur la ville"
-                                android:textColor="#FFFFFF" />
-                        </LinearLayout>
-
-                        <View
-                            android:id="@+id/rectangle1"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:backgroundTint="#E44646"
-                            android:foreground="@drawable/carree_vide"
-                            android:foregroundTint="@color/colorPrimary"
-                            android:translationY="165dp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardBackgroundColor="@android:color/transparent"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp">
-
-                        <ImageButton
-                            android:id="@+id/imageButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="185dp"
-                            android:foreground="@drawable/radial_gradient"
-                            android:foregroundTint="#C9090909"
-                            android:src="@drawable/chambre_exemple1" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="7.5dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="291dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="0"
-                                    android:src="@drawable/etoile" />
-
-                                <TextView
-                                    android:id="@+id/textView3"
-                                    android:layout_width="186dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_weight="1"
-                                    android:text="75%"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView2"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="1"
-                                    android:alpha="0.76"
-                                    android:src="@drawable/bookmark_fill" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="110dp">
-
-                            <TextView
-                                android:id="@+id/textView5"
-                                android:layout_width="253dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="CHAMBRE 2 LITS"
-                                android:textColor="#FFFFFF"
-                                android:textSize="22sp" />
-
-                            <TextView
-                                android:id="@+id/textView6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="320$/nuit"
-                                android:textColor="#FFFFFF"
-                                android:textSize="21sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="135dp">
-
-                            <TextView
-                                android:id="@+id/textView7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Vue sur la ville"
-                                android:textColor="#FFFFFF" />
-                        </LinearLayout>
-
-                        <View
-                            android:id="@+id/rectangle1"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:backgroundTint="#E44646"
-                            android:foreground="@drawable/carree_vide"
-                            android:foregroundTint="@color/colorPrimary"
-                            android:translationY="165dp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginTop="10dp"
-                        app:cardBackgroundColor="@android:color/transparent"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp">
-
-                        <ImageButton
-                            android:id="@+id/imageButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="185dp"
-                            android:foreground="@drawable/radial_gradient"
-                            android:foregroundTint="#C9090909"
-                            android:src="@drawable/chambre_exemple1" />
+                        android:layout_marginRight="15dp"
+                        android:outlineAmbientShadowColor="#282828"
+                        app:cardCornerRadius="5dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="7.5dp"
+                            android:alpha="0.7"
+                            android:background="@color/colorSecondary"
                             android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="291dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="15dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="0"
+                                android:background="#5AE44F" />
 
-                                <ImageView
-                                    android:id="@+id/imageView"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="0"
-                                    android:src="@drawable/etoile" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="0"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/textView3"
-                                    android:layout_width="186dp"
+                                    android:id="@+id/textView9"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_weight="1"
-                                    android:text="75%"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16sp" />
+                                    android:text="708 - CHAMBRES 2 LITS" />
+
+                                <TextView
+                                    android:id="@+id/textView10"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="2024-11-03" />
+
                             </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:outlineAmbientShadowColor="#282828"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.7"
+                            android:background="@color/colorSecondary"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="15dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="0"
+                                android:background="#E49A4F" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="0"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:id="@+id/imageView2"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="1"
-                                    android:alpha="0.76"
-                                    android:src="@drawable/bookmark_fill" />
+                                <TextView
+                                    android:id="@+id/textView9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="702 - CHAMBRES 2 LITS" />
+
+                                <TextView
+                                    android:id="@+id/textView10"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="2024-11-12" />
+
                             </LinearLayout>
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="110dp">
+                    </androidx.cardview.widget.CardView>
 
-                            <TextView
-                                android:id="@+id/textView5"
-                                android:layout_width="253dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="CHAMBRE 2 LITS"
-                                android:textColor="#FFFFFF"
-                                android:textSize="22sp" />
-
-                            <TextView
-                                android:id="@+id/textView6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="320$/nuit"
-                                android:textColor="#FFFFFF"
-                                android:textSize="21sp" />
-                        </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:outlineAmbientShadowColor="#282828"
+                        app:cardCornerRadius="5dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:translationY="135dp">
+                            android:alpha="0.7"
+                            android:background="@color/colorSecondary"
+                            android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/textView7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Vue sur la ville"
-                                android:textColor="#FFFFFF" />
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="15dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="0"
+                                android:background="#E44F4F" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="0"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="701 - CHAMBRES 2 LITS" />
+
+                                <TextView
+                                    android:id="@+id/textView10"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="2024-11-25" />
+
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <View
-                            android:id="@+id/rectangle1"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:backgroundTint="#E44646"
-                            android:foreground="@drawable/carree_vide"
-                            android:foregroundTint="@color/colorPrimary"
-                            android:translationY="165dp" />
-
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/colorBackground"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="25dp"
+                        android:text="VOS FAVORIS (2)"
+                        android:textColor="@color/colorText"
+                        android:textSize="25sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <ImageButton
+                                android:id="@+id/imageButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:foreground="@drawable/radial_gradient"
+                                android:foregroundTint="#C9090909"
+                                android:src="@drawable/chambre_exemple1" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7.5dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="291dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="0"
+                                        android:src="@drawable/etoile" />
+
+                                    <TextView
+                                        android:id="@+id/textView3"
+                                        android:layout_width="186dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_weight="1"
+                                        android:text="75%"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView2"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="1"
+                                        android:alpha="0.76"
+                                        android:src="@drawable/bookmark_fill" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="110dp">
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="253dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="CHAMBRE 2 LITS"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="22sp" />
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="320$/nuit"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="21sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="135dp">
+
+                                <TextView
+                                    android:id="@+id/textView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Vue sur la ville"
+                                    android:textColor="#FFFFFF" />
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/rectangle1"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:backgroundTint="#E44646"
+                                android:foreground="@drawable/carree_vide"
+                                android:foregroundTint="@color/colorPrimary"
+                                android:translationY="165dp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <ImageButton
+                                android:id="@+id/imageButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:foreground="@drawable/radial_gradient"
+                                android:foregroundTint="#C9090909"
+                                android:src="@drawable/chambre_exemple1" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7.5dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="291dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="0"
+                                        android:src="@drawable/etoile" />
+
+                                    <TextView
+                                        android:id="@+id/textView3"
+                                        android:layout_width="186dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_weight="1"
+                                        android:text="75%"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView2"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="1"
+                                        android:alpha="0.76"
+                                        android:src="@drawable/bookmark_fill" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="110dp">
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="253dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="CHAMBRE 2 LITS"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="22sp" />
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="320$/nuit"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="21sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="135dp">
+
+                                <TextView
+                                    android:id="@+id/textView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Vue sur la ville"
+                                    android:textColor="#FFFFFF" />
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/rectangle1"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:backgroundTint="#E44646"
+                                android:foreground="@drawable/carree_vide"
+                                android:foregroundTint="@color/colorPrimary"
+                                android:translationY="165dp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <ImageButton
+                                android:id="@+id/imageButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:foreground="@drawable/radial_gradient"
+                                android:foregroundTint="#C9090909"
+                                android:src="@drawable/chambre_exemple1" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7.5dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="291dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="0"
+                                        android:src="@drawable/etoile" />
+
+                                    <TextView
+                                        android:id="@+id/textView3"
+                                        android:layout_width="186dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_weight="1"
+                                        android:text="75%"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView2"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:layout_weight="1"
+                                        android:alpha="0.76"
+                                        android:src="@drawable/bookmark_fill" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="110dp">
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="253dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="CHAMBRE 2 LITS"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="22sp" />
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="320$/nuit"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="21sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:translationY="135dp">
+
+                                <TextView
+                                    android:id="@+id/textView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Vue sur la ville"
+                                    android:textColor="#FFFFFF" />
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/rectangle1"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:backgroundTint="#E44646"
+                                android:foreground="@drawable/carree_vide"
+                                android:foregroundTint="@color/colorPrimary"
+                                android:translationY="165dp" />
+
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </FrameLayout>
 
