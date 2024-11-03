@@ -5,60 +5,73 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var btnHome: Button
-    private lateinit var btnUser: Button
-    private lateinit var btnHotel: Button
-    private lateinit var btnSetting: Button
-    private lateinit var btnLogout: Button
-    private lateinit var toolbar : androidx.appcompat.widget.Toolbar
 
+    private lateinit var btnHome: Button
+    private lateinit var btnProfile: Button
+    private lateinit var btnMainHotel: Button
+    private lateinit var btnSettings: Button
+    private lateinit var btnLogout: Button
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnHome = findViewById(R.id.buttonHome)
-        btnUser = findViewById(R.id.buttonProfile)
-        btnHotel = findViewById(R.id.buttonMainHotel)
-        btnSetting = findViewById(R.id.buttonSettings)
-        btnLogout = findViewById(R.id.buttonLogout)
+        // Initialiser les boutons
         toolbar = findViewById(R.id.toolbar)
+        btnHome = findViewById(R.id.buttonHome)
+        btnProfile = findViewById(R.id.buttonProfile)
+        btnMainHotel = findViewById(R.id.buttonMainHotel)
+        btnSettings = findViewById(R.id.buttonSettings)
+        btnLogout = findViewById(R.id.buttonLogout)
+
+        // Configurer la barre d'outils
         setSupportActionBar(toolbar)
 
+        // Configuration du NavHostFragment et NavController
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navFragment) as? NavHostFragment
-        if (navHostFragment != null) {
-            val navController = navHostFragment.navController
-
+        navHostFragment?.let { navHost ->
+            val navController = navHost.navController
             NavigationUI.setupActionBarWithNavController(this, navController)
 
+            // Actions de navigation pour chaque bouton avec vérification du fragment actuel
             btnHome.setOnClickListener {
-                navController.navigate(R.id.action_fragment_chambres_to_fragment_accueil)
+                if (navController.currentDestination?.id != R.id.fragment_accueil) {
+                    navController.navigate(R.id.fragment_accueil)
+                }
             }
 
-            btnUser.setOnClickListener {
-                navController.navigate(R.id.action_fragment_accueil_to_chambreDetailsFragment)
+            btnProfile.setOnClickListener {
+                if (navController.currentDestination?.id != R.id.fragment_chambres) {
+                    navController.navigate(R.id.fragment_chambres)
+                }
             }
 
-            btnHotel.setOnClickListener {
-                navController.navigate(R.id.action_fragment_accueil_to_fragment_chambres)
+            btnMainHotel.setOnClickListener {
+                if (navController.currentDestination?.id != R.id.chambreDetailsFragment) {
+                    navController.navigate(R.id.chambreDetailsFragment)
+                }
             }
 
-            btnSetting.setOnClickListener {
-                navController.navigate(R.id.action_fragment_accueil_to_fragment_preference3)
+            btnSettings.setOnClickListener {
+                if (navController.currentDestination?.id != R.id.fragment_preference3) {
+                    navController.navigate(R.id.fragment_preference3)
+                }
             }
 
             btnLogout.setOnClickListener {
-                navController.navigate(R.id.action_fragment_accueil_to_fragment_preference3)
+                if (navController.currentDestination?.id != R.id.reserverFragment) {
+                    navController.navigate(R.id.reserverFragment)
+                }
             }
-        } else {
-            throw IllegalStateException("NavHostFragment not found in layout")
-        }
+        } ?: throw IllegalStateException("NavHostFragment introuvable dans la mise en page")
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = (supportFragmentManager.findFragmentById(R.id.fragment_nav) as? NavHostFragment)?.navController
+        val navController = (supportFragmentManager.findFragmentById(R.id.navFragment) as? NavHostFragment)?.navController
         return navController?.navigateUp() ?: super.onSupportNavigateUp()
     }
 }
