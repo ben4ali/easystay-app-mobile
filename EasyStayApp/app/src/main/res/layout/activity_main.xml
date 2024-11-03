@@ -28,4 +28,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/fragment_nav" />
     </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

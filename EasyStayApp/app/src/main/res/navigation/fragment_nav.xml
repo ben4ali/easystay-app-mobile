@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_fragment_accueil_to_fragment_chambres"
             app:destination="@id/fragment_chambres" />
+        <action
+            android:id="@+id/action_fragment_accueil_to_fragment_preference3"
+            app:destination="@id/fragment_preference3" />
     </fragment>
     <fragment
         android:id="@+id/chambreDetailsFragment"
@@ -26,7 +29,11 @@
         android:id="@+id/reserverFragment"
         android:name="com.easycorp.easystayapp.ReserverFragment"
         android:label="fragment_reserver"
-        tools:layout="@layout/fragment_reserver" />
+        tools:layout="@layout/fragment_reserver" >
+        <action
+            android:id="@+id/action_reserverFragment_to_fragment_preference3"
+            app:destination="@id/fragment_preference3" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_chambres"
         android:name="com.easycorp.easystayapp.fragment_chambres"
@@ -35,5 +42,13 @@
         <action
             android:id="@+id/action_fragment_chambres_to_chambreDetailsFragment"
             app:destination="@id/chambreDetailsFragment" />
+        <action
+            android:id="@+id/action_fragment_chambres_to_fragment_preference3"
+            app:destination="@id/fragment_preference3" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_preference3"
+        android:name="com.easycorp.easystayapp.fragment_preference"
+        android:label="fragment_preference"
+        tools:layout="@layout/fragment_preference"/>
 </navigation>
