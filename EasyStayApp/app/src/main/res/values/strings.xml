@@ -7,6 +7,23 @@
     <string name="button_settings_text">Settings</string>
     <string name="button_logout_text">Logout</string>
     <string name="bienvenue_chez_easystay">Welcome to EasyStay</string>
-    <string name="vos_r_servations">Your BOOKINGS</string>
+    <string name="vos_r_servations">YOUR BOOKINGS</string>
     <string name="vos_favoris">YOUR FAVORITES</string>
+    <string name="pr_f_rences">Preferences</string>
+    <string name="compte">Account</string>
+    <string name="nom">Name</string>
+    <string name="pr_nom">First Name</string>
+    <string name="courriel">Email</string>
+    <string name="accessibilit">Accessibility</string>
+    <string name="th_me_noir">Dark Theme</string>
+    <string name="langues">Languages</string>
+    <string name="description_de_la_chambre">Room Description</string>
+    <string name="services_inclus">Included Services</string>
+    <string name="informations_de_r_servation">Booking Information</string>
+    <string name="d_tails_du_prix">Price Details</string>
+    <string name="dates">Dates</string>
+    <string name="invit_s">Guests</string>
+    <string name="taxes">Taxes</string>
+    <string name="total_cad">Total (CAD)</string>
+    <string name="r_server_maintenant">Book Now</string>
 </resources>
