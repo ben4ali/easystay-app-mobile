@@ -27,32 +27,38 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="248dp"
-                    android:layout_marginTop="12dp">
+                    android:layout_height="264dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="15dp"
+                    android:fadingEdgeLength="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="15dp"
+                    app:cardMaxElevation="25dp">
 
                     <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="match_parent"
-                        android:layout_height="239dp"
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:foreground="@drawable/radial_gradient"
-                        android:foregroundTint="#9E1F1F1F"
-                        android:src="@drawable/background_hotel" />
+                        android:foregroundTint="#49040404"
+                        android:src="@drawable/montreal" />
 
                     <TextView
                         android:id="@+id/textView12"
-                        android:layout_width="250dp"
+                        android:layout_width="197dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="80dp"
                         android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal"
                         android:text="@string/bienvenue_chez_easystay"
-                        android:textAlignment="center"
                         android:textColor="#FFFFFF"
-                        android:textSize="28sp"
-                        android:translationY="110dp" />
-                </FrameLayout>
+                        android:textSize="32sp"
+                        android:translationX="15dp"
+                        android:translationY="125dp" />
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView4"
