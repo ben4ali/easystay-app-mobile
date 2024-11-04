@@ -47,7 +47,7 @@
                         android:layout_marginLeft="80dp"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center_horizontal"
-                        android:text="Bienvenue chez EasyStay, Ali"
+                        android:text="@string/bienvenue_chez_easystay"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="28sp"
