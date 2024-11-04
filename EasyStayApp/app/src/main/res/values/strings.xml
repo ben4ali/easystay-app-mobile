@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EasyStay App</string>
     <string name="button_home_text">Home</string>
-    <string name="button_profile_text">Profil</string>
-    <string name="button_main_hotel_text">Hôtel principal</string>
-    <string name="button_settings_text">Réglages</string>
-    <string name="button_logout_text">Déconnexion</string>
-    <string name="bienvenue_chez_easystay">Bienvenue chez EasyStay</string>
-
+    <string name="button_profile_text">Profile</string>
+    <string name="button_main_hotel_text">Main Hotel</string>
+    <string name="button_settings_text">Settings</string>
+    <string name="button_logout_text">Logout</string>
+    <string name="bienvenue_chez_easystay">Welcome to EasyStay</string>
 </resources>
