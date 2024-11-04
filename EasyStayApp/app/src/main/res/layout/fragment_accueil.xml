@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="VOS RÉSERVATIONS (3)"
+                    android:text="@string/vos_r_servations"
                     android:textColor="@color/colorText"
                     android:textSize="25sp" />
 
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="25dp"
-                        android:text="VOS FAVORIS (2)"
+                        android:text="@string/vos_favoris"
                         android:textColor="@color/colorText"
                         android:textSize="25sp" />
 

@@ -7,4 +7,6 @@
     <string name="button_settings_text">Settings</string>
     <string name="button_logout_text">Logout</string>
     <string name="bienvenue_chez_easystay">Welcome to EasyStay</string>
+    <string name="vos_r_servations">Your bookings</string>
+    <string name="vos_favoris">YOUR FAVORITES</string>
 </resources>
