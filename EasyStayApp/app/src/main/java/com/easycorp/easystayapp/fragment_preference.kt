@@ -5,55 +5,68 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Switch
+import androidx.appcompat.app.AppCompatDelegate
+import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_preference.newInstance] factory method to
- * create an instance of this fragment.
- */
 class fragment_preference : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var switch: Switch
+    lateinit var radioFrancais: RadioButton
+    lateinit var radioAnglais: RadioButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_preference, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_preference.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            fragment_preference().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        switch = view.findViewById(R.id.modeSombre)
+        radioFrancais = view.findViewById(R.id.radioFrancais)
+        radioAnglais = view.findViewById(R.id.radioAnglais)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            switch.isChecked = true
+        }
+
+        val currentLocale = Locale.getDefault().language
+        radioFrancais.isChecked = currentLocale == "fr"
+        radioAnglais.isChecked = currentLocale == "en"
+
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+        }
+
+        radioFrancais.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                setLocale(Locale("fr"))
+                radioAnglais.isChecked = false
+            }
+        }
+
+        // Listener for English RadioButton
+        radioAnglais.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                setLocale(Locale("en"))
+                radioFrancais.isChecked = false
+            }
+        }
+    }
+
+    private fun setLocale(locale: Locale) {
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        requireActivity().resources.updateConfiguration(config, requireActivity().resources.displayMetrics)
+        requireActivity().recreate()
     }
 }

@@ -81,7 +81,7 @@
             android:id="@+id/descriptionTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description de la chambre"
+            android:text="@string/description_de_la_chambre"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -108,7 +108,7 @@
             android:id="@+id/servicesIncludedTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services inclus"
+            android:text="@string/services_inclus"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -137,7 +137,7 @@
             android:id="@+id/reservationInfoTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Informations de réservation"
+            android:text="@string/informations_de_r_servation"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -162,7 +162,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Dates"
+                    android:text="@string/dates"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -188,7 +188,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Invités"
+                    android:text="@string/invit_s"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -207,7 +207,7 @@
             android:id="@+id/priceDetailsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Détails du prix"
+            android:text="@string/d_tails_du_prix"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -256,7 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Taxes"
+                    android:text="@string/taxes"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -280,7 +280,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total (CAD)"
+                    android:text="@string/total_cad"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorText" />
@@ -301,7 +301,7 @@
             android:id="@+id/reserveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Réserver maintenant"
+            android:text="@string/r_server_maintenant"
             android:textSize="18sp"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@android:color/white"

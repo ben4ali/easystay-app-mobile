@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">EasyStay App</string>
+    <string name="button_home_text">Home</string>
+    <string name="button_profile_text">Profil</string>
+    <string name="button_main_hotel_text">Hôtel principal</string>
+    <string name="button_settings_text">Réglages</string>
+    <string name="button_logout_text">Déconnexion</string>
+    <string name="bienvenue_chez_easystay">Bienvenue chez EasyStay</string>
+    <string name="vos_r_servations">VOS RÉSERVATIONS</string>
+    <string name="vos_favoris">VOS FAVORIS</string>
+    <string name="pr_f_rences">Préférences</string>
+    <string name="compte">Compte</string>
+    <string name="nom">Nom</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="courriel">Courriel</string>
+    <string name="accessibilit">Accessibilité</string>
+    <string name="th_me_noir">Thème noir</string>
+    <string name="langues">Langues</string>
+    <string name="description_de_la_chambre">Description de la chambre</string>
+    <string name="services_inclus">Services inclus</string>
+    <string name="informations_de_r_servation">Informations de réservation</string>
+    <string name="d_tails_du_prix">Détails du prix</string>
+    <string name="dates">Dates</string>
+    <string name="invit_s">Invités</string>
+    <string name="taxes">Taxes</string>
+    <string name="total_cad">Total (CAD)</string>
+    <string name="r_server_maintenant">Réserver maintenant</string>
+</resources>

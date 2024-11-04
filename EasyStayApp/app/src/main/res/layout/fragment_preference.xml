@@ -12,7 +12,7 @@
         android:id="@+id/title_preferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Préférences"
+        android:text="@string/pr_f_rences"
         android:textColor="@color/colorPrimary"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -45,7 +45,7 @@
                 android:id="@+id/title_compte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Compte"
+                android:text="@string/compte"
                 android:textColor="@color/colorAccent"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
-                        android:text="Nom"
+                        android:text="@string/nom"
                         android:textColor="@color/colorText" />
 
                     <TextView
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:alpha="0.7"
-                        android:text="Prénom"
+                        android:text="@string/pr_nom"
                         android:textColor="@color/colorText" />
 
                     <TextView
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:alpha="0.7"
-                        android:text="Courriel"
+                        android:text="@string/courriel"
                         android:textColor="@color/colorText" />
 
                     <TextView
@@ -145,7 +145,7 @@
                 android:id="@+id/title_accessibilite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accessibilité"
+                android:text="@string/accessibilit"
                 android:textColor="@color/colorAccent"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -154,7 +154,7 @@
                 android:id="@+id/modeSombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thème noir"
+                android:text="@string/th_me_noir"
                 android:textColor="@color/colorText"
                 android:backgroundTint="@color/colorSecondary"
                 android:layout_marginTop="8dp" />
@@ -185,7 +185,7 @@
                 android:id="@+id/title_langues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Langues"
+                android:text="@string/langues"
                 android:textColor="@color/colorAccent"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -196,14 +196,14 @@
                 android:layout_marginTop="8dp">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioFrancais"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Français"
                     android:textColor="@color/colorText" />
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radioAnglais"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="English"
@@ -213,19 +213,4 @@
     </androidx.cardview.widget.CardView>
 
     <!-- Bouton Enregistrer centré et espacé -->
-    <Button
-        android:id="@+id/buttonEnregistrer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enregistrer"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="32dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -73,7 +73,7 @@
                     android:id="@+id/buttonHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="@string/button_home_text"
                     android:background="#00FFFFFF" />
 
             </FrameLayout>
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00C73434"
-                    android:text="" />
+                    android:text="@string/button_profile_text" />
             </FrameLayout>
 
             <!-- Bouton Hôtel principal -->
@@ -117,7 +117,7 @@
                     android:layout_height="match_parent"
                     android:alpha="0"
                     android:background="@color/colorPrimary"
-                    android:text=""
+                    android:text="@string/button_main_hotel_text"
                     app:cornerRadius="100dp" />
 
             </FrameLayout>
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
-                    android:text="" />
+                    android:text="@string/button_settings_text" />
             </FrameLayout>
 
             <!-- Bouton Déconnexion -->
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
-                    android:text="" />
+                    android:text="@string/button_logout_text" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
