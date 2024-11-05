@@ -5,21 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 class fragment_chambres : Fragment() {
 
-    lateinit var rechercher : EditText
-    lateinit var carte1 : CardView
-    lateinit var carte2 : CardView
-    lateinit var carte3 : CardView
+    private lateinit var rechercher: EditText
+    private lateinit var carte1: CardView
+    private lateinit var carte2: CardView
+    private lateinit var carte3: CardView
+    private lateinit var filterIcon: ImageView
 
+    private val chambres = listOf(
+        ChambreData("Chambre Deluxe", "Vue sur la mer", 4.5f, 120, listOf("Wi-Fi", "TV"), 250.0, 20.0),
+        ChambreData("Suite Junior", "Balcon privé", 4.8f, 85, listOf("Wi-Fi", "Climatisation"), 320.0, 25.0),
+        ChambreData("Chambre Standard", "Lit queen-size", 4.2f, 200, listOf("Wi-Fi", "Bureau"), 180.0, 15.0)
+    )
+
+    private var maxPrice = 500
+    private var selectedType: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +36,7 @@ class fragment_chambres : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_chambres, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -34,23 +44,105 @@ class fragment_chambres : Fragment() {
         carte1 = view.findViewById(R.id.carte1)
         carte2 = view.findViewById(R.id.carte2)
         carte3 = view.findViewById(R.id.carte3)
+        filterIcon = view.findViewById(R.id.filter)
+
+        setupCardView(carte1, chambres[0], R.id.textView5, R.id.textView3, R.id.textView6, R.id.textView7)
+        setupCardView(carte2, chambres[1], R.id.textView8, R.id.textView4, R.id.textView9, R.id.textView10)
+        setupCardView(carte3, chambres[2], R.id.textView13, R.id.textView11, R.id.textView14, R.id.textView15)
 
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
-                val text = rechercher.text.toString()
+                val searchText = rechercher.text.toString().trim().lowercase()
                 CoroutineScope(Dispatchers.Main).launch {
-                    if (text.isNotEmpty()) {
-                        carte1.visibility = View.GONE
-                        carte2.visibility = View.GONE
-                        carte3.visibility = View.GONE
-                    } else {
-                        carte1.visibility = View.VISIBLE
-                        carte2.visibility = View.VISIBLE
-                        carte3.visibility = View.VISIBLE
-                    }
+                    applyFiltersAndSearch(searchText)
                 }
-                delay(100)
+                delay(100) // Vérification toutes les 100 ms
             }
         }
+
+        filterIcon.setOnClickListener {
+            showFilterDialog()
+        }
+    }
+
+    private fun showFilterDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_filter, null)
+        val priceSeekBar = dialogView.findViewById<SeekBar>(R.id.priceSeekBar)
+        val priceTextView = dialogView.findViewById<TextView>(R.id.priceTextView)
+        val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
+        val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
+
+         val types = chambres.map { it.typeChambre }.distinct()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, types)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        typeSpinner.adapter = adapter
+
+       priceSeekBar.progress = maxPrice
+        priceTextView.text = "Selected Price: ${maxPrice}$"
+        selectedType?.let {
+            val index = types.indexOf(it)
+            if (index >= 0) {
+                typeSpinner.setSelection(index)
+            }
+        }
+
+        priceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                priceTextView.text = "Selected Price: ${progress}$"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        applyButton.setOnClickListener {
+            maxPrice = priceSeekBar.progress
+            selectedType = typeSpinner.selectedItem.toString()
+            applyFiltersAndSearch(rechercher.text.toString().trim().lowercase()) // Appliquer avec le texte de recherche actuel
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+
+    private fun applyFiltersAndSearch(searchText: String) {
+        carte1.visibility = if (chambres[0].matchesFilter(searchText, maxPrice, selectedType)) View.VISIBLE else View.GONE
+        carte2.visibility = if (chambres[1].matchesFilter(searchText, maxPrice, selectedType)) View.VISIBLE else View.GONE
+        carte3.visibility = if (chambres[2].matchesFilter(searchText, maxPrice, selectedType)) View.VISIBLE else View.GONE
+    }
+
+    private fun ChambreData.matchesFilter(searchText: String, maxPrice: Int, selectedType: String?): Boolean {
+        val matchesPrice = prixTotal() <= maxPrice
+        val matchesType = selectedType == null || typeChambre == selectedType
+        val matchesSearch = searchText.isEmpty() || typeChambre.lowercase().contains(searchText)
+        return matchesPrice && matchesType && matchesSearch
+    }
+
+    private fun setupCardView(
+        cardView: CardView,
+        chambreData: ChambreData,
+        typeChambreId: Int,
+        noteId: Int,
+        prixParNuitId: Int,
+        descriptionId: Int
+    ) {
+        val typeChambre = cardView.findViewById<TextView>(typeChambreId)
+        val note = cardView.findViewById<TextView>(noteId)
+        val prixParNuit = cardView.findViewById<TextView>(prixParNuitId)
+        val description = cardView.findViewById<TextView>(descriptionId)
+
+        typeChambre.text = chambreData.typeChambre
+        note.text = "Note: ${chambreData.note} (${chambreData.nombreAvis} avis)"
+        prixParNuit.text = "${chambreData.prixTotal()}$ / nuit"
+        description.text = chambreData.description
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }
