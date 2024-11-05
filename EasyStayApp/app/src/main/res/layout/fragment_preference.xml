@@ -84,9 +84,9 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
+                        android:id="@+id/nomTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Robert"
                         android:textColor="@color/colorText" />
 
                     <TextView
@@ -98,9 +98,9 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
+                        android:id="@+id/prenomTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Albert"
                         android:textColor="@color/colorText" />
 
                     <TextView
@@ -112,9 +112,9 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
+                        android:id="@+id/emailTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="rolbert@gmail.com"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
             </LinearLayout>
