@@ -1,13 +1,14 @@
 package com.easycorp.easystayapp
 
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,6 +21,9 @@ class fragment_chambres : Fragment() {
     private lateinit var carte2: CardView
     private lateinit var carte3: CardView
     private lateinit var filterIcon: ImageView
+    private lateinit var imageButton1: ImageButton
+    private lateinit var imageButton2: ImageButton
+    private lateinit var imageButton3: ImageButton
 
     private val chambres = listOf(
         ChambreData("Chambre Deluxe", "Vue sur la mer", 4.5f, 120, listOf("Wi-Fi", "TV"), 250.0, 20.0),
@@ -44,7 +48,14 @@ class fragment_chambres : Fragment() {
         carte1 = view.findViewById(R.id.carte1)
         carte2 = view.findViewById(R.id.carte2)
         carte3 = view.findViewById(R.id.carte3)
+        imageButton1 = view.findViewById(R.id.imageButton)
+        imageButton2 = view.findViewById(R.id.imageButton1)
+        imageButton3 = view.findViewById(R.id.imageButton6)
         filterIcon = view.findViewById(R.id.filter)
+
+        setupImageClick(imageButton1, chambres[0])
+        setupImageClick(imageButton2, chambres[1])
+        setupImageClick(imageButton3, chambres[2])
 
         setupCardView(carte1, chambres[0], R.id.textView5, R.id.textView3, R.id.textView6, R.id.textView7)
         setupCardView(carte2, chambres[1], R.id.textView8, R.id.textView4, R.id.textView9, R.id.textView10)
@@ -56,12 +67,34 @@ class fragment_chambres : Fragment() {
                 CoroutineScope(Dispatchers.Main).launch {
                     applyFiltersAndSearch(searchText)
                 }
-                delay(100) // Vérification toutes les 100 ms
+                delay(100)
             }
         }
 
         filterIcon.setOnClickListener {
             showFilterDialog()
+        }
+    }
+
+    private fun setupImageClick(imageButton: ImageButton, chambre: ChambreData) {
+        imageButton.setOnClickListener {
+            openDetailsFragment(chambre)
+        }
+    }
+
+    private fun openDetailsFragment(chambre: ChambreData) {
+        val bundle = Bundle().apply {
+            putString("typeChambre", chambre.typeChambre)
+            putString("description", chambre.description)
+            putFloat("note", chambre.note)
+            putInt("nombreAvis", chambre.nombreAvis)
+            putDouble("prixTotal", chambre.prixTotal())
+        }
+
+        try {
+            findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment, bundle)
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -72,12 +105,12 @@ class fragment_chambres : Fragment() {
         val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
         val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
 
-         val types = chambres.map { it.typeChambre }.distinct()
+        val types = chambres.map { it.typeChambre }.distinct()
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapter
 
-       priceSeekBar.progress = maxPrice
+        priceSeekBar.progress = maxPrice
         priceTextView.text = "Selected Price: ${maxPrice}$"
         selectedType?.let {
             val index = types.indexOf(it)
@@ -102,13 +135,12 @@ class fragment_chambres : Fragment() {
         applyButton.setOnClickListener {
             maxPrice = priceSeekBar.progress
             selectedType = typeSpinner.selectedItem.toString()
-            applyFiltersAndSearch(rechercher.text.toString().trim().lowercase()) // Appliquer avec le texte de recherche actuel
+            applyFiltersAndSearch(rechercher.text.toString().trim().lowercase())
             alertDialog.dismiss()
         }
 
         alertDialog.show()
     }
-
 
     private fun applyFiltersAndSearch(searchText: String) {
         carte1.visibility = if (chambres[0].matchesFilter(searchText, maxPrice, selectedType)) View.VISIBLE else View.GONE

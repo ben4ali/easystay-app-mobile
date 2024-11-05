@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialiser les boutons
         toolbar = findViewById(R.id.toolbar)
         btnHome = findViewById(R.id.buttonHome)
         btnProfile = findViewById(R.id.buttonProfile)
@@ -28,16 +27,13 @@ class MainActivity : AppCompatActivity() {
         btnSettings = findViewById(R.id.buttonSettings)
         btnLogout = findViewById(R.id.buttonLogout)
 
-        // Configurer la barre d'outils
         setSupportActionBar(toolbar)
 
-        // Configuration du NavHostFragment et NavController
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navFragment) as? NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         navHostFragment?.let { navHost ->
             val navController = navHost.navController
             NavigationUI.setupActionBarWithNavController(this, navController)
 
-            // Actions de navigation pour chaque bouton avec vérification du fragment actuel
             btnHome.setOnClickListener {
                 if (navController.currentDestination?.id != R.id.fragment_accueil) {
                     navController.navigate(R.id.fragment_accueil)
@@ -71,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = (supportFragmentManager.findFragmentById(R.id.navFragment) as? NavHostFragment)?.navController
+        val navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)?.navController
         return navController?.navigateUp() ?: super.onSupportNavigateUp()
     }
 }

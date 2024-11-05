@@ -10,23 +10,18 @@
 
     <!-- Conteneur de fragment principal -->
 
-    <FrameLayout
-        android:id="@+id/fragment_conteneur"
+    <!-- Conteneur de navigation principal -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:navGraph="@navigation/fragment_nav"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/customBottomMenu"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/navFragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/fragment_nav" />
-    </FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Menu en bas avec correction des IDs -->
     <FrameLayout

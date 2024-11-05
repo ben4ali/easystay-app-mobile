@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
@@ -23,21 +24,35 @@ class FragmentChambreDetails : Fragment() {
     private lateinit var dotIndicators: List<View>
     private lateinit var datePickerBtn: LinearLayout
     private lateinit var dateShown: TextView
+    private lateinit var typeChambreTextView: TextView
+    private lateinit var descriptionTextView: TextView
+    private lateinit var noteTextView: TextView
+    private lateinit var prixTextView: TextView
+    private lateinit var roomTitleTextView: TextView
+
+    private lateinit var réserverBtn: Button
 
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout.fragment_chambre_details, container, false)
-        viewPager = view.findViewById(R.id.viewPager)
+
+        viewPager = view.findViewById(R.id.viewPagerImages)
         dotIndicatorLayout = view.findViewById(R.id.dotIndicatorLayout)
-        datePickerBtn = view.findViewById(R.id.datePicker)
-        dateShown = view.findViewById(R.id.dateShown)
+        datePickerBtn = view.findViewById(R.id.datePickerLayout)
+        dateShown = view.findViewById(R.id.dateTextView)
+        typeChambreTextView = view.findViewById(R.id.bedTypeTextView)
+        roomTitleTextView = view.findViewById(R.id.roomTitleTextView)
+        descriptionTextView = view.findViewById(R.id.roomDescriptionTitle)
+        noteTextView = view.findViewById(R.id.reviewCountTextView)
+        prixTextView = view.findViewById(R.id.priceTextView)
+
+        réserverBtn = view.findViewById(R.id.bookButton)
 
         val images = intArrayOf(drawable.chambre_exemple1, drawable.chambre_exemple2, drawable.chambre_exemple3)
         val adapter = ImageSliderAdapter(requireContext(), images)
         viewPager.adapter = adapter
-
         createDotIndicators(images.size)
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -47,11 +62,27 @@ class FragmentChambreDetails : Fragment() {
             }
         })
 
-        datePickerBtn.setOnClickListener{
+        datePickerBtn.setOnClickListener {
             showStartDatePicker()
         }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val typeChambre = arguments?.getString("typeChambre")
+        val description = arguments?.getString("description")
+        val note = arguments?.getFloat("note")
+        val nombreAvis = arguments?.getInt("nombreAvis")
+        val prixTotal = arguments?.getDouble("prixTotal")
+
+        roomTitleTextView.text = typeChambre
+        typeChambreTextView.text = typeChambre
+        descriptionTextView.text = description
+        noteTextView.text = "Note: $note (${nombreAvis ?: 0} avis)"
+        prixTextView.text = "${prixTotal ?: 0.0}$ / nuit"
     }
 
     private fun createDotIndicators(count: Int) {
@@ -63,7 +94,6 @@ class FragmentChambreDetails : Fragment() {
         }
         updateDotIndicators(0)
     }
-
 
     private fun updateDotIndicators(selectedPosition: Int) {
         for (i in dotIndicators.indices) {
@@ -79,11 +109,9 @@ class FragmentChambreDetails : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Enregistre la date de début
             startDate = Calendar.getInstance().apply {
                 set(selectedYear, selectedMonth, selectedDay)
             }
-            // Affiche le sélecteur de date de fin
             showEndDatePicker()
         }, year, month, day)
 
@@ -97,26 +125,22 @@ class FragmentChambreDetails : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Enregistre la date de fin
             endDate = Calendar.getInstance().apply {
                 set(selectedYear, selectedMonth, selectedDay)
             }
 
-            // Met à jour le champ de texte avec la plage de dates sélectionnée
             val startText = "${startDate?.get(Calendar.DAY_OF_MONTH)}"
             val endText = "${endDate?.get(Calendar.DAY_OF_MONTH)}"
-            val monthTextNumber = "${endDate?.get(Calendar.MONTH)}"
             val dateFormat = SimpleDateFormat("MMMM", Locale.FRENCH)
-            val monthTextLetter = dateFormat.format(endDate?.time)
-            if(startDate?.get(Calendar.MONTH) != endDate?.get(Calendar.MONTH)){
-                val firstMonthTextLetter = dateFormat.format(startDate?.time)
-                dateShown.text = "$startText $firstMonthTextLetter - $endText $monthTextLetter"
-            }else {
-                dateShown.text = "$startText - $endText $monthTextLetter"
+            val startMonthText = dateFormat.format(startDate?.time)
+            val endMonthText = dateFormat.format(endDate?.time)
+            dateShown.text = if (startMonthText != endMonthText) {
+                "$startText $startMonthText - $endText $endMonthText"
+            } else {
+                "$startText - $endText $endMonthText"
             }
         }, year, month, day)
 
-        // Assurez-vous que la date de fin ne peut pas être antérieure à la date de début
         datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
         datePickerDialog.show()
     }

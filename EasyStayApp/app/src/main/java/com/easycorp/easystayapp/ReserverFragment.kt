@@ -40,7 +40,6 @@ class ReserverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialisation des vues avec les ID français
         typeChambreTextView = view.findViewById(R.id.roomTypeTextView)
         imageChambreImageView = view.findViewById(R.id.roomImageView)
         descriptionChambreTextView = view.findViewById(R.id.roomDescriptionTextView)
@@ -92,11 +91,9 @@ class ReserverFragment : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Enregistre la date de début
             startDate = Calendar.getInstance().apply {
                 set(selectedYear, selectedMonth, selectedDay)
             }
-            // Affiche le sélecteur de date de fin
             showEndDatePicker()
         }, year, month, day)
 
@@ -110,18 +107,15 @@ class ReserverFragment : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Enregistre la date de fin
             endDate = Calendar.getInstance().apply {
                 set(selectedYear, selectedMonth, selectedDay)
             }
 
-            // Met à jour le champ de texte avec la plage de dates sélectionnée
             val startText = "${startDate?.get(Calendar.DAY_OF_MONTH)}-${startDate?.get(Calendar.MONTH)?.plus(1)}-${startDate?.get(Calendar.YEAR)}"
             val endText = "${endDate?.get(Calendar.DAY_OF_MONTH)}-${endDate?.get(Calendar.MONTH)?.plus(1)}-${endDate?.get(Calendar.YEAR)}"
             datesTextView.text = "Du $startText au $endText"
         }, year, month, day)
 
-        // Assurez-vous que la date de fin ne peut pas être antérieure à la date de début
         datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
         datePickerDialog.show()
     }
