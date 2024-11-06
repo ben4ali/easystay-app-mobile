@@ -9,8 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.R.*
 import java.text.SimpleDateFormat
@@ -29,6 +32,7 @@ class FragmentChambreDetails : Fragment() {
     private lateinit var noteTextView: TextView
     private lateinit var prixTextView: TextView
     private lateinit var roomTitleTextView: TextView
+    private lateinit var backBtn: ImageView
 
     private lateinit var réserverBtn: Button
 
@@ -47,6 +51,7 @@ class FragmentChambreDetails : Fragment() {
         descriptionTextView = view.findViewById(R.id.roomDescriptionTitle)
         noteTextView = view.findViewById(R.id.reviewCountTextView)
         prixTextView = view.findViewById(R.id.priceTextView)
+        backBtn = view.findViewById(R.id.backButton)
 
         réserverBtn = view.findViewById(R.id.bookButton)
 
@@ -64,6 +69,14 @@ class FragmentChambreDetails : Fragment() {
 
         datePickerBtn.setOnClickListener {
             showStartDatePicker()
+        }
+
+        backBtn.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_chambreDetailsFragment_to_fragment_chambres)
+            } catch (e: IllegalArgumentException) {
+                Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         }
 
         return view
