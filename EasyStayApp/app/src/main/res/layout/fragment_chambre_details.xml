@@ -245,7 +245,8 @@
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25 - 30 juin"
+                android:text="@string/s_lectionner_une_date"
+                android:textColor="#0035FF"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

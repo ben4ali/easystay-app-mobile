@@ -69,10 +69,10 @@
                     android:id="@+id/ratingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
                     android:text="★ 4.9 (200 avis)"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorAccent"
-                    android:paddingTop="4dp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -170,11 +170,11 @@
                     android:id="@+id/datesTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sélectionner une date"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorAccent"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:text="Sélectionner une date"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -233,8 +233,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="$150 x 5 nuits"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/subtotalTextView"
