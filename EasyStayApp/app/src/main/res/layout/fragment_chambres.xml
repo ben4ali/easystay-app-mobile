@@ -176,7 +176,9 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_weight="1"
-                                android:src="@drawable/bookmark" />
+                                android:alpha="0"
+                                android:src="@drawable/bookmark"
+                                tools:visibility="visible" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -295,7 +297,9 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_weight="1"
-                                android:src="@drawable/bookmark" />
+                                android:alpha="0"
+                                android:src="@drawable/bookmark"
+                                tools:visibility="visible" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -414,7 +418,9 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_weight="1"
-                                android:src="@drawable/bookmark" />
+                                android:alpha="0"
+                                android:src="@drawable/bookmark"
+                                tools:visibility="visible" />
                         </LinearLayout>
                     </LinearLayout>
 
