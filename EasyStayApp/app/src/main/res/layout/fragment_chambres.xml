@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="CHAMBRES"
+                android:text="@string/chambres"
                 android:textColor="@color/colorText"
                 android:textSize="40sp" />
 
@@ -85,7 +85,7 @@
                         android:alpha="0.5"
                         android:background="@android:color/transparent"
                         android:ems="10"
-                        android:hint="Rechercher"
+                        android:hint="@string/rechercher"
                         android:inputType="text"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorText"

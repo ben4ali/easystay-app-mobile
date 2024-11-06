@@ -25,4 +25,10 @@
     <string name="taxes">Taxes</string>
     <string name="total_cad">Total (CAD)</string>
     <string name="r_server_maintenant">Réserver maintenant</string>
+    <string name="filter_by_price">Filtrer par Prix</string>
+    <string name="filter_by_type">Filtrer par Type</string>
+    <string name="apply_filters">Appliquer les filtres</string>
+    <string name="r_server">RÉSERVER</string>
+    <string name="chambres">CHAMBRES</string>
+    <string name="rechercher">Rechercher</string>
 </resources>

@@ -26,4 +26,10 @@
     <string name="taxes">Taxes</string>
     <string name="total_cad">Total (CAD)</string>
     <string name="r_server_maintenant">Book Now</string>
+    <string name="filter_by_price">Filter by Price</string>
+    <string name="filter_by_type">Filter by Type</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="r_server">BOOK</string>
+    <string name="chambres">ROOMS</string>
+    <string name="rechercher">Research</string>
 </resources>

@@ -221,7 +221,7 @@
             android:id="@+id/bookButton"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:text="RÉSERVER"
+            android:text="@string/r_server"
             app:cornerRadius="8dp" />
 
         <LinearLayout
