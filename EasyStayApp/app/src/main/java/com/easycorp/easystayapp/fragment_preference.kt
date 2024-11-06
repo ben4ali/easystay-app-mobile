@@ -70,7 +70,6 @@ class fragment_preference : Fragment() {
             }
         }
 
-        // Listener for English RadioButton
         radioAnglais.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 setLocale(Locale("en"))

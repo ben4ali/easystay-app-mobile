@@ -52,7 +52,6 @@ class FragmentChambreDetails : Fragment() {
         noteTextView = view.findViewById(R.id.reviewCountTextView)
         prixTextView = view.findViewById(R.id.priceTextView)
         backBtn = view.findViewById(R.id.backButton)
-
         réserverBtn = view.findViewById(R.id.bookButton)
 
         val images = intArrayOf(drawable.chambre_exemple1, drawable.chambre_exemple2, drawable.chambre_exemple3)
@@ -79,7 +78,6 @@ class FragmentChambreDetails : Fragment() {
             }
         }
 
-
         return view
     }
 
@@ -98,16 +96,20 @@ class FragmentChambreDetails : Fragment() {
         noteTextView.text = "Note: $note (${nombreAvis ?: 0} avis)"
         prixTextView.text = "${prixParNuit ?: 0.0}$ / nuit"
 
-        réserverBtn.setOnClickListener() {
+        réserverBtn.setOnClickListener {
             if (startDate != null && endDate != null) {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val startDateString = startDate?.let { dateFormat.format(it.time) }
+                val endDateString = endDate?.let { dateFormat.format(it.time) }
+
                 val bundle = Bundle().apply {
                     putString("typeChambre", typeChambre)
                     putString("description", description)
                     putFloat("note", note ?: 0.0f)
                     putInt("nombreAvis", nombreAvis ?: 0)
                     putDouble("prixParNuit", prixParNuit ?: 5.0)
-                    putString("startDate", startDate?.time.toString())
-                    putString("endDate", endDate?.time.toString())
+                    putString("startDate", startDateString)
+                    putString("endDate", endDateString)
                 }
                 try {
                     findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment, bundle)
@@ -164,16 +166,10 @@ class FragmentChambreDetails : Fragment() {
                 set(selectedYear, selectedMonth, selectedDay)
             }
 
-            val startText = "${startDate?.get(Calendar.DAY_OF_MONTH)}"
-            val endText = "${endDate?.get(Calendar.DAY_OF_MONTH)}"
-            val dateFormat = SimpleDateFormat("MMMM", Locale.FRENCH)
-            val startMonthText = dateFormat.format(startDate?.time)
-            val endMonthText = dateFormat.format(endDate?.time)
-            dateShown.text = if (startMonthText != endMonthText) {
-                "$startText $startMonthText - $endText $endMonthText"
-            } else {
-                "$startText - $endText $endMonthText"
-            }
+            val dateFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
+            val startText = startDate?.let { dateFormat.format(it.time) }
+            val endText = endDate?.let { dateFormat.format(it.time) }
+            dateShown.text = "$startText - $endText"
         }, year, month, day)
 
         datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -32,6 +33,8 @@ class ReserverFragment : Fragment() {
 
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
+    private var initialStartDate: LocalDate? = null
+    private var initialEndDate: LocalDate? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,49 +60,50 @@ class ReserverFragment : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
-        val donneesReservation = DonneesReservation(
-            typeChambre = "Chambre Deluxe",
-            description = "Cette chambre deluxe offre une vue imprenable sur la ville, un lit king-size confortable et un accès Wi-Fi rapide. Profitez de commodités modernes, d'un mini-bar, et d'un espace de travail. Idéale pour les séjours d'affaires ou de loisirs.",
-            note = 4.9f,
-            nombreAvis = 200,
-            commodites = listOf("Wi-Fi gratuit", "Petit déjeuner inclus", "Accès à la salle de sport", "Service de nettoyage quotidien"),
-            dates = "24-29 juillet",
-            invites = "2 adultes, 1 enfant",
-            prixParNuit = 150.0,
-            nuits = 5,
-            taxes = 112.5
-        )
-
-
-
-        typeChambreTextView.text = arguments?.getString("typeChambre")
-        descriptionChambreTextView.text = arguments?.getString("description")
-        noteTextView.text = "★ ${arguments?.getFloat("note")} (${arguments?.getInt("nombreAvis")} avis)"
-        descriptionCompleteTextView.text = arguments?.getString("description")
-        commoditesTextView.text = donneesReservation.commodites.joinToString("\n") { "✓ $it" }
-        val formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy")
+        val typeChambre = arguments?.getString("typeChambre") ?: "Type de chambre non spécifié"
+        val description = arguments?.getString("description") ?: "Description non spécifiée"
+        val note = arguments?.getFloat("note", 0.0f)
+        val nombreAvis = arguments?.getInt("nombreAvis", 0)
+        val prixParNuit = arguments?.getDouble("prixParNuit", 0.0)
         val startDateString = arguments?.getString("startDate")
         val endDateString = arguments?.getString("endDate")
-        val startDate = LocalDate.parse(startDateString, formatter)
-        val endDate = LocalDate.parse(endDateString, formatter)
-        val nuits = ChronoUnit.DAYS.between(startDate, endDate).toInt()
 
-        datesTextView.text = "${arguments?.getString("startDate")} - ${arguments?.getString("endDate")}"
-        invitesTextView.text = donneesReservation.invites
+        typeChambreTextView.text = typeChambre
+        descriptionChambreTextView.text = description
+        noteTextView.text = "★ $note ($nombreAvis avis)"
+        descriptionCompleteTextView.text = description
+        commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
 
-        datesTextView.text = "$startDateString - $endDateString"
-        //il faudrait remplacer ça avec le vrai prix de la chambre mais j'arrive pas à le récupérer
-        val prixParNuit = donneesReservation.prixParNuit
-        prixParNuitTextView.text = "$$prixParNuit x $nuits nuits"
-        val sousTotal = prixParNuit * nuits
-        sousTotalTextView.text = "$$sousTotal"
-        val taxes = sousTotal * 0.15
-        taxesTextView.text = "$$taxes"
-        val total = sousTotal * 1.15
-        totalTextView.text = "$$total"
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+
+        initialStartDate = startDateString?.let {
+            try { LocalDate.parse(it, formatter) } catch (e: Exception) { null }
+        }
+
+        initialEndDate = endDateString?.let {
+            try { LocalDate.parse(it, formatter) } catch (e: Exception) { null }
+        }
+
+        if (initialStartDate != null && initialEndDate != null) {
+            datesTextView.text = "$startDateString - $endDateString"
+            calculateTotal(initialStartDate, initialEndDate, prixParNuit)
+        }
 
         datesTextView.setOnClickListener {
             showStartDatePicker()
+        }
+    }
+
+    private fun calculateTotal(startDate: LocalDate?, endDate: LocalDate?, prixParNuit: Double?) {
+        if (startDate != null && endDate != null && prixParNuit != null) {
+            val nuits = ChronoUnit.DAYS.between(startDate, endDate).toInt()
+            prixParNuitTextView.text = "$$prixParNuit x $nuits nuits"
+            val sousTotal = prixParNuit * nuits
+            sousTotalTextView.text = "$$sousTotal"
+            val taxes = sousTotal * 0.15
+            taxesTextView.text = "$$taxes"
+            val total = sousTotal * 1.15
+            totalTextView.text = "$$total"
         }
     }
 
@@ -130,13 +134,24 @@ class ReserverFragment : Fragment() {
                 set(selectedYear, selectedMonth, selectedDay)
             }
 
-            val startText = "${startDate?.get(Calendar.DAY_OF_MONTH)}-${startDate?.get(Calendar.MONTH)?.plus(1)}-${startDate?.get(Calendar.YEAR)}"
-            val endText = "${endDate?.get(Calendar.DAY_OF_MONTH)}-${endDate?.get(Calendar.MONTH)?.plus(1)}-${endDate?.get(Calendar.YEAR)}"
-            datesTextView.text = "Du $startText au $endText"
+            val startLocalDate = LocalDate.of(
+                startDate!!.get(Calendar.YEAR),
+                startDate!!.get(Calendar.MONTH) + 1,
+                startDate!!.get(Calendar.DAY_OF_MONTH)
+            )
+
+            val endLocalDate = LocalDate.of(
+                endDate!!.get(Calendar.YEAR),
+                endDate!!.get(Calendar.MONTH) + 1,
+                endDate!!.get(Calendar.DAY_OF_MONTH)
+            )
+
+            datesTextView.text = "Du ${startLocalDate.dayOfMonth} ${startLocalDate.month} - ${endLocalDate.dayOfMonth} ${endLocalDate.month}"
+            val prixParNuit = arguments?.getDouble("prixParNuit", 0.0)
+            calculateTotal(startLocalDate, endLocalDate, prixParNuit)
         }, year, month, day)
 
         datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
         datePickerDialog.show()
     }
 }
-

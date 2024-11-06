@@ -24,6 +24,8 @@ class fragment_chambres : Fragment() {
     private lateinit var imageButton1: ImageButton
     private lateinit var imageButton2: ImageButton
     private lateinit var imageButton3: ImageButton
+    private var isFilterApplied = false
+
 
     private val chambres = listOf(
         ChambreData("Chambre Deluxe", "Vue sur la mer", 4.5f, 120, listOf("Wi-Fi", "TV"), 250.0, 20.0),
@@ -72,7 +74,15 @@ class fragment_chambres : Fragment() {
         }
 
         filterIcon.setOnClickListener {
-            showFilterDialog()
+            if (isFilterApplied) {
+                maxPrice = 500
+                selectedType = null
+                applyFiltersAndSearch(rechercher.text.toString().trim().lowercase())
+                isFilterApplied = false
+            } else {
+                showFilterDialog()
+                isFilterApplied = true
+            }
         }
     }
 
@@ -90,7 +100,6 @@ class fragment_chambres : Fragment() {
             putInt("nombreAvis", chambre.nombreAvis)
             putDouble("prixParNuit", chambre.prixParNuit)
         }
-
         try {
             findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment, bundle)
         } catch (e: IllegalArgumentException) {
@@ -105,7 +114,7 @@ class fragment_chambres : Fragment() {
         val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
         val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
 
-        val types = chambres.map { it.typeChambre }.distinct()
+        val types = listOf("Toutes les chambres") + chambres.map { it.typeChambre }.distinct()
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapter
@@ -134,7 +143,7 @@ class fragment_chambres : Fragment() {
 
         applyButton.setOnClickListener {
             maxPrice = priceSeekBar.progress
-            selectedType = typeSpinner.selectedItem.toString()
+            selectedType = if (typeSpinner.selectedItem.toString() == "Toutes les chambres") null else typeSpinner.selectedItem.toString()
             applyFiltersAndSearch(rechercher.text.toString().trim().lowercase())
             alertDialog.dismiss()
         }
@@ -149,8 +158,8 @@ class fragment_chambres : Fragment() {
     }
 
     private fun ChambreData.matchesFilter(searchText: String, maxPrice: Int, selectedType: String?): Boolean {
-        val matchesPrice = prixTotal() <= maxPrice
-        val matchesType = selectedType == null || typeChambre == selectedType
+        val matchesPrice = prixParNuit <= maxPrice
+        val matchesType = selectedType == "Toutes les chambres" || selectedType == null || typeChambre == selectedType
         val matchesSearch = searchText.isEmpty() || typeChambre.lowercase().contains(searchText)
         return matchesPrice && matchesType && matchesSearch
     }
