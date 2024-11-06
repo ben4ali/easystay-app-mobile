@@ -15,6 +15,9 @@
         <action android:id="@+id/action_fragment_accueil_to_fragment_preference3" app:destination="@id/fragment_preference3" />
         <action android:id="@+id/action_fragment_accueil_to_chambreDetailsFragment" app:destination="@id/chambreDetailsFragment" />
         <action android:id="@+id/action_fragment_accueil_to_reserverFragment" app:destination="@id/reserverFragment" />
+        <action
+            android:id="@+id/action_fragment_accueil_to_fragment_listeReservations"
+            app:destination="@id/fragment_listeReservations" />
     </fragment>
 
     <!-- Fragment Chambres -->
@@ -27,6 +30,9 @@
         <action android:id="@+id/action_fragment_chambres_to_fragment_preference3" app:destination="@id/fragment_preference3" />
         <action android:id="@+id/action_fragment_chambres_to_fragment_accueil" app:destination="@id/fragment_accueil" />
         <action android:id="@+id/action_fragment_chambres_to_reserverFragment" app:destination="@id/reserverFragment" />
+        <action
+            android:id="@+id/action_fragment_chambres_to_fragment_listeReservations"
+            app:destination="@id/fragment_listeReservations" />
     </fragment>
 
     <!-- Fragment Chambre Details -->
@@ -39,6 +45,9 @@
         <action android:id="@+id/action_chambreDetailsFragment_to_fragment_accueil" app:destination="@id/fragment_accueil" />
         <action android:id="@+id/action_chambreDetailsFragment_to_fragment_chambres" app:destination="@id/fragment_chambres" />
         <action android:id="@+id/action_chambreDetailsFragment_to_fragment_preference3" app:destination="@id/fragment_preference3" />
+        <action
+            android:id="@+id/action_chambreDetailsFragment_to_fragment_listeReservations"
+            app:destination="@id/fragment_listeReservations" />
     </fragment>
 
     <!-- Fragment Reserver -->
@@ -51,6 +60,9 @@
         <action android:id="@+id/action_reserverFragment_to_fragment_accueil" app:destination="@id/fragment_accueil" />
         <action android:id="@+id/action_reserverFragment_to_fragment_chambres" app:destination="@id/fragment_chambres" />
         <action android:id="@+id/action_reserverFragment_to_chambreDetailsFragment" app:destination="@id/chambreDetailsFragment" />
+        <action
+            android:id="@+id/action_reserverFragment_to_fragment_listeReservations"
+            app:destination="@id/fragment_listeReservations" />
     </fragment>
 
     <!-- Fragment Preferences -->
@@ -63,6 +75,30 @@
         <action android:id="@+id/action_fragment_preference3_to_fragment_chambres" app:destination="@id/fragment_chambres" />
         <action android:id="@+id/action_fragment_preference3_to_chambreDetailsFragment" app:destination="@id/chambreDetailsFragment" />
         <action android:id="@+id/action_fragment_preference3_to_reserverFragment" app:destination="@id/reserverFragment" />
+        <action
+            android:id="@+id/action_fragment_preference3_to_fragment_listeReservations"
+            app:destination="@id/fragment_listeReservations" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_listeReservations"
+        android:name="com.easycorp.easystayapp.fragment_listeReservations"
+        android:label="fragment_liste_reservations"
+        tools:layout="@layout/fragment_liste_reservations" >
+        <action
+            android:id="@+id/action_fragment_listeReservations_to_fragment_chambres"
+            app:destination="@id/fragment_chambres" />
+        <action
+            android:id="@+id/action_fragment_listeReservations_to_chambreDetailsFragment"
+            app:destination="@id/chambreDetailsFragment" />
+        <action
+            android:id="@+id/action_fragment_listeReservations_to_reserverFragment"
+            app:destination="@id/reserverFragment" />
+        <action
+            android:id="@+id/action_fragment_listeReservations_to_fragment_accueil"
+            app:destination="@id/fragment_accueil" />
+        <action
+            android:id="@+id/action_fragment_listeReservations_to_fragment_preference3"
+            app:destination="@id/fragment_preference3" />
     </fragment>
 
 </navigation>

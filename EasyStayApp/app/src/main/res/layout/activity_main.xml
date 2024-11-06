@@ -81,10 +81,10 @@
 
                 <ImageView
                     android:id="@+id/imageViewProfile"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="82dp"
+                    android:layout_height="82dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/user_icon" />
+                    android:src="@drawable/reserver_icon" />
 
                 <Button
                     android:id="@+id/buttonProfile"
