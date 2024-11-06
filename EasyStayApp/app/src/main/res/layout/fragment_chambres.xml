@@ -248,11 +248,11 @@
 
                     <ImageButton
                         android:id="@+id/imageButton1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="185dp"
                         android:foreground="@drawable/radial_gradient"
                         android:foregroundTint="#C9090909"
-                        android:src="@drawable/chambre_exemple1" />
+                        android:src="@drawable/chambre4" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -373,7 +373,7 @@
                         android:layout_height="185dp"
                         android:foreground="@drawable/radial_gradient"
                         android:foregroundTint="#C9090909"
-                        android:src="@drawable/chambre_exemple1" />
+                        android:src="@drawable/chambre_exemple3" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
