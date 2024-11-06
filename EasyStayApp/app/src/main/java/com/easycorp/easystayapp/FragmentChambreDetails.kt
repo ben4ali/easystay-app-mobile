@@ -79,6 +79,7 @@ class FragmentChambreDetails : Fragment() {
             }
         }
 
+
         return view
     }
 
@@ -89,13 +90,34 @@ class FragmentChambreDetails : Fragment() {
         val description = arguments?.getString("description")
         val note = arguments?.getFloat("note")
         val nombreAvis = arguments?.getInt("nombreAvis")
-        val prixTotal = arguments?.getDouble("prixTotal")
+        val prixParNuit = arguments?.getDouble("prixParNuit")
 
         roomTitleTextView.text = typeChambre
         typeChambreTextView.text = typeChambre
         descriptionTextView.text = description
         noteTextView.text = "Note: $note (${nombreAvis ?: 0} avis)"
-        prixTextView.text = "${prixTotal ?: 0.0}$ / nuit"
+        prixTextView.text = "${prixParNuit ?: 0.0}$ / nuit"
+
+        réserverBtn.setOnClickListener() {
+            if (startDate != null && endDate != null) {
+                val bundle = Bundle().apply {
+                    putString("typeChambre", typeChambre)
+                    putString("description", description)
+                    putFloat("note", note ?: 0.0f)
+                    putInt("nombreAvis", nombreAvis ?: 0)
+                    putDouble("prixParNuit", prixParNuit ?: 5.0)
+                    putString("startDate", startDate?.time.toString())
+                    putString("endDate", endDate?.time.toString())
+                }
+                try {
+                    findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment, bundle)
+                } catch (e: IllegalArgumentException) {
+                    Toast.makeText(requireContext(), "Erreur de naviguation: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Il faut d'abord choisir une date", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun createDotIndicators(count: Int) {

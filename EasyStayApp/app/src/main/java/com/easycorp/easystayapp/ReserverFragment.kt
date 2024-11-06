@@ -9,6 +9,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.Calendar
 
 class ReserverFragment : Fragment() {
@@ -67,17 +70,33 @@ class ReserverFragment : Fragment() {
             taxes = 112.5
         )
 
-        typeChambreTextView.text = donneesReservation.typeChambre
-        descriptionChambreTextView.text = "Vue sur la ville, lit king-size, Wi-Fi gratuit"
-        noteTextView.text = "★ ${donneesReservation.note} (${donneesReservation.nombreAvis} avis)"
-        descriptionCompleteTextView.text = donneesReservation.description
+
+
+        typeChambreTextView.text = arguments?.getString("typeChambre")
+        descriptionChambreTextView.text = arguments?.getString("description")
+        noteTextView.text = "★ ${arguments?.getFloat("note")} (${arguments?.getInt("nombreAvis")} avis)"
+        descriptionCompleteTextView.text = arguments?.getString("description")
         commoditesTextView.text = donneesReservation.commodites.joinToString("\n") { "✓ $it" }
-        datesTextView.text = donneesReservation.dates
+        val formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy")
+        val startDateString = arguments?.getString("startDate")
+        val endDateString = arguments?.getString("endDate")
+        val startDate = LocalDate.parse(startDateString, formatter)
+        val endDate = LocalDate.parse(endDateString, formatter)
+        val nuits = ChronoUnit.DAYS.between(startDate, endDate).toInt()
+
+        datesTextView.text = "${arguments?.getString("startDate")} - ${arguments?.getString("endDate")}"
         invitesTextView.text = donneesReservation.invites
-        prixParNuitTextView.text = "$${donneesReservation.prixParNuit} x ${donneesReservation.nuits} nuits"
-        sousTotalTextView.text = "$${donneesReservation.prixParNuit * donneesReservation.nuits}"
-        taxesTextView.text = "$${donneesReservation.taxes}"
-        totalTextView.text = "Total (CAD): $${donneesReservation.prixTotal()}"
+
+        datesTextView.text = "$startDateString - $endDateString"
+        //il faudrait remplacer ça avec le vrai prix de la chambre mais j'arrive pas à le récupérer
+        val prixParNuit = donneesReservation.prixParNuit
+        prixParNuitTextView.text = "$$prixParNuit x $nuits nuits"
+        val sousTotal = prixParNuit * nuits
+        sousTotalTextView.text = "$$sousTotal"
+        val taxes = sousTotal * 0.15
+        taxesTextView.text = "$$taxes"
+        val total = sousTotal * 1.15
+        totalTextView.text = "$$total"
 
         datesTextView.setOnClickListener {
             showStartDatePicker()

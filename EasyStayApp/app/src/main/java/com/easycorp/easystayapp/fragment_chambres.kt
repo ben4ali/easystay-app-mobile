@@ -88,7 +88,7 @@ class fragment_chambres : Fragment() {
             putString("description", chambre.description)
             putFloat("note", chambre.note)
             putInt("nombreAvis", chambre.nombreAvis)
-            putDouble("prixTotal", chambre.prixTotal())
+            putDouble("prixParNuit", chambre.prixParNuit)
         }
 
         try {
@@ -170,7 +170,7 @@ class fragment_chambres : Fragment() {
 
         typeChambre.text = chambreData.typeChambre
         note.text = "Note: ${chambreData.note} (${chambreData.nombreAvis} avis)"
-        prixParNuit.text = "${chambreData.prixTotal()}$ / nuit"
+        prixParNuit.text = "${chambreData.prixParNuit}$ / nuit"
         description.text = chambreData.description
     }
 

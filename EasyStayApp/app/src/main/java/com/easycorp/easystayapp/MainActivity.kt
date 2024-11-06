@@ -41,14 +41,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnProfile.setOnClickListener {
-                if (navController.currentDestination?.id != R.id.fragment_chambres) {
-                    navController.navigate(R.id.fragment_chambres)
-                }
+                //on va utiliser pour le fragment de naviguation
             }
 
             btnMainHotel.setOnClickListener {
-                if (navController.currentDestination?.id != R.id.chambreDetailsFragment) {
-                    navController.navigate(R.id.chambreDetailsFragment)
+                if (navController.currentDestination?.id != R.id.fragment_chambres) {
+                    navController.navigate(R.id.fragment_chambres)
                 }
             }
 
@@ -59,9 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnLogout.setOnClickListener {
-                if (navController.currentDestination?.id != R.id.reserverFragment) {
-                    navController.navigate(R.id.reserverFragment)
-                }
+                //fermer application
             }
         } ?: throw IllegalStateException("NavHostFragment introuvable dans la mise en page")
     }
