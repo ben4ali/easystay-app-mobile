@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 
@@ -22,9 +23,9 @@ class ChambresVue : Fragment() {
     private var isFilterApplied = false
 
     private val chambres = listOf(
-        ChambreData(1,"Chambre Deluxe", "Vue sur la mer", 4.5f, 120, listOf("Wi-Fi", "TV"), 250.0, 20.0),
-        ChambreData(2,"Suite Junior", "Balcon privé", 4.8f, 85, listOf("Wi-Fi", "Climatisation"), 320.0, 25.0),
-        ChambreData(3,"Chambre Standard", "Lit queen-size", 4.2f, 200, listOf("Wi-Fi", "Bureau"), 180.0, 15.0)
+        ChambreData(1,"Chambre Deluxe", "Vue sur la mer", 4.5f, 120, listOf("Wi-Fi", "TV"), 250.0),
+        ChambreData(2,"Suite Junior", "Balcon privé", 4.8f, 85, listOf("Wi-Fi", "Climatisation"), 320.0),
+        ChambreData(3,"Chambre Standard", "Lit queen-size", 4.2f, 200, listOf("Wi-Fi", "Bureau"), 180.0)
     )
 
     private var maxPrice = 500
@@ -43,8 +44,8 @@ class ChambresVue : Fragment() {
         rechercher = view.findViewById(R.id.rechercher)
         listViewChambres = view.findViewById(R.id.listView_chambres)
         filterIcon = view.findViewById(R.id.filter)
-
-        val adapter = ChambreAdapter(requireContext(), chambres.toMutableList()) { chambre ->
+        var modele : Modèle = Modèle()
+        val adapter = ChambreAdapter(requireContext(),modele.obtenirChambres()) { chambre ->
             openDetailsFragment(chambre)
         }
         listViewChambres.adapter = adapter

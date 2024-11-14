@@ -9,7 +9,7 @@ class SourceDeDonnéesException( message:String ) : Exception( message) {}
 interface SourceDeDonnées {
 
     fun obtenirChambres(): List<ChambreData>
-    fun obtenirChambreParType(typeChambre: String): ChambreData
+    fun obtenirChambreParType(typeChambre: String): List<ChambreData>
     fun obtenirChambreParId(id: Int): ChambreData
     fun obtenirChambresDisponibles(): List<ChambreData>
 

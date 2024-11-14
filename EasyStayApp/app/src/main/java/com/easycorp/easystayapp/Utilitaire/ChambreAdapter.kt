@@ -31,7 +31,7 @@ class ChambreAdapter(
         textRoomType.text = chambre.typeChambre
         textRoomDescription.text = chambre.description
         textRating.text = "${chambre.note} (${chambre.nombreAvis} avis)"
-        textRoomPrice.text = "${chambre.prixTotal()}$/nuit"
+        textRoomPrice.text = "${chambre.prixParNuit}$/nuit"
 
         imageRoom.setImageResource(R.drawable.chambre_exemple1)
 

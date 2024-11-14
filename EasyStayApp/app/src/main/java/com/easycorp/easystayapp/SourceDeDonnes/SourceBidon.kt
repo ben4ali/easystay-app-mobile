@@ -13,10 +13,10 @@ class SourceBidon : SourceDeDonnées{
     init {
         chambres.addAll(
             listOf(
-                ChambreData(1,"Suite", "Suite de luxe", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0, 20.0),
-                ChambreData(2,"Simple", "Chambre simple", 3.5f, 5, listOf("TV", "Climatisation"), 50.0, 10.0),
-                ChambreData(3,"Double", "Chambre double", 4.0f, 8, listOf("TV", "Climatisation", "Balcon"), 100.0, 15.0),
-                ChambreData(4,"Suite", "Suite de luxe", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0, 20.0)
+                ChambreData(1,"Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0),
+                ChambreData(2,"Suite Junior", "Balcon privé", 3.5f, 5, listOf("TV", "Climatisation"), 50.0),
+                ChambreData(3,"Chambre Standard", "Lit queen-size", 4.0f, 8, listOf("TV", "Climatisation", "Balcon"), 100.0),
+                ChambreData(4,"Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0)
             )
         )
 
@@ -37,8 +37,8 @@ class SourceBidon : SourceDeDonnées{
         return chambres
     }
 
-    override fun obtenirChambreParType(typeChambre: String): ChambreData {
-        return chambres.find { it.typeChambre == typeChambre }!!
+    override fun obtenirChambreParType(typeChambre: String): List<ChambreData> {
+        return chambres.filter { it.typeChambre == typeChambre }
     }
 
     override fun obtenirChambreParId(id: Int): ChambreData {
@@ -46,7 +46,7 @@ class SourceBidon : SourceDeDonnées{
     }
 
     override fun obtenirChambresDisponibles(): List<ChambreData> {
-        TODO("Not yet implemented")
+        return chambres
     }
 
     override fun ajouterClient(client: ClientData) {
