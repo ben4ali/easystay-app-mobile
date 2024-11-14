@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
-import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Presentateur.PreferencePresentateur
 import com.easycorp.easystayapp.R
-import java.util.Locale
-
 
 class PreferenceVue : Fragment(), PreferencePresentateurInterface {
-
-    lateinit var présentateur: PreferencePresentateur
+    private lateinit var présentateur: PreferencePresentateur
+    private lateinit var prénomTextView: TextView
+    private lateinit var nomTextView: TextView
+    private lateinit var emailTextView: TextView
+    private lateinit var photoProfilImageView: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,18 +28,18 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         super.onViewCreated(view, savedInstanceState)
 
         présentateur = PreferencePresentateur(this)
+        prénomTextView = view.findViewById(R.id.prenomTextView)
+        nomTextView = view.findViewById(R.id.nomTextView)
+        emailTextView = view.findViewById(R.id.emailTextView)
+        photoProfilImageView = view.findViewById(R.id.photoProfilImageView)
+
         présentateur.afficherClient(clientId = 1)
     }
 
     override fun afficherClient(prénom: String, nom: String, email: String, photoResId: Int) {
-        val prénomTextView = view?.findViewById<TextView>(R.id.prenomTextView)
-        val nomTextView = view?.findViewById<TextView>(R.id.nomTextView)
-        val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
-        val photoProfilImageView = view?.findViewById<ImageView>(R.id.photoProfilImageView)
-
-        prénomTextView?.text = prénom
-        nomTextView?.text = nom
-        emailTextView?.text = email
-        photoProfilImageView?.setImageResource(photoResId)
+        prénomTextView.text = prénom
+        nomTextView.text = nom
+        emailTextView.text = email
+        photoProfilImageView.setImageResource(photoResId)
     }
 }
