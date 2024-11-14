@@ -20,4 +20,10 @@ data class ReservationData(
         val dateFin = LocalDate.parse(dateFin)
         return ChronoUnit.DAYS.between(dateDebut, dateFin).toInt()
     }
+
+    fun obtenirNombreDeJours(): Int {
+        val dateDebut = LocalDate.parse(dateDébut)
+        val dateAujourdhui = LocalDate.now()
+        return ChronoUnit.DAYS.between(dateAujourdhui, dateDebut).toInt()
+    }
 }

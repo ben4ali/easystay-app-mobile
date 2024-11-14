@@ -44,7 +44,7 @@ class Modèle {
     fun obtenirReservationParChambre(chambre: ChambreData) : List<ReservationData> {
         return sourceDeDonnées.obtenirReservationParChambre(chambre)
     }
-    fun suppressionReservation(réservation: ReservationData) {
+    fun supprimerRéservation(réservation: ReservationData) {
         sourceDeDonnées.suppressionReservation(réservation)
     }
     fun modifierReservation(réservation: ReservationData) {
