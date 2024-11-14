@@ -27,6 +27,13 @@ class ChambreAdapter(
         val textRoomType = view.findViewById<TextView>(R.id.text_Chambre_type)
         val textRoomPrice = view.findViewById<TextView>(R.id.text_Chambre_price)
         val textRoomDescription = view.findViewById<TextView>(R.id.text_Chambre_description)
+        val btnFavoris = view.findViewById<ImageView>(R.id.btnFavoris)
+
+        if (chambre.favoris) {
+            btnFavoris.setImageResource(R.drawable.bookmark_fill)
+        } else {
+            btnFavoris.setImageResource(R.drawable.bookmark)
+        }
 
         textRoomType.text = chambre.typeChambre
         textRoomDescription.text = chambre.description

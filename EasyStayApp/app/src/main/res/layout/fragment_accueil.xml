@@ -1,475 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".Presentation.Vue.AccueilVue" >
+    android:orientation="vertical"
+    tools:context=".Presentation.Vue.AccueilVue">
 
-    <ScrollView
+    <View
+        android:id="@+id/view3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="15dp"
+        android:background="@color/colorPrimary" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="264dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="15dp"
+        android:fadingEdgeLength="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="15dp"
+        app:cardMaxElevation="25dp">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:foreground="@drawable/radial_gradient"
+            android:foregroundTint="#49040404"
+            android:src="@drawable/montreal" />
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@color/colorPrimary" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/bienvenue_chez_easystay"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:translationX="15dp"
+            android:translationY="125dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="264dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:elevation="15dp"
-                    android:fadingEdgeLength="20dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="15dp"
-                    app:cardMaxElevation="25dp">
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/vos_r_servations"
+        android:textColor="@color/colorText"
+        android:textSize="25sp" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foreground="@drawable/radial_gradient"
-                        android:foregroundTint="#49040404"
-                        android:src="@drawable/montreal" />
+    <ListView
+        android:id="@+id/RAList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="197dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/bienvenue_chez_easystay"
-                        android:textColor="#FFFFFF"
-                        android:textSize="32sp"
-                        android:translationX="15dp"
-                        android:translationY="125dp" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/vos_favoris"
+        android:textColor="@color/colorText"
+        android:textSize="25sp" />
 
-                </androidx.cardview.widget.CardView>
+    <ListView
+        android:id="@+id/RAListChambre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/vos_r_servations"
-                    android:textColor="@color/colorText"
-                    android:textSize="25sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
-
-                    <ListView
-                        android:id="@+id/RAList"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/colorBackground"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="25dp"
-                        android:text="@string/vos_favoris"
-                        android:textColor="@color/colorText"
-                        android:textSize="25sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="15dp"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="10dp"
-                            app:cardBackgroundColor="@android:color/transparent"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
-
-                            <ImageButton
-                                android:id="@+id/imageButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="185dp"
-                                android:foreground="@drawable/radial_gradient"
-                                android:foregroundTint="#C9090909"
-                                android:src="@drawable/chambre_exemple3" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7.5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="291dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="0"
-                                        android:src="@drawable/etoile" />
-
-                                    <TextView
-                                        android:id="@+id/textView3"
-                                        android:layout_width="186dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="8dp"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_weight="1"
-                                        android:text="75%"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16sp" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView2"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="1"
-                                        android:alpha="0"
-                                        android:src="@drawable/bookmark_fill" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="110dp">
-
-                                <TextView
-                                    android:id="@+id/textView5"
-                                    android:layout_width="253dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="CHAMBRE 2 LITS"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="22sp" />
-
-                                <TextView
-                                    android:id="@+id/textView6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="320$/nuit"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="21sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="135dp">
-
-                                <TextView
-                                    android:id="@+id/textView7"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Vue sur la ville"
-                                    android:textColor="#FFFFFF" />
-                            </LinearLayout>
-
-                            <View
-                                android:id="@+id/rectangle1"
-                                android:layout_width="match_parent"
-                                android:layout_height="25dp"
-                                android:backgroundTint="#E44646"
-                                android:foreground="@drawable/carree_vide"
-                                android:foregroundTint="@color/colorPrimary"
-                                android:translationY="165dp" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardBackgroundColor="@android:color/transparent"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
-
-                            <ImageButton
-                                android:id="@+id/imageButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="185dp"
-                                android:foreground="@drawable/radial_gradient"
-                                android:foregroundTint="#C9090909"
-                                android:src="@drawable/chambre4" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7.5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="291dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="0"
-                                        android:src="@drawable/etoile" />
-
-                                    <TextView
-                                        android:id="@+id/textView3"
-                                        android:layout_width="186dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="8dp"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_weight="1"
-                                        android:text="75%"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16sp" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView2"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="1"
-                                        android:alpha="0"
-                                        android:src="@drawable/bookmark_fill" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="110dp">
-
-                                <TextView
-                                    android:id="@+id/textView5"
-                                    android:layout_width="253dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="CHAMBRE 2 LITS"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="22sp" />
-
-                                <TextView
-                                    android:id="@+id/textView6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="320$/nuit"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="21sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="135dp">
-
-                                <TextView
-                                    android:id="@+id/textView7"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Vue sur la ville"
-                                    android:textColor="#FFFFFF" />
-                            </LinearLayout>
-
-                            <View
-                                android:id="@+id/rectangle1"
-                                android:layout_width="match_parent"
-                                android:layout_height="25dp"
-                                android:backgroundTint="#E44646"
-                                android:foreground="@drawable/carree_vide"
-                                android:foregroundTint="@color/colorPrimary"
-                                android:translationY="165dp" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
-                            app:cardBackgroundColor="@android:color/transparent"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
-
-                            <ImageButton
-                                android:id="@+id/imageButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="185dp"
-                                android:foreground="@drawable/radial_gradient"
-                                android:foregroundTint="#C9090909"
-                                android:src="@drawable/chambre_exemple1" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7.5dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="291dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="0"
-                                        android:src="@drawable/etoile" />
-
-                                    <TextView
-                                        android:id="@+id/textView3"
-                                        android:layout_width="186dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="8dp"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_weight="1"
-                                        android:text="75%"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16sp" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView2"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_weight="1"
-                                        android:alpha="0"
-                                        android:src="@drawable/bookmark_fill" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="110dp">
-
-                                <TextView
-                                    android:id="@+id/textView5"
-                                    android:layout_width="253dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="CHAMBRE 2 LITS"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="22sp" />
-
-                                <TextView
-                                    android:id="@+id/textView6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="320$/nuit"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="21sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:translationY="135dp">
-
-                                <TextView
-                                    android:id="@+id/textView7"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Vue sur la ville"
-                                    android:textColor="#FFFFFF" />
-                            </LinearLayout>
-
-                            <View
-                                android:id="@+id/rectangle1"
-                                android:layout_width="match_parent"
-                                android:layout_height="25dp"
-                                android:backgroundTint="#E44646"
-                                android:foreground="@drawable/carree_vide"
-                                android:foregroundTint="@color/colorPrimary"
-                                android:translationY="165dp" />
-
-                        </androidx.cardview.widget.CardView>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</FrameLayout>
+</LinearLayout>
 

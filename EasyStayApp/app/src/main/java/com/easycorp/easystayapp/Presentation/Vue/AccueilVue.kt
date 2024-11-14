@@ -12,6 +12,7 @@ import com.easycorp.easystayapp.R
 class AccueilVue : Fragment() {
 
     private lateinit var listeReservations: ListView
+    private lateinit var listeChambres: ListView
     private lateinit var présentateur: AccueilPrésentateur
 
     override fun onCreateView(
@@ -24,13 +25,16 @@ class AccueilVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        listeChambres = view.findViewById(R.id.RAListChambre)
         listeReservations = view.findViewById(R.id.RAList)
-        présentateur = AccueilPrésentateur(requireContext(), listeReservations)
+        présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres)
         présentateur.chargerReservationsCourte(1)
+        présentateur.chargerChambres()
     }
 
     override fun onResume() {
         super.onResume()
         présentateur.chargerReservationsCourte(1)
+        présentateur.chargerChambres()
     }
 }

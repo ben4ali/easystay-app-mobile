@@ -62,11 +62,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/image_bookmark"
+                    android:id="@+id/btnFavoris"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:alpha="0"
-                    android:src="@drawable/bookmark" />
+                    android:alpha="1"
+                    android:src="@drawable/bookmark"
+                    android:translationX="17dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -92,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:text="320$/nuit"
                 android:textColor="#FFFFFF"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:translationX="-17dp" />
         </LinearLayout>
 
         <LinearLayout

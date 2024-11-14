@@ -21,14 +21,19 @@ class RéservationCourtAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_reservation_court, parent, false)
         val réservation = getItem(position) ?: return view
-
+        if (réservation.obtenirNombreDeJours() < 0 || réservation.obtenirNombreDeJours() > 20) {
+            val params = view.layoutParams
+            params.height = 0
+            return view
+        }
+        view.visibility = View.VISIBLE
         val textType = view.findViewById<TextView>(R.id.RSIDTypeChambre)
         val textDates = view.findViewById<TextView>(R.id.RSDateDebut)
         val indicateur = view.findViewById<View>(R.id.RSIndicateur)
         when (réservation.obtenirNombreDeJours()) {
-            in 0..10 -> indicateur.setBackgroundColor(Color.parseColor("#5AE44F"))
-            in 11..19 -> indicateur.setBackgroundColor(Color.parseColor("#F7E24A"))
-            in 20..30 -> indicateur.setBackgroundColor(Color.parseColor("#F7A24A"))
+            in 0..7 -> indicateur.setBackgroundColor(Color.parseColor("#5AE44F"))
+            in 8..13 -> indicateur.setBackgroundColor(Color.parseColor("#F7E24A"))
+            in 14..19 -> indicateur.setBackgroundColor(Color.parseColor("#F7A24A"))
             else -> return view
         }
 
