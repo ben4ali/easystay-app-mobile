@@ -11,15 +11,14 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
+import com.easycorp.easystayapp.Presentation.Presentateur.PreferencePresentateur
 import com.easycorp.easystayapp.R
 import java.util.Locale
 
 
-class PreferenceVue : Fragment() {
+class PreferenceVue : Fragment(), PreferencePresentateurInterface {
 
-    lateinit var switch: Switch
-    lateinit var radioFrancais: RadioButton
-    lateinit var radioAnglais: RadioButton
+    lateinit var présentateur: PreferencePresentateur
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,68 +30,19 @@ class PreferenceVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var modele = Modèle()
-        val client = modele.obtenirClientParId(1)
-
-
-        val prénomTextView = view.findViewById<TextView>(R.id.prenomTextView)
-        val nomTextView = view.findViewById<TextView>(R.id.nomTextView)
-        val emailTextView = view.findViewById<TextView>(R.id.emailTextView)
-        val photoProfilImageView = view.findViewById<ImageView>(R.id.photoProfilImageView)
-
-
-        prénomTextView.text = client.prénom
-        nomTextView.text = client.nom
-        emailTextView.text = client.email
-
-        if (client.photo != null){
-            photoProfilImageView.setImageResource(client.photo)
-        } else{
-            photoProfilImageView.setImageResource(R.drawable.profil_icon)
-        }
-
-
-
-        switch = view.findViewById(R.id.modeSombre)
-        radioFrancais = view.findViewById(R.id.radioFrancais)
-        radioAnglais = view.findViewById(R.id.radioAnglais)
-
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            switch.isChecked = true
-        }
-
-        val currentLocale = Locale.getDefault().language
-        radioFrancais.isChecked = currentLocale == "fr"
-        radioAnglais.isChecked = currentLocale == "en"
-
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
-        radioFrancais.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                setLocale(Locale("fr"))
-                radioAnglais.isChecked = false
-            }
-        }
-
-        radioAnglais.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                setLocale(Locale("en"))
-                radioFrancais.isChecked = false
-            }
-        }
+        présentateur = PreferencePresentateur(this)
+        présentateur.afficherClient(clientId = 1)
     }
 
-    private fun setLocale(locale: Locale) {
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        requireActivity().resources.updateConfiguration(config, requireActivity().resources.displayMetrics)
-        requireActivity().recreate()
+    override fun afficherClient(prénom: String, nom: String, email: String, photoResId: Int) {
+        val prénomTextView = view?.findViewById<TextView>(R.id.prenomTextView)
+        val nomTextView = view?.findViewById<TextView>(R.id.nomTextView)
+        val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
+        val photoProfilImageView = view?.findViewById<ImageView>(R.id.photoProfilImageView)
+
+        prénomTextView?.text = prénom
+        nomTextView?.text = nom
+        emailTextView?.text = email
+        photoProfilImageView?.setImageResource(photoResId)
     }
 }
