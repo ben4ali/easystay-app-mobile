@@ -10,10 +10,8 @@ import com.easycorp.easystayapp.Presentation.Vue.PreferencePresentateurInterface
 class PreferencePresentateur(
     val vue: PreferencePresentateurInterface
 ) {
-    val modèle = Modèle()
-
     fun afficherClient(clientId: Int) {
-        val client = modèle.obtenirClientParId(clientId)
+        val client = Modèle.obtenirClientParId(clientId)
         vue.afficherClient(
             prénom = client.prénom,
             nom = client.nom,
