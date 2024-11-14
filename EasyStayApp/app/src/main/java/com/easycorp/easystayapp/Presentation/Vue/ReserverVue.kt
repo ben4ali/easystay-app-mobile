@@ -52,7 +52,7 @@ class ReserverVue : Fragment() {
         noteTextView = view.findViewById(R.id.ratingTextView)
         descriptionCompleteTextView = view.findViewById(R.id.roomFullDescriptionTextView)
         commoditesTextView = view.findViewById(R.id.amenitiesTextView)
-        datesTextView = view.findViewById(R.id.datesTextView)
+        datesTextView = view.findViewById(R.id.RDates)
         invitesTextView = view.findViewById(R.id.guestsTextView)
         prixParNuitTextView = view.findViewById(R.id.pricePerNightTextView)
         sousTotalTextView = view.findViewById(R.id.subtotalTextView)
