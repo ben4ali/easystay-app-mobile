@@ -12,7 +12,6 @@ import com.easycorp.easystayapp.R
 
 class ListeChambresPresentateur(
     private val vue: ChambresVueInterface,
-    private val modele: Modèle,
     private val context: Context
 ) {
     private var maxPrice = 500
@@ -20,12 +19,12 @@ class ListeChambresPresentateur(
     private var isFilterApplied = false
 
     fun chargerChambres() {
-        val chambres = modele.obtenirChambres()
+        val chambres = Modèle.obtenirChambres()
         vue.afficherChambres(chambres)
     }
 
     fun filtrerChambres(searchText: String) {
-        val chambres = modele.obtenirChambres()
+        val chambres = Modèle.obtenirChambres()
         val filteredChambres = chambres.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
         vue.afficherChambres(filteredChambres)
     }
@@ -35,7 +34,7 @@ class ListeChambresPresentateur(
             maxPrice = 500
             selectedType = null
             isFilterApplied = false
-            vue.afficherChambres(modele.obtenirChambres())
+            vue.afficherChambres(Modèle.obtenirChambres())
         } else {
             afficherFilterDialog()
         }
@@ -59,7 +58,7 @@ class ListeChambresPresentateur(
         val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
         val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
 
-        val types = listOf("Toutes les chambres") + modele.obtenirChambres().map { it.typeChambre }.distinct()
+        val types = listOf("Toutes les chambres") + Modèle.obtenirChambres().map { it.typeChambre }.distinct()
         val adapterSpinner = ArrayAdapter(context, android.R.layout.simple_spinner_item, types)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapterSpinner

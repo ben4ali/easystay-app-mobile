@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.TextView
 import com.easycorp.easystayapp.Presentation.Presentateur.AccueilPrésentateur
 import com.easycorp.easystayapp.R
 
 class AccueilVue : Fragment() {
 
-    private lateinit var listeReservations: ListView
-    private lateinit var listeChambres: ListView
-    private lateinit var présentateur: AccueilPrésentateur
+     lateinit var listeReservations: ListView
+     lateinit var listeChambres: ListView
+     lateinit var textFavoris : TextView
+     lateinit var présentateur: AccueilPrésentateur
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,14 +29,17 @@ class AccueilVue : Fragment() {
 
         listeChambres = view.findViewById(R.id.RAListChambre)
         listeReservations = view.findViewById(R.id.RAList)
-        présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres)
+        textFavoris = view.findViewById(R.id.textFavoris)
+        présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres, this)
         présentateur.chargerReservationsCourte(1)
         présentateur.chargerChambres()
+        présentateur.chargerChambresFavoris()
     }
 
     override fun onResume() {
         super.onResume()
         présentateur.chargerReservationsCourte(1)
         présentateur.chargerChambres()
+        présentateur.chargerChambresFavoris()
     }
 }

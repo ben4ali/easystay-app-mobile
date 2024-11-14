@@ -28,7 +28,9 @@ class SourceBidon : SourceDeDonnées{
                 ReservationData(1, client1, chambres[0], "2024-11-16", "2021-11-20"),
                 ReservationData(2, client1, chambres[1], "2024-11-27", "2021-12-01"),
                 ReservationData(3, client1, chambres[2], "2024-12-02", "2021-12-05"),
-                ReservationData(4, client1, chambres[3], "2024-12-10", "2021-12-15")
+                ReservationData(4, client1, chambres[3], "2024-12-10", "2021-12-15"),
+                ReservationData(5, client1, chambres[0], "2024-12-20", "2021-12-25"),
+                ReservationData(6, client1, chambres[1], "2024-12-27", "2021-12-31"),
             )
         )
     }

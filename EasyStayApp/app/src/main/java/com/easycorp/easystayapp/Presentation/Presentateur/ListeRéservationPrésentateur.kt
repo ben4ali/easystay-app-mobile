@@ -6,18 +6,16 @@ import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Utilitaire.RéservationAdapter
 
-class ListeRéservationPrésentateur(private val context: Context, private val listView: ListView) {
+class ListeRéservationPrésentateur(private val context: Context, private val listView: ListView) : ListeRéservationPrésentateurInterface {
 
-    private val modèle: Modèle = Modèle()
-
-    fun chargerReservations(clientId: Int) {
-        val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
+    override fun chargerReservations(clientId: Int) {
+        val reservations = Modèle.obtenirReservationsParClient(Modèle.obtenirClientParId(clientId))
         val adapter = RéservationAdapter(context, reservations, this)
         listView.adapter = adapter
     }
 
-    fun supprimerReservation(réservation: ReservationData) {
-        modèle.supprimerRéservation(réservation)
+    override fun supprimerReservation(réservation: ReservationData) {
+        Modèle.supprimerRéservation(réservation)
         chargerReservations(réservation.client.id)
     }
 }

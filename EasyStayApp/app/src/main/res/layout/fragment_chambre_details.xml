@@ -51,7 +51,7 @@
                 android:id="@+id/bookmarkButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:alpha="1"
+                android:alpha="0"
                 android:src="@drawable/bookmark" />
         </LinearLayout>
 
@@ -153,6 +153,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/bed_icon" />
 
             <TextView
@@ -177,6 +178,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/wifi_icon" />
 
             <TextView
@@ -200,6 +202,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/television_icon" />
 
             <TextView

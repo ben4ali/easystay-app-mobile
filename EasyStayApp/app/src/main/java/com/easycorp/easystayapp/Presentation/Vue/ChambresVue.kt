@@ -32,7 +32,7 @@ class ChambresVue : Fragment(), ChambresVueInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = ListeChambresPresentateur(this, Modèle(), requireContext())
+        presenter = ListeChambresPresentateur(this, requireContext())
         rechercher = view.findViewById(R.id.rechercher)
         listViewChambres = view.findViewById(R.id.listView_chambres)
         filterIcon = view.findViewById(R.id.filter)

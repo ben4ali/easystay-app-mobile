@@ -8,5 +8,4 @@ data class ChambreData(
     val nombreAvis: Int,
     val commodites: List<String>,
     val prixParNuit: Double,
-    val favoris: Boolean=false,
 )
