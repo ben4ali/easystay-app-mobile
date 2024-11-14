@@ -4,7 +4,8 @@ package com.easycorp.easystayapp.Domaine.Entite
      val id: Int,
      val prénom : String,
      val nom : String,
-     val email: String
+     val email: String,
+     val photo: Int?
  ) {
 
  }

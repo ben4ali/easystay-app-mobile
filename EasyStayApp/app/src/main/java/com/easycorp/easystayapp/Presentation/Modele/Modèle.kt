@@ -31,6 +31,9 @@ class Modèle {
         fun obtenirClientParId(id: Int): ClientData {
             return sourceDeDonnées.obtenirClientParId(id)
         }
+        fun modifierClient(client: ClientData){
+            sourceDeDonnées.modifierClient(client)
+        }
 
         // réservations
         fun ajouterReservation(réservation: ReservationData) {
@@ -57,4 +60,6 @@ class Modèle {
             sourceDeDonnées.modifierReservation(réservation)
         }
     }
+
+
 }

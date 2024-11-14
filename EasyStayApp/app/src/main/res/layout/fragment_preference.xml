@@ -65,14 +65,13 @@
                     app:cardCornerRadius="50dp">
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/photoProfilImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:alpha="0.8"
                         android:backgroundTint="#00E23B3B"
                         android:foregroundTint="#00DE2626"
                         android:scaleType="centerCrop"
-                        android:tint="@color/colorAccentOverlay"
                         app:srcCompat="@drawable/profil_icon" />
                 </androidx.cardview.widget.CardView>
 

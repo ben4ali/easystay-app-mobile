@@ -3,6 +3,7 @@ package com.easycorp.easystayapp.SourceDeDonnes
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
+import com.easycorp.easystayapp.R
 
 class SourceBidon : SourceDeDonnées{
 
@@ -20,7 +21,7 @@ class SourceBidon : SourceDeDonnées{
             )
         )
 
-        val client1 = ClientData(1,"John", "Doe", "johndoe@gmail.com")
+        val client1 = ClientData(1,"John", "Doe", "johndoe@gmail.com", R.drawable.photo_profil_1)
         clients.add(client1)
 
         reservations.addAll(
@@ -57,6 +58,11 @@ class SourceBidon : SourceDeDonnées{
 
     override fun obtenirClientParId(id: Int): ClientData {
         return clients.find { it.id == id }!!
+    }
+
+    override fun modifierClient(client: ClientData){
+        val index = clients.indexOfFirst { it.id == client.id }
+        clients[index] = client
     }
 
     override fun ajouterReservation(reservation: ReservationData) {
