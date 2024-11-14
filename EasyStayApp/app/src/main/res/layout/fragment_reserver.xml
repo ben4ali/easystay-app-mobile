@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
     tools:context=".ReserverFragment">
 
@@ -32,14 +33,21 @@
             android:padding="16dp"
             android:layout_marginBottom="16dp">
 
-            <ImageView
-                android:id="@+id/roomImageView"
+            <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/roomImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/chambre_exemple1"
                 android:scaleType="centerCrop"
-                android:layout_marginEnd="8dp"
                 android:contentDescription="Image de la chambre" />
+        </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -61,10 +69,10 @@
                     android:id="@+id/ratingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
                     android:text="★ 4.9 (200 avis)"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorAccent"
-                    android:paddingTop="4dp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -73,7 +81,7 @@
             android:id="@+id/descriptionTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description de la chambre"
+            android:text="@string/description_de_la_chambre"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -100,7 +108,7 @@
             android:id="@+id/servicesIncludedTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services inclus"
+            android:text="@string/services_inclus"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -129,7 +137,7 @@
             android:id="@+id/reservationInfoTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Informations de réservation"
+            android:text="@string/informations_de_r_servation"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -154,7 +162,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Dates"
+                    android:text="@string/dates"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -162,9 +170,11 @@
                     android:id="@+id/datesTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24-29 juillet"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorAccent" />
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="Sélectionner une date"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,7 +188,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Invités"
+                    android:text="@string/invit_s"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -197,7 +207,7 @@
             android:id="@+id/priceDetailsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Détails du prix"
+            android:text="@string/d_tails_du_prix"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorText"
@@ -223,8 +233,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="$150 x 5 nuits"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/subtotalTextView"
@@ -246,7 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Taxes"
+                    android:text="@string/taxes"
                     android:textSize="16sp"
                     android:textColor="@color/colorText" />
 
@@ -270,7 +280,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total (CAD)"
+                    android:text="@string/total_cad"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorText" />
@@ -291,11 +301,12 @@
             android:id="@+id/reserveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Réserver maintenant"
-            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:alpha="0"
             android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:text="@string/r_server_maintenant"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>
