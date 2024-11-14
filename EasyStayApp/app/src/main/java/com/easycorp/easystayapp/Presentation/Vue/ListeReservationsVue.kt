@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
-
 
 class ListeReservationsVue : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var listeReservations: ListView
+    private lateinit var présentateur: ListeRéservationPrésentateur
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +23,14 @@ class ListeReservationsVue : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
+        listeReservations = view.findViewById(R.id.RList)
+        présentateur = ListeRéservationPrésentateur(requireContext(), listeReservations)
+        présentateur.chargerReservations(1)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        présentateur.chargerReservations(1)
     }
 }

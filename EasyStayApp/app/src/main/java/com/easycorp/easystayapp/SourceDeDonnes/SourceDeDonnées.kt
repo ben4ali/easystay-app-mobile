@@ -9,12 +9,13 @@ class SourceDeDonnéesException( message:String ) : Exception( message) {}
 interface SourceDeDonnées {
 
     fun obtenirChambres(): List<ChambreData>
-    fun obtenirChambreParType(typeChambre: String): ChambreData
+    fun obtenirChambreParType(typeChambre: String): List<ChambreData>
     fun obtenirChambreParId(id: Int): ChambreData
     fun obtenirChambresDisponibles(): List<ChambreData>
 
     fun ajouterClient(client: ClientData)
     fun obtenirClientParId(id: Int): ClientData
+    fun modifierClient(client: ClientData)
 
     fun ajouterReservation(reservation: ReservationData)
     fun obtenirReservationsParClient(client: ClientData): List<ReservationData>

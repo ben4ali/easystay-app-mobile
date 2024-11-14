@@ -8,9 +8,4 @@ data class ChambreData(
     val nombreAvis: Int,
     val commodites: List<String>,
     val prixParNuit: Double,
-    val taxes: Double
-) {
-    fun prixTotal(): Double {
-        return prixParNuit + taxes
-    }
-}
+)
