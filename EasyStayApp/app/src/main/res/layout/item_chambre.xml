@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_item_Chambre"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <ImageButton
+            android:id="@+id/image_Chambre"
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:foreground="@drawable/radial_gradient"
+            android:foregroundTint="#C9090909"
+            android:src="@drawable/chambre_exemple1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7.5dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="291dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_rating_star"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/etoile" />
+
+                <TextView
+                    android:id="@+id/text_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="75%"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_bookmark"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:alpha="0"
+                    android:src="@drawable/bookmark" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:translationY="110dp">
+
+            <TextView
+                android:id="@+id/text_Chambre_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CHAMBRE 2 LITS"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/text_Chambre_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="320$/nuit"
+                android:textColor="#FFFFFF"
+                android:textSize="21sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:translationY="135dp">
+
+            <TextView
+                android:id="@+id/text_Chambre_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vue sur la ville"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:backgroundTint="#E44646"
+            android:foreground="@drawable/carree_vide"
+            android:foregroundTint="@color/colorPrimary"
+            android:translationY="165dp" />
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
