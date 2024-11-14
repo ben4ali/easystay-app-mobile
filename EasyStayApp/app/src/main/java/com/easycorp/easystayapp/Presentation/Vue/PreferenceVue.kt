@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Vue
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +9,11 @@ import android.widget.RadioButton
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import com.easycorp.easystayapp.Presentation.Modele.ClientData
+import com.easycorp.easystayapp.R
 import java.util.Locale
 
-class fragment_preference : Fragment() {
+class PreferenceVue : Fragment() {
 
     lateinit var switch: Switch
     lateinit var radioFrancais: RadioButton

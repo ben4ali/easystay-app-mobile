@@ -1,13 +1,14 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Vue
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.easycorp.easystayapp.R
 
 
-class fragment_accueil : Fragment() {
+class AccueilVue : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

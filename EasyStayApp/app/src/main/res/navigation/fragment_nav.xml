@@ -8,7 +8,7 @@
     <!-- Fragment Accueil -->
     <fragment
         android:id="@+id/fragment_accueil"
-        android:name="com.easycorp.easystayapp.fragment_accueil"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.AccueilVue"
         android:label="Accueil"
         tools:layout="@layout/fragment_accueil">
         <action android:id="@+id/action_fragment_accueil_to_fragment_chambres" app:destination="@id/fragment_chambres" />
@@ -23,7 +23,7 @@
     <!-- Fragment Chambres -->
     <fragment
         android:id="@+id/fragment_chambres"
-        android:name="com.easycorp.easystayapp.fragment_chambres"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.ChambresVue"
         android:label="Chambres"
         tools:layout="@layout/fragment_chambres">
         <action android:id="@+id/action_fragment_chambres_to_chambreDetailsFragment" app:destination="@id/chambreDetailsFragment" />
@@ -38,7 +38,7 @@
     <!-- Fragment Chambre Details -->
     <fragment
         android:id="@+id/chambreDetailsFragment"
-        android:name="com.easycorp.easystayapp.FragmentChambreDetails"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.ChambreDetailsVue"
         android:label="Chambre Details"
         tools:layout="@layout/fragment_chambre_details">
         <action android:id="@+id/action_chambreDetailsFragment_to_reserverFragment" app:destination="@id/reserverFragment" />
@@ -53,7 +53,7 @@
     <!-- Fragment Reserver -->
     <fragment
         android:id="@+id/reserverFragment"
-        android:name="com.easycorp.easystayapp.ReserverFragment"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.ReserverVue"
         android:label="Reserver"
         tools:layout="@layout/fragment_reserver">
         <action android:id="@+id/action_reserverFragment_to_fragment_preference3" app:destination="@id/fragment_preference3" />
@@ -68,7 +68,7 @@
     <!-- Fragment Preferences -->
     <fragment
         android:id="@+id/fragment_preference3"
-        android:name="com.easycorp.easystayapp.fragment_preference"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.PreferenceVue"
         android:label="Preferences"
         tools:layout="@layout/fragment_preference">
         <action android:id="@+id/action_fragment_preference3_to_fragment_accueil" app:destination="@id/fragment_accueil" />
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_listeReservations"
-        android:name="com.easycorp.easystayapp.fragment_listeReservations"
+        android:name="com.easycorp.easystayapp.Presentation.Vue.ListeReservationsVue"
         android:label="fragment_liste_reservations"
         tools:layout="@layout/fragment_liste_reservations" >
         <action

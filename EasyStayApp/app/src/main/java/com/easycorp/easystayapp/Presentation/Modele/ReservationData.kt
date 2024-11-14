@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Modele
 
 data class DonneesReservation(
     val typeChambre: String,

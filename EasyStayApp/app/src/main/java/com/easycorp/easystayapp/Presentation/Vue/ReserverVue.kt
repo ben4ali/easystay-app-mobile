@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Vue
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.easycorp.easystayapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Calendar
 
-class ReserverFragment : Fragment() {
+class ReserverVue : Fragment() {
 
     private lateinit var typeChambreTextView: TextView
     private lateinit var imageChambreImageView: ImageView

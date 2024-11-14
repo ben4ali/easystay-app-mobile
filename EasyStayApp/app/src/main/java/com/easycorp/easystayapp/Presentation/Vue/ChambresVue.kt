@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Vue
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,12 +9,14 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.easycorp.easystayapp.Presentation.Modele.ChambreData
+import com.easycorp.easystayapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class fragment_chambres : Fragment() {
+class ChambresVue : Fragment() {
 
     private lateinit var rechercher: EditText
     private lateinit var carte1: CardView
@@ -59,9 +61,24 @@ class fragment_chambres : Fragment() {
         setupImageClick(imageButton2, chambres[1])
         setupImageClick(imageButton3, chambres[2])
 
-        setupCardView(carte1, chambres[0], R.id.textView5, R.id.textView3, R.id.textView6, R.id.textView7)
-        setupCardView(carte2, chambres[1], R.id.textView8, R.id.textView4, R.id.textView9, R.id.textView10)
-        setupCardView(carte3, chambres[2], R.id.textView13, R.id.textView11, R.id.textView14, R.id.textView15)
+        setupCardView(carte1, chambres[0],
+            R.id.textView5,
+            R.id.textView3,
+            R.id.textView6,
+            R.id.textView7
+        )
+        setupCardView(carte2, chambres[1],
+            R.id.textView8,
+            R.id.textView4,
+            R.id.textView9,
+            R.id.textView10
+        )
+        setupCardView(carte3, chambres[2],
+            R.id.textView13,
+            R.id.textView11,
+            R.id.textView14,
+            R.id.textView15
+        )
 
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {

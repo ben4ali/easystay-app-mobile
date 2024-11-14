@@ -1,6 +1,6 @@
-package com.easycorp.easystayapp
+package com.easycorp.easystayapp.Presentation.Vue
 
-import ImageSliderAdapter
+import com.easycorp.easystayapp.Utilitaire.ImageSliderAdapter
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
@@ -15,12 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.R.*
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class FragmentChambreDetails : Fragment() {
+class ChambreDetailsVue : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var dotIndicatorLayout: LinearLayout
