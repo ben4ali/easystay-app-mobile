@@ -9,7 +9,7 @@ import android.widget.RadioButton
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import com.easycorp.easystayapp.Presentation.Modele.ClientData
+import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.R
 import java.util.Locale
 

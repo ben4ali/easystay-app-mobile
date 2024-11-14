@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp.Presentation.Modele
+package com.easycorp.easystayapp.Domaine.Entite
 
  data class ClientData(
      val prénom : String,

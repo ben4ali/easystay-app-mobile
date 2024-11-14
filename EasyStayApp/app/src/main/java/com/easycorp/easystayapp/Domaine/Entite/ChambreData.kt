@@ -1,18 +1,15 @@
-package com.easycorp.easystayapp.Presentation.Modele
+package com.easycorp.easystayapp.Domaine.Entite
 
-data class DonneesReservation(
+data class ChambreData(
     val typeChambre: String,
     val description: String,
     val note: Float,
     val nombreAvis: Int,
     val commodites: List<String>,
-    val dates: String,
-    val invites: String,
     val prixParNuit: Double,
-    val nuits: Int,
     val taxes: Double
 ) {
     fun prixTotal(): Double {
-        return (prixParNuit * nuits) + taxes
+        return prixParNuit + taxes
     }
 }

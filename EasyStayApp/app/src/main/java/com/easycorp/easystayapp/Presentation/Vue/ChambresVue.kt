@@ -9,7 +9,7 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.easycorp.easystayapp.Presentation.Modele.ChambreData
+import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
