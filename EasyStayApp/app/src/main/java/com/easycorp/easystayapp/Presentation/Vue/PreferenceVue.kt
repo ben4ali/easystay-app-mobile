@@ -5,24 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import com.easycorp.easystayapp.Domaine.Entite.ClientData
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.R
 import java.util.Locale
+
 
 class PreferenceVue : Fragment() {
 
     lateinit var switch: Switch
     lateinit var radioFrancais: RadioButton
     lateinit var radioAnglais: RadioButton
-
-    val clientList = listOf(
-        ClientData(1,prénom = "Patrick", nom = "Lafrance", email = "plafrance@gmail.com")
-    )
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,16 +31,27 @@ class PreferenceVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val client = clientList[0]
+        var modele = Modèle()
+        val client = modele.obtenirClientParId(1)
 
 
         val prénomTextView = view.findViewById<TextView>(R.id.prenomTextView)
         val nomTextView = view.findViewById<TextView>(R.id.nomTextView)
         val emailTextView = view.findViewById<TextView>(R.id.emailTextView)
+        val photoProfilImageView = view.findViewById<ImageView>(R.id.photoProfilImageView)
+
 
         prénomTextView.text = client.prénom
         nomTextView.text = client.nom
         emailTextView.text = client.email
+
+        if (client.photo != null){
+            photoProfilImageView.setImageResource(client.photo)
+        } else{
+            photoProfilImageView.setImageResource(R.drawable.profil_icon)
+        }
+
+
 
         switch = view.findViewById(R.id.modeSombre)
         radioFrancais = view.findViewById(R.id.radioFrancais)
