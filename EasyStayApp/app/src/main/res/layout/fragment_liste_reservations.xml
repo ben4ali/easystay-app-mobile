@@ -67,32 +67,59 @@ tools:context=".Presentation.Vue.ListeReservationsVue">
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/typeChambreTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chambre Deluxe"
-                        android:textColor="@color/colorText"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/descriptionTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="Vue sur la ville, proche des transports"
-                        android:textColor="@color/colorText"
-                        android:textSize="16sp" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_weight="0"
+                            app:cardCornerRadius="5dp">
 
-                    <TextView
-                        android:id="@+id/noteTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="★ 4.5 (120 avis)"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp" />
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:src="@drawable/chambre_exemple1" />
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/typeChambreTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Chambre Deluxe"
+                                android:textColor="@color/colorText"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/descriptionTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Vue sur la ville, proche des transports"
+                                android:textColor="@color/colorText"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/noteTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="★ 4.5 (120 avis)"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/prixTextView"
@@ -117,7 +144,9 @@ tools:context=".Presentation.Vue.ListeReservationsVue">
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/colorPrimary"
                         android:text="Voir Réservation"
+                        android:textColor="#FFFFFF"
                         app:cornerRadius="5dp" />
 
                     <Button

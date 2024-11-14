@@ -1,17 +1,17 @@
 package com.easycorp.easystayapp.Domaine.Interface
 
-import com.easycorp.easystayapp.Domaine.Entite.DonneesReservation
+import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 
 interface SourceReservation {
-    var listeReservation: ArrayList<DonneesReservation>
+    var listeReservation: ArrayList<ReservationData>
 
-    fun getListeReservation(): List<DonneesReservation>
+    fun getListeReservation(): List<ReservationData>
 
-    fun addReservation(reservation: DonneesReservation)
+    fun addReservation(reservation: ReservationData)
 
-    fun updateReservation(reservation: DonneesReservation)
+    fun updateReservation(reservation: ReservationData)
 
-    fun findRerservationById(id: Int): DonneesReservation?
+    fun findRerservationById(id: Int): ReservationData?
 
     fun deleteReservationById(id: Int)
 

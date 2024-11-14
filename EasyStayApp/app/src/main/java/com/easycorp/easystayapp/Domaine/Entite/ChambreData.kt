@@ -1,6 +1,7 @@
 package com.easycorp.easystayapp.Domaine.Entite
 
 data class ChambreData(
+    val id: Int,
     val typeChambre: String,
     val description: String,
     val note: Float,

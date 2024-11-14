@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import com.easycorp.easystayapp.Presentation.Modele.ChambreData
+import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.R
 
 class ChambreAdapter(

@@ -1,19 +1,23 @@
 package com.easycorp.easystayapp.Domaine.Entite
 
-data class DonneesReservation(
-    val id : Int?,
-    var typeChambre: String,
-    var description: String,
-    var note: Float,
-    var nombreAvis: Int,
-    var commodites: List<String>,
-    var dates: String,
-    var invites: String,
-    var prixParNuit: Double,
-    var nuits: Int,
-    var taxes: Double
-) {
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+
+data class ReservationData(
+        val id : Int?,
+        var client: ClientData,
+        var chambre: ChambreData,
+        var dateDébut: String,
+        var dateFin: String,
+    )
+{
     fun prixTotal(): Double {
-        return (prixParNuit * nuits) + taxes
+        return (chambre.prixParNuit * calculerNombreDeNuits()) * 1.15
+    }
+
+    fun calculerNombreDeNuits(): Int {
+        val dateDebut = LocalDate.parse(dateDébut)
+        val dateFin = LocalDate.parse(dateFin)
+        return ChronoUnit.DAYS.between(dateDebut, dateFin).toInt()
     }
 }

@@ -20,7 +20,7 @@ class PreferenceVue : Fragment() {
     lateinit var radioAnglais: RadioButton
 
     val clientList = listOf(
-        ClientData(prénom = "Patrick", nom = "Lafrance", email = "plafrance@gmail.com")
+        ClientData(1,prénom = "Patrick", nom = "Lafrance", email = "plafrance@gmail.com")
     )
 
 
