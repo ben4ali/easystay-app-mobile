@@ -13,10 +13,14 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.R.*
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -68,7 +72,7 @@ class ChambreDetailsVue : Fragment() {
         })
 
         datePickerBtn.setOnClickListener {
-            showStartDatePicker()
+            showDateRangePicker()
         }
 
         backBtn.setOnClickListener {
@@ -99,7 +103,7 @@ class ChambreDetailsVue : Fragment() {
 
         réserverBtn.setOnClickListener {
             if (startDate != null && endDate != null) {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH)
                 val startDateString = startDate?.let { dateFormat.format(it.time) }
                 val endDateString = endDate?.let { dateFormat.format(it.time) }
 
@@ -140,40 +144,49 @@ class ChambreDetailsVue : Fragment() {
         }
     }
 
-    private fun showStartDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+    private fun showDateRangePicker() {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
 
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+        val constraintsBuilder = CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.from(today))
+
+        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Sélectionnez une plage de dates")
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTheme(R.style.MaterialCalendarTheme)
+            .build()
+
+        dateRangePicker.addOnPositiveButtonClickListener { selection ->
+            val startMillis = selection.first
+            val endMillis = selection.second
+
             startDate = Calendar.getInstance().apply {
-                set(selectedYear, selectedMonth, selectedDay)
+                timeInMillis = startMillis
+                add(Calendar.DAY_OF_MONTH, 1)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
             }
-            showEndDatePicker()
-        }, year, month, day)
 
-        datePickerDialog.show()
-    }
-
-    private fun showEndDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             endDate = Calendar.getInstance().apply {
-                set(selectedYear, selectedMonth, selectedDay)
+                timeInMillis = endMillis
+                add(Calendar.DAY_OF_MONTH, 1)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
             }
 
-            val dateFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
             val startText = startDate?.let { dateFormat.format(it.time) }
             val endText = endDate?.let { dateFormat.format(it.time) }
-            dateShown.text = "$startText - $endText"
-        }, year, month, day)
 
-        datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
-        datePickerDialog.show()
+            dateShown.text = "$startText - $endText"
+        }
+
+        dateRangePicker.show(parentFragmentManager, "date_range_picker")
     }
+
+
 }

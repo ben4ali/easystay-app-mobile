@@ -10,10 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.easycorp.easystayapp.R
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Calendar
+import java.util.Locale
+import androidx.core.util.Pair
 
 class ReserverVue : Fragment() {
 
@@ -33,8 +39,9 @@ class ReserverVue : Fragment() {
 
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
-    private var initialStartDate: LocalDate? = null
-    private var initialEndDate: LocalDate? = null
+    private var initialStartDate: Calendar? = null
+    private var initialEndDate: Calendar? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,84 +81,113 @@ class ReserverVue : Fragment() {
         descriptionCompleteTextView.text = description
         commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
 
-        val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+        val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
 
         initialStartDate = startDateString?.let {
-            try { LocalDate.parse(it, formatter) } catch (e: Exception) { null }
+            try {
+                val date = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH).parse(it)
+                val calendar = Calendar.getInstance().apply { time = date }
+                calendar
+            } catch (e: Exception) {
+                null
+            }
         }
 
         initialEndDate = endDateString?.let {
-            try { LocalDate.parse(it, formatter) } catch (e: Exception) { null }
+            try {
+                val date = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH).parse(it)
+                val calendar = Calendar.getInstance().apply { time = date }
+                calendar
+            } catch (e: Exception) {
+                null
+            }
         }
 
         if (initialStartDate != null && initialEndDate != null) {
-            datesTextView.text = "$startDateString - $endDateString"
+            val startText = dateFormat.format(initialStartDate!!.time)
+            val endText = dateFormat.format(initialEndDate!!.time)
+            datesTextView.text = "$startText - $endText"
             calculateTotal(initialStartDate, initialEndDate, prixParNuit)
         }
 
+
         datesTextView.setOnClickListener {
-            showStartDatePicker()
+            showDateRangePicker()
         }
     }
 
-    private fun calculateTotal(startDate: LocalDate?, endDate: LocalDate?, prixParNuit: Double?) {
+    private fun calculateTotal(startDate: Calendar?, endDate: Calendar?, prixParNuit: Double?) {
         if (startDate != null && endDate != null && prixParNuit != null) {
-            val nuits = ChronoUnit.DAYS.between(startDate, endDate).toInt()
-            prixParNuitTextView.text = "$$prixParNuit x $nuits nuits"
+            val diffInMillis = endDate.timeInMillis - startDate.timeInMillis
+            val nuits = (diffInMillis / (1000 * 60 * 60 * 24)).toInt()
+
+            prixParNuitTextView.text = "$${String.format("%.2f", prixParNuit)} x $nuits nuits"
+
             val sousTotal = prixParNuit * nuits
-            sousTotalTextView.text = "$$sousTotal"
+            sousTotalTextView.text = "$${String.format("%.2f", sousTotal)}"
+
             val taxes = sousTotal * 0.15
-            taxesTextView.text = "$$taxes"
+            taxesTextView.text = "$${String.format("%.2f", taxes)}"
+
             val total = sousTotal * 1.15
-            totalTextView.text = "$$total"
+            totalTextView.text = "$${String.format("%.2f", total)}"
         }
     }
 
-    private fun showStartDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+
+    private fun showDateRangePicker() {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+
+        val constraintsBuilder = CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.from(today))
+
+        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Sélectionnez une plage de dates")
+            .setCalendarConstraints(constraintsBuilder.build())
+            .apply {
+                initialStartDate?.let {
+                    setSelection(
+                        Pair(
+                            it.timeInMillis,
+                            initialEndDate?.timeInMillis ?: it.timeInMillis
+                        )
+                    )
+                }
+            }
+            .build()
+
+        dateRangePicker.addOnPositiveButtonClickListener { selection ->
+            val startMillis = selection.first
+            val endMillis = selection.second
+
             startDate = Calendar.getInstance().apply {
-                set(selectedYear, selectedMonth, selectedDay)
+                timeInMillis = startMillis
+                add(Calendar.DAY_OF_MONTH, 1)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
             }
-            showEndDatePicker()
-        }, year, month, day)
 
-        datePickerDialog.show()
-    }
-
-    private fun showEndDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             endDate = Calendar.getInstance().apply {
-                set(selectedYear, selectedMonth, selectedDay)
+                timeInMillis = endMillis
+                add(Calendar.DAY_OF_MONTH, 1)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
             }
 
-            val startLocalDate = LocalDate.of(
-                startDate!!.get(Calendar.YEAR),
-                startDate!!.get(Calendar.MONTH) + 1,
-                startDate!!.get(Calendar.DAY_OF_MONTH)
-            )
+            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+            val startText = startDate?.let { dateFormat.format(it.time) }
+            val endText = endDate?.let { dateFormat.format(it.time) }
 
-            val endLocalDate = LocalDate.of(
-                endDate!!.get(Calendar.YEAR),
-                endDate!!.get(Calendar.MONTH) + 1,
-                endDate!!.get(Calendar.DAY_OF_MONTH)
-            )
-
-            datesTextView.text = "Du ${startLocalDate.dayOfMonth} ${startLocalDate.month} - ${endLocalDate.dayOfMonth} ${endLocalDate.month}"
+            datesTextView.text = "$startText - $endText"
             val prixParNuit = arguments?.getDouble("prixParNuit", 0.0)
-            calculateTotal(startLocalDate, endLocalDate, prixParNuit)
-        }, year, month, day)
+            calculateTotal(startDate, endDate, prixParNuit)
+        }
 
-        datePickerDialog.datePicker.minDate = startDate?.timeInMillis ?: calendar.timeInMillis
-        datePickerDialog.show()
+        dateRangePicker.show(parentFragmentManager, "date_range_picker")
     }
 }

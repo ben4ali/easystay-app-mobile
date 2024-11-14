@@ -6,4 +6,5 @@
     <color name="colorSecondary">#161616</color>
     <color name="colorAccent">#D3D3D3</color>
     <color name="colorAccentOverlay">#292929</color>
+    <color name="colorRangeFill">#B3FF5A5A</color>
 </resources>
