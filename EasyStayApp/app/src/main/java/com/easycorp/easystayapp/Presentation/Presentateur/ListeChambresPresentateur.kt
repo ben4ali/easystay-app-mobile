@@ -42,11 +42,7 @@ class ListeChambresPresentateur(
 
     fun ouvrirDetailsChambre(chambre: ChambreData) {
         val bundle = Bundle().apply {
-            putString("typeChambre", chambre.typeChambre)
-            putString("description", chambre.description)
-            putFloat("note", chambre.note)
-            putInt("nombreAvis", chambre.nombreAvis)
-            putDouble("prixParNuit", chambre.prixParNuit)
+            putInt("chambreId", chambre.id)
         }
         vue.ouvrirDetailsChambre(R.id.action_fragment_chambres_to_chambreDetailsFragment, bundle)
     }

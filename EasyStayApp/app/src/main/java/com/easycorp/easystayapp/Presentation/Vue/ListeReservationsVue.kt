@@ -25,7 +25,7 @@ class ListeReservationsVue : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         listeReservations = view.findViewById(R.id.RList)
-        présentateur = ListeRéservationPrésentateur(requireContext(), listeReservations)
+        présentateur = ListeRéservationPrésentateur(requireContext(), listeReservations, this)
         présentateur.chargerReservations(1)
     }
 

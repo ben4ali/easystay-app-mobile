@@ -141,6 +141,7 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
 
     override fun navigateToBooking(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
         val bundle = Bundle().apply {
+            putInt("reservationId", -1)
             putString("typeChambre", typeChambre)
             putString("description", description)
             putFloat("note", note)
