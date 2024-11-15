@@ -2,6 +2,7 @@ package com.easycorp.easystayapp.Presentation.Vue
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,20 +86,22 @@ class ReserverVue : Fragment() {
 
         initialStartDate = startDateString?.let {
             try {
-                val date = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH).parse(it)
+                val date = dateFormat.parse(it)
                 val calendar = Calendar.getInstance().apply { time = date }
                 calendar
             } catch (e: Exception) {
+                Log.e("ReserverVue", "Error parsing startDateString: $startDateString", e)
                 null
             }
         }
 
         initialEndDate = endDateString?.let {
             try {
-                val date = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH).parse(it)
+                val date = dateFormat.parse(it)
                 val calendar = Calendar.getInstance().apply { time = date }
                 calendar
             } catch (e: Exception) {
+                Log.e("ReserverVue", "Error parsing endDateString: $endDateString", e)
                 null
             }
         }
@@ -109,7 +112,6 @@ class ReserverVue : Fragment() {
             datesTextView.text = "$startText - $endText"
             calculateTotal(initialStartDate, initialEndDate, prixParNuit)
         }
-
 
         datesTextView.setOnClickListener {
             showDateRangePicker()
@@ -145,6 +147,7 @@ class ReserverVue : Fragment() {
         val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText("Sélectionnez une plage de dates")
             .setCalendarConstraints(constraintsBuilder.build())
+            .setTheme(R.style.MaterialCalendarTheme)
             .apply {
                 initialStartDate?.let {
                     setSelection(

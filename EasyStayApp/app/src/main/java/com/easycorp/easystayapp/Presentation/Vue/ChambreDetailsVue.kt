@@ -1,9 +1,7 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
-import com.easycorp.easystayapp.Utilitaire.ImageSliderAdapter
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +10,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétailPresentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétailPresentateurInterface
 import com.easycorp.easystayapp.R
-import com.easycorp.easystayapp.R.*
+import com.easycorp.easystayapp.Utilitaire.ImageSliderAdapter
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ChambreDetailsVue : Fragment() {
+class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var dotIndicatorLayout: LinearLayout
@@ -36,14 +37,14 @@ class ChambreDetailsVue : Fragment() {
     private lateinit var prixTextView: TextView
     private lateinit var roomTitleTextView: TextView
     private lateinit var backBtn: ImageView
-
     private lateinit var réserverBtn: Button
 
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
+    private lateinit var presenter: ChambreDétailPresentateurInterface
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(layout.fragment_chambre_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_chambre_details, container, false)
 
         viewPager = view.findViewById(R.id.viewPagerImages)
         dotIndicatorLayout = view.findViewById(R.id.dotIndicatorLayout)
@@ -57,7 +58,11 @@ class ChambreDetailsVue : Fragment() {
         backBtn = view.findViewById(R.id.backButton)
         réserverBtn = view.findViewById(R.id.bookButton)
 
-        val images = intArrayOf(drawable.chambre_exemple1, drawable.chambre_exemple2, drawable.chambre_exemple3)
+        presenter = ChambreDétailPresentateur(this)
+
+        presenter.loadRoomDetails(arguments)
+
+        val images = intArrayOf(R.drawable.chambre_exemple1, R.drawable.chambre_exemple2, R.drawable.chambre_exemple3)
         val adapter = ImageSliderAdapter(requireContext(), images)
         viewPager.adapter = adapter
         createDotIndicators(images.size)
@@ -84,51 +89,77 @@ class ChambreDetailsVue : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun loadRoomDetails(arguments: Bundle?) {
+        TODO("Not yet implemented")
+    }
 
-        val typeChambre = arguments?.getString("typeChambre")
-        val description = arguments?.getString("description")
-        val note = arguments?.getFloat("note")
-        val nombreAvis = arguments?.getInt("nombreAvis")
-        val prixParNuit = arguments?.getDouble("prixParNuit")
+    override fun onDateSelected(startDate: Calendar?, endDate: Calendar?) {
+        TODO("Not yet implemented")
+    }
 
+    override fun onBookButtonClicked(
+        typeChambre: String,
+        description: String,
+        note: Float,
+        nombreAvis: Int,
+        prixParNuit: Double,
+        startDate: String,
+        endDate: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showRoomDetails(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double) {
         roomTitleTextView.text = typeChambre
         typeChambreTextView.text = typeChambre
         descriptionTextView.text = description
-        noteTextView.text = "Note: $note (${nombreAvis ?: 0} avis)"
-        prixTextView.text = "${prixParNuit ?: 0.0}$ / nuit"
+        noteTextView.text = "Note: $note (${nombreAvis} avis)"
+        prixTextView.text = "${prixParNuit}$ / nuit"
 
         réserverBtn.setOnClickListener {
             if (startDate != null && endDate != null) {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH)
-                val startDateString = startDate?.let { dateFormat.format(it.time) }
-                val endDateString = endDate?.let { dateFormat.format(it.time) }
+                val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+                val startDateString = dateFormat.format(startDate?.time)
+                val endDateString = dateFormat.format(endDate?.time)
 
-                val bundle = Bundle().apply {
-                    putString("typeChambre", typeChambre)
-                    putString("description", description)
-                    putFloat("note", note ?: 0.0f)
-                    putInt("nombreAvis", nombreAvis ?: 0)
-                    putDouble("prixParNuit", prixParNuit ?: 5.0)
-                    putString("startDate", startDateString)
-                    putString("endDate", endDateString)
-                }
-                try {
-                    findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment, bundle)
-                } catch (e: IllegalArgumentException) {
-                    Toast.makeText(requireContext(), "Erreur de naviguation: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                presenter.onBookButtonClicked(typeChambre, description, note, nombreAvis, prixParNuit, startDateString, endDateString)
             } else {
                 Toast.makeText(requireContext(), "Il faut d'abord choisir une date", Toast.LENGTH_LONG).show()
             }
         }
     }
 
+
+    override fun updateDateDisplay(startDate: String, endDate: String) {
+        dateShown.text = "$startDate - $endDate"
+    }
+
+
+    override fun showDateError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun navigateToBooking(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
+        val bundle = Bundle().apply {
+            putString("typeChambre", typeChambre)
+            putString("description", description)
+            putFloat("note", note)
+            putInt("nombreAvis", nombreAvis)
+            putDouble("prixParNuit", prixParNuit)
+            putString("startDate", startDate)
+            putString("endDate", endDate)
+        }
+        try {
+            findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment, bundle)
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(requireContext(), "Erreur de navigation: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun createDotIndicators(count: Int) {
         dotIndicators = List(count) {
-            val dot = LayoutInflater.from(requireContext()).inflate(layout.dot_indicator, dotIndicatorLayout, false)
-            dot.setBackgroundResource(drawable.dot_background)
+            val dot = LayoutInflater.from(requireContext()).inflate(R.layout.dot_indicator, dotIndicatorLayout, false)
+            dot.setBackgroundResource(R.drawable.dot_background)
             dotIndicatorLayout.addView(dot)
             dot
         }
@@ -177,14 +208,13 @@ class ChambreDetailsVue : Fragment() {
             }
 
             val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-            val startText = startDate?.let { dateFormat.format(it.time) }
-            val endText = endDate?.let { dateFormat.format(it.time) }
+            val startDateString = dateFormat.format(startDate?.time)
+            val endDateString = dateFormat.format(endDate?.time)
 
-            dateShown.text = "$startText - $endText"
+            dateShown.text = "$startDateString - $endDateString"
+            presenter.onDateSelected(startDate, endDate)
         }
 
         dateRangePicker.show(parentFragmentManager, "date_range_picker")
     }
-
-
 }
