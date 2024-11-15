@@ -28,3 +28,4 @@ class ImageSliderAdapter(
 
     override fun getItemCount(): Int = images.size
 }
+

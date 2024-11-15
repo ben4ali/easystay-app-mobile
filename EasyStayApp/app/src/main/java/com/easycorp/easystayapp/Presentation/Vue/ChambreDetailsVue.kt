@@ -1,7 +1,6 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
 import com.easycorp.easystayapp.Utilitaire.ImageSliderAdapter
-import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.R
