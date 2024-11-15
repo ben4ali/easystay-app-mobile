@@ -2,15 +2,18 @@ package com.easycorp.easystayapp.Presentation.Presentateur
 
 import android.os.Bundle
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
+import com.easycorp.easystayapp.Presentation.Vue.ChambreDetailsVue
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ChambreDétailPresentateur(private val view: ChambreDétailPresentateurInterface) : ChambreDétailPresentateurInterface {
+class ChambreDétailPresentateur(private val view: ChambreDetailsVue) : ChambreDétailPresentateurInterface {
+
+    private val modèle = Modèle.getInstance()
 
     override fun loadRoomDetails(arguments: Bundle?) {
-        val chambreId = arguments?.getInt("chambreId") ?: return
-        val chambre = Modèle.obtenirChambreParId(chambreId)
+        val chambreId = modèle.getChambreChoisieId() ?: return
+        val chambre = modèle.obtenirChambreParId(chambreId)
         showRoomDetails(chambre.typeChambre, chambre.description, chambre.note, chambre.nombreAvis, chambre.prixParNuit)
     }
 
@@ -42,9 +45,7 @@ class ChambreDétailPresentateur(private val view: ChambreDétailPresentateurInt
         }
     }
 
-
     override fun onBookButtonClicked(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
         navigateToBooking(typeChambre, description, note, nombreAvis, prixParNuit, startDate, endDate)
     }
-
 }

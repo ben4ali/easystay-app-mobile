@@ -45,6 +45,8 @@ class ReserverVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val modèle = Modèle.getInstance()
+
         typeChambreTextView = view.findViewById(R.id.roomTypeTextView)
         imageChambreImageView = view.findViewById(R.id.roomImageView)
         descriptionChambreTextView = view.findViewById(R.id.roomDescriptionTextView)
@@ -59,10 +61,9 @@ class ReserverVue : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
-        val reservationId = arguments?.getInt("reservationId")
-        //modifier une réservation
-        if (reservationId != -1) {
-            val reservation = Modèle.obtenirReservationParId(reservationId?:0)
+        val reservationId = modèle.getReservationChoisieId()
+        if (reservationId != null) {
+            val reservation = modèle.obtenirReservationParId(reservationId)
             val chambre = reservation.chambre
 
             typeChambreTextView.text = chambre.typeChambre
@@ -87,7 +88,6 @@ class ReserverVue : Fragment() {
                 datesTextView.text = "$startText - $endText"
                 calculateTotal(initialStartDate, initialEndDate, chambre.prixParNuit)
             }
-        //nouvelle réservation
         } else {
             val typeChambre = arguments?.getString("typeChambre")
             val description = arguments?.getString("description")
@@ -129,6 +129,6 @@ class ReserverVue : Fragment() {
     }
 
     private fun showDateRangePicker() {
-        // implémentation de la sélection de date
+
     }
 }

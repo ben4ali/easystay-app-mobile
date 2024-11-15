@@ -1,7 +1,6 @@
 package com.easycorp.easystayapp.Presentation.Presentateur
 
 import android.content.Context
-import android.os.Bundle
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
@@ -19,16 +18,17 @@ class AccueilPrésentateur(
     private val vue: AccueilVue,
 ) : AccueilPrésentateurInterface {
     private val favorisDAO = FavorisDAO(context)
+    private val modèle = Modèle.getInstance()
 
     override fun chargerReservationsCourte(clientId: Int) {
-        val reservations = Modèle.obtenirReservationsParClient(Modèle.obtenirClientParId(clientId))
+        val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
         val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 }
         val adapter = RéservationCourtAdapter(context, filteredReservations)
         listViewReservations.adapter = adapter
     }
 
     override fun chargerChambres() {
-        val chambres = Modèle.obtenirChambres()
+        val chambres = modèle.obtenirChambres()
         val adapter = ChambreAdapter(context, chambres) { chambre ->
             ouvrirDetailsChambre(chambre)
         }
@@ -36,16 +36,13 @@ class AccueilPrésentateur(
     }
 
     override fun ouvrirDetailsChambre(chambre: ChambreData) {
-        val bundle = Bundle().apply {
-            putInt("chambreId", chambre.id)
-        }
-        vue.findNavController().navigate(R.id.action_fragment_accueil_to_chambreDetailsFragment, bundle)
-
+        modèle.setChambreChoisieId(chambre.id)
+        vue.findNavController().navigate(R.id.action_fragment_accueil_to_chambreDetailsFragment)
     }
 
     override fun chargerChambresFavoris() {
         val favoriteRoomIds = favorisDAO.obtenirTousLesFavoris()
-        val favoriteChambres = Modèle.obtenirChambres().filter { it.id in favoriteRoomIds }
+        val favoriteChambres = modèle.obtenirChambres().filter { it.id in favoriteRoomIds }
         if (favoriteChambres.isEmpty()) {
             vue.textFavoris.layoutParams.height = 0
         }
@@ -53,6 +50,5 @@ class AccueilPrésentateur(
             ouvrirDetailsChambre(chambre)
         }
         listViewChambres.adapter = adapter
-
     }
 }
