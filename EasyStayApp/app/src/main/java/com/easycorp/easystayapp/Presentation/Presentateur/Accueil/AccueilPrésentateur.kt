@@ -17,7 +17,7 @@ class AccueilPrésentateur(
     private val listViewChambres: ListView,
     private val vue: AccueilVue,
 ) : AccueilPrésentateurInterface {
-    private val favorisDAO = FavorisDAOImpl(context)
+    var favorisDAO = FavorisDAOImpl(context)
     private val modèle = Modèle.getInstance()
 
     override fun chargerReservationsCourte(clientId: Int) {
