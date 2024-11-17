@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.easycorp.easystayapp.Presentation.Presentateur.PreferencePresentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.Préférences.PreferencePresentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.Préférences.PreferencePresentateurInterface
 import com.easycorp.easystayapp.R
 
 class PreferenceVue : Fragment(), PreferencePresentateurInterface {

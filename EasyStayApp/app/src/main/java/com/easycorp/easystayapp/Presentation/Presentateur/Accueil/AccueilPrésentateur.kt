@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp.Presentation.Presentateur
+package com.easycorp.easystayapp.Presentation.Presentateur.Accueil
 
 import android.content.Context
 import android.widget.ListView

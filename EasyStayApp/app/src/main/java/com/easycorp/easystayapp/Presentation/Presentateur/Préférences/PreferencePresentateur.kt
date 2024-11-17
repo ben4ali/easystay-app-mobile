@@ -1,10 +1,7 @@
-package com.easycorp.easystayapp.Presentation.Presentateur
+package com.easycorp.easystayapp.Presentation.Presentateur.Préférences
 
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
-import com.easycorp.easystayapp.Presentation.Vue.PreferenceVue
 import com.easycorp.easystayapp.R
-import com.easycorp.easystayapp.Domaine.Entite.ClientData
-import com.easycorp.easystayapp.Presentation.Vue.PreferencePresentateurInterface
 
 
 class PreferencePresentateur(
