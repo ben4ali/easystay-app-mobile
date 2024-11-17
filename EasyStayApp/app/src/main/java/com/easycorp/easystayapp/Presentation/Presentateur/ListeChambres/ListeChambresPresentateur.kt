@@ -1,32 +1,35 @@
-package com.easycorp.easystayapp.Presentation.Presentateur
+package com.easycorp.easystayapp.Presentation.Presentateur.ListeChambres
 
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.*
+import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ChambresVue
 import com.easycorp.easystayapp.R
+import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 
 class ListeChambresPresentateur(
     private val vue: ChambresVue,
-    private val context: Context
+    private val context: Context,
 ) {
     private val modèle = Modèle.getInstance()
     private var maxPrice = 500
     private var selectedType: String? = null
     private var isFilterApplied = false
 
+
     fun chargerChambres() {
         val chambres = modèle.obtenirChambres()
-        vue.afficherChambres(chambres)
+        afficherChambres(chambres)
     }
 
     fun filtrerChambres(searchText: String) {
         val chambres = modèle.obtenirChambres()
         val filteredChambres = chambres.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
-        vue.afficherChambres(filteredChambres)
+        afficherChambres(filteredChambres)
     }
 
     fun appliquerOuEffacerFiltres() {
@@ -34,7 +37,7 @@ class ListeChambresPresentateur(
             maxPrice = 500
             selectedType = null
             isFilterApplied = false
-            vue.afficherChambres(modèle.obtenirChambres())
+            afficherChambres(modèle.obtenirChambres())
         } else {
             afficherFilterDialog()
         }
@@ -42,7 +45,7 @@ class ListeChambresPresentateur(
 
     fun ouvrirDetailsChambre(chambre: ChambreData) {
         modèle.setChambreChoisieId(chambre.id)
-        vue.ouvrirDetailsChambre(actionId = R.id.action_fragment_chambres_to_chambreDetailsFragment)
+        vue.findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment)
     }
 
     fun afficherFilterDialog() {
@@ -80,6 +83,13 @@ class ListeChambresPresentateur(
             alertDialog.dismiss()
         }
         alertDialog.show()
+    }
+
+    fun afficherChambres(chambres: List<ChambreData>) {
+        val adapter = ChambreAdapter(context, chambres.toMutableList()) { chambre ->
+            ouvrirDetailsChambre(chambre)
+        }
+        vue.listViewChambres.adapter = adapter
     }
 
     private fun ChambreData.matchesFilter(searchText: String, maxPrice: Int, selectedType: String?): Boolean {

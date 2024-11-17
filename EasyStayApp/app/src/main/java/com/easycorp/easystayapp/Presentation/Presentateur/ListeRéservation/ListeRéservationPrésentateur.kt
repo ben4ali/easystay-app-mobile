@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp.Presentation.Presentateur
+package com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation
 
 import android.content.Context
 import android.view.View

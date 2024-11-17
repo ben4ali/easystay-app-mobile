@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservationPrésentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
 
 class ListeReservationsVue : Fragment() {

@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp.Presentation.Vue
+package com.easycorp.easystayapp.Presentation.Presentateur.ListeChambres
 
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 

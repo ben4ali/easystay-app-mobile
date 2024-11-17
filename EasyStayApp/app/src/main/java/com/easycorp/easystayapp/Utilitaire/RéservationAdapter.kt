@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
-import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservationPrésentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
 
 class RéservationAdapter(

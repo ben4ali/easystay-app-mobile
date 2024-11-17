@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
-import com.easycorp.easystayapp.Presentation.Presentateur.AccueilPrésentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.Accueil.AccueilPrésentateur
 import com.easycorp.easystayapp.R
 
 class AccueilVue : Fragment() {

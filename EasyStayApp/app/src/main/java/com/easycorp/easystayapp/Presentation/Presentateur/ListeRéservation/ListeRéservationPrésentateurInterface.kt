@@ -1,4 +1,4 @@
-package com.easycorp.easystayapp.Presentation.Presentateur
+package com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation
 
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 
