@@ -1,6 +1,10 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +39,15 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         photoProfilImageView = view.findViewById(R.id.photoProfilImageView)
 
         présentateur.afficherClient(clientId = 1)
+
+        photoProfilImageView.setOnClickListener {
+            présentateur.ouvrirCamera(this)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        présentateur.traiterResultatCamera(requestCode, resultCode, data)
     }
 
     override fun afficherClient(prénom: String, nom: String, email: String, photoResId: Int) {
@@ -42,5 +55,9 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         nomTextView.text = nom
         emailTextView.text = email
         photoProfilImageView.setImageResource(photoResId)
+    }
+
+    override fun afficherPhotoProfil(photo: Bitmap) {
+        photoProfilImageView.setImageBitmap(photo)
     }
 }
