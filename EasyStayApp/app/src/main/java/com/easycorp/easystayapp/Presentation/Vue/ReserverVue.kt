@@ -9,11 +9,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.easycorp.easystayapp.Presentation.Modele.Modèle
+import com.easycorp.easystayapp.Domaine.Entite.ChambreData
+import com.easycorp.easystayapp.Presentation.Presentateur.Résérver.ReserverPresentateur
+import com.easycorp.easystayapp.Presentation.Presentateur.Résérver.ReserverPresentateurInterface
 import com.easycorp.easystayapp.R
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class ReserverVue : Fragment() {
 
@@ -31,10 +30,7 @@ class ReserverVue : Fragment() {
     private lateinit var totalTextView: TextView
     private lateinit var boutonReserver: Button
 
-    private var startDate: Calendar? = null
-    private var endDate: Calendar? = null
-    private var initialStartDate: Calendar? = null
-    private var initialEndDate: Calendar? = null
+    private lateinit var presentateur: ReserverPresentateurInterface
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +42,7 @@ class ReserverVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val modèle = Modèle.getInstance()
+        presentateur = ReserverPresentateur(this)
 
         typeChambreTextView = view.findViewById(R.id.roomTypeTextView)
         imageChambreImageView = view.findViewById(R.id.roomImageView)
@@ -62,96 +58,30 @@ class ReserverVue : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
-        val startDate = arguments?.getString("startDate")
-        val endDate = arguments?.getString("endDate")
-
-        val reservationId = modèle.getReservationChoisieId()
-        if (reservationId != null) {
-            val reservation = modèle.obtenirReservationParId(reservationId)
-            val chambre = reservation.chambre
-
-            typeChambreTextView.text = chambre.typeChambre
-            descriptionChambreTextView.text = chambre.description
-            noteTextView.text = "★ ${chambre.note} (${chambre.nombreAvis} avis)"
-            descriptionCompleteTextView.text = chambre.description
-            commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
-
-            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-
-            initialStartDate = Calendar.getInstance().apply {
-                time = dateFormat.parse(reservation.dateDébut)
-            }
-
-            initialEndDate = Calendar.getInstance().apply {
-                time = dateFormat.parse(reservation.dateFin)
-            }
-
-            if (initialStartDate != null && initialEndDate != null) {
-                val startText = dateFormat.format(initialStartDate!!.time)
-                val endText = dateFormat.format(initialEndDate!!.time)
-                datesTextView.text = "$startText - $endText"
-                calculateTotal(initialStartDate, initialEndDate, chambre.prixParNuit)
-            }
-        } else {
-            val typeChambre = arguments?.getString("typeChambre")
-            val description = arguments?.getString("description")
-            val note = arguments?.getFloat("note")
-            val nombreAvis = arguments?.getInt("nombreAvis")
-            val prixParNuit = arguments?.getDouble("prixParNuit")
-            val startDateString = arguments?.getString("startDate")
-            val endDateString = arguments?.getString("endDate")
-
-            if (typeChambre != null && description != null && note != null && nombreAvis != null && prixParNuit != null) {
-                typeChambreTextView.text = typeChambre
-                descriptionChambreTextView.text = description
-                noteTextView.text = "★ $note ($nombreAvis avis)"
-                descriptionCompleteTextView.text = description
-                commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
-                prixParNuitTextView.text = "$prixParNuit$ / nuit"
-            }
-
-            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-
-            initialStartDate = Calendar.getInstance().apply {
-                time = dateFormat.parse(startDateString)
-            }
-
-            initialEndDate = Calendar.getInstance().apply {
-                time = dateFormat.parse(endDateString)
-            }
-
-            if (initialStartDate != null && initialEndDate != null) {
-                val startText = dateFormat.format(initialStartDate!!.time)
-                val endText = dateFormat.format(initialEndDate!!.time)
-                datesTextView.text = "$startText - $endText"
-                calculateTotal(initialStartDate, initialEndDate, prixParNuit)
-            }
-        }
+        presentateur.ouvrirDetailsChambre()
 
         datesTextView.setOnClickListener {
-            showDateRangePicker()
+            presentateur.afficherSelectionneurDates()
         }
     }
 
-    private fun calculateTotal(startDate: Calendar?, endDate: Calendar?, prixParNuit: Double?) {
-        if (startDate != null && endDate != null && prixParNuit != null) {
-            val diffInMillis = endDate.timeInMillis - startDate.timeInMillis
-            val nuits = (diffInMillis / (1000 * 60 * 60 * 24)).toInt()
+    fun modifierDetailsChambre(chambre: ChambreData, startDate: String, endDate: String) {
+        typeChambreTextView.text = chambre.typeChambre
+        descriptionChambreTextView.text = chambre.description
+        noteTextView.text = "★ ${chambre.note} (${chambre.nombreAvis} avis)"
+        descriptionCompleteTextView.text = chambre.description
+        commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
+        prixParNuitTextView.text = "${chambre.prixParNuit}$ / nuit"
 
-            prixParNuitTextView.text = "$${String.format("%.2f", prixParNuit)} x $nuits nuits"
+        datesTextView.text = "${presentateur.dateFormatage(startDate)} - ${presentateur.dateFormatage(endDate)}"
 
-            val sousTotal = prixParNuit * nuits
-            sousTotalTextView.text = "$${String.format("%.2f", sousTotal)}"
-
-            val taxes = sousTotal * 0.15
-            taxesTextView.text = "$${String.format("%.2f", taxes)}"
-
-            val total = sousTotal * 1.15
-            totalTextView.text = "$${String.format("%.2f", total)}"
-        }
+        presentateur.calculerPrixTotale(presentateur.dateDebutInitiale, presentateur.dateFinInitiale, chambre.prixParNuit)
     }
 
-    fun showDateRangePicker() {
-
+    fun modifierPrixTotale(prixParNuit: Double, nuits: Int, sousTotal: Double, taxes: Double, total: Double) {
+        prixParNuitTextView.text = "$${String.format("%.2f", prixParNuit)} x $nuits nuits"
+        sousTotalTextView.text = "$${String.format("%.2f", sousTotal)}"
+        taxesTextView.text = "$${String.format("%.2f", taxes)}"
+        totalTextView.text = "$${String.format("%.2f", total)}"
     }
 }
