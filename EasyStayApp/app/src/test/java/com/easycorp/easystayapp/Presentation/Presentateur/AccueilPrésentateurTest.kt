@@ -1,10 +1,11 @@
-package com.easycorp.easystayapp.Presentation.Modele
+package com.easycorp.easystayapp.Presentation.Presentateur
 
 import android.content.Context
 import android.widget.ListView
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Presentateur.Accueil.AccueilPrésentateur
 import com.easycorp.easystayapp.Presentation.Vue.AccueilVue
 import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl

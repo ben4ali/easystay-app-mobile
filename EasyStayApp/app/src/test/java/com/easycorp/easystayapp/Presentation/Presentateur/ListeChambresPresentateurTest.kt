@@ -1,8 +1,9 @@
-package com.easycorp.easystayapp.Presentation.Modele
+package com.easycorp.easystayapp.Presentation.Presentateur
 
 import android.content.Context
 import android.widget.ListView
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Presentateur.ListeChambres.ListeChambresPresentateur
 import com.easycorp.easystayapp.Presentation.Vue.ChambresVue
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
