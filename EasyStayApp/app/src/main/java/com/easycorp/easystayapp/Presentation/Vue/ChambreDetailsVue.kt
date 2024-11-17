@@ -25,7 +25,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
+class ChambreDetailsVue : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var dotIndicatorLayout: LinearLayout
@@ -90,15 +90,11 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
         return view
     }
 
-    override fun loadRoomDetails(arguments: Bundle?) {
+    fun onDateSelected(startDate: Calendar?, endDate: Calendar?) {
         TODO("Not yet implemented")
     }
 
-    override fun onDateSelected(startDate: Calendar?, endDate: Calendar?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBookButtonClicked(
+    fun onBookButtonClicked(
         typeChambre: String,
         description: String,
         note: Float,
@@ -110,7 +106,7 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
         TODO("Not yet implemented")
     }
 
-    override fun showRoomDetails(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double) {
+    fun showRoomDetails(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double) {
         roomTitleTextView.text = typeChambre
         typeChambreTextView.text = typeChambre
         descriptionTextView.text = description
@@ -138,7 +134,7 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
     }
 
 
-    override fun updateDateDisplay(startDate: String, endDate: String) {
+    fun updateDateDisplay(startDate: String, endDate: String) {
         dateShown.text = "$startDate - $endDate"
     }
 
@@ -151,12 +147,13 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
     }
 
 
-    override fun showDateError(message: String) {
+    fun showDateError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    override fun navigateToBooking(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
+    fun navigateToBooking(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
         val bundle = Bundle().apply {
+            putInt("reservationId", -1)
             putString("typeChambre", typeChambre)
             putString("description", description)
             putFloat("note", note)

@@ -6,26 +6,24 @@ import com.easycorp.easystayapp.R
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
+import com.easycorp.easystayapp.Presentation.Vue.ChambreDetailsVue
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class ChambreDétailPresentateur(private val view: ChambreDétailPresentateurInterface) : ChambreDétailPresentateurInterface {
+class ChambreDétailPresentateur(private val view: ChambreDetailsVue) : ChambreDétailPresentateurInterface {
+
+    private val modèle = Modèle.getInstance()
 
     var startDate: Calendar? = null
     var endDate: Calendar? = null
 
     override fun loadRoomDetails(arguments: Bundle?) {
-        val typeChambre = arguments?.getString("typeChambre")
-        val description = arguments?.getString("description")
-        val note = arguments?.getFloat("note") ?: 0.0f
-        val nombreAvis = arguments?.getInt("nombreAvis") ?: 0
-        val prixParNuit = arguments?.getDouble("prixParNuit") ?: 0.0
-
-        if (typeChambre != null && description != null) {
-            showRoomDetails(typeChambre, description, note, nombreAvis, prixParNuit)
-        }
+        val chambreId = modèle.getChambreChoisieId() ?: return
+        val chambre = modèle.obtenirChambreParId(chambreId)
+        showRoomDetails(chambre.typeChambre, chambre.description, chambre.note, chambre.nombreAvis, chambre.prixParNuit)
     }
 
     override fun showRoomDetails(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double) {

@@ -37,6 +37,9 @@ class RéservationAdapter(
         textDates.text = "${réservation.dateDébut} - ${réservation.dateFin}"
         imageChambre.setImageResource(R.drawable.chambre_exemple1)
 
+        btnVoir.setOnClickListener {
+            présentateur.ouvrirDetailsReservation(réservation, view)
+        }
         btnSupprimer.setOnClickListener {
             présentateur.supprimerReservation(réservation)
         }

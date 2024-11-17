@@ -1,8 +1,6 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +8,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.R
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.Calendar
 import java.util.Locale
-import androidx.core.util.Pair
 
 class ReserverVue : Fragment() {
 
@@ -43,7 +35,6 @@ class ReserverVue : Fragment() {
     private var initialStartDate: Calendar? = null
     private var initialEndDate: Calendar? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +44,8 @@ class ReserverVue : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val modèle = Modèle.getInstance()
 
         typeChambreTextView = view.findViewById(R.id.roomTypeTextView)
         imageChambreImageView = view.findViewById(R.id.roomImageView)
@@ -68,49 +61,48 @@ class ReserverVue : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
-        val typeChambre = arguments?.getString("typeChambre") ?: "Type de chambre non spécifié"
-        val description = arguments?.getString("description") ?: "Description non spécifiée"
-        val note = arguments?.getFloat("note", 0.0f)
-        val nombreAvis = arguments?.getInt("nombreAvis", 0)
-        val prixParNuit = arguments?.getDouble("prixParNuit", 0.0)
-        val startDateString = arguments?.getString("startDate")
-        val endDateString = arguments?.getString("endDate")
+        val reservationId = modèle.getReservationChoisieId()
+        if (reservationId != null) {
+            val reservation = modèle.obtenirReservationParId(reservationId)
+            val chambre = reservation.chambre
 
-        typeChambreTextView.text = typeChambre
-        descriptionChambreTextView.text = description
-        noteTextView.text = "★ $note ($nombreAvis avis)"
-        descriptionCompleteTextView.text = description
-        commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
+            typeChambreTextView.text = chambre.typeChambre
+            descriptionChambreTextView.text = chambre.description
+            noteTextView.text = "★ ${chambre.note} (${chambre.nombreAvis} avis)"
+            descriptionCompleteTextView.text = chambre.description
+            commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
 
-        val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH)
 
-        initialStartDate = startDateString?.let {
-            try {
-                val date = dateFormat.parse(it)
-                val calendar = Calendar.getInstance().apply { time = date }
-                calendar
-            } catch (e: Exception) {
-                Log.e("ReserverVue", "Error parsing startDateString: $startDateString", e)
-                null
+            initialStartDate = Calendar.getInstance().apply {
+                time = dateFormat.parse(reservation.dateDébut)
             }
-        }
 
-        initialEndDate = endDateString?.let {
-            try {
-                val date = dateFormat.parse(it)
-                val calendar = Calendar.getInstance().apply { time = date }
-                calendar
-            } catch (e: Exception) {
-                Log.e("ReserverVue", "Error parsing endDateString: $endDateString", e)
-                null
+            initialEndDate = Calendar.getInstance().apply {
+                time = dateFormat.parse(reservation.dateFin)
             }
-        }
 
-        if (initialStartDate != null && initialEndDate != null) {
-            val startText = dateFormat.format(initialStartDate!!.time)
-            val endText = dateFormat.format(initialEndDate!!.time)
-            datesTextView.text = "$startText - $endText"
-            calculateTotal(initialStartDate, initialEndDate, prixParNuit)
+            if (initialStartDate != null && initialEndDate != null) {
+                val startText = dateFormat.format(initialStartDate!!.time)
+                val endText = dateFormat.format(initialEndDate!!.time)
+                datesTextView.text = "$startText - $endText"
+                calculateTotal(initialStartDate, initialEndDate, chambre.prixParNuit)
+            }
+        } else {
+            val typeChambre = arguments?.getString("typeChambre")
+            val description = arguments?.getString("description")
+            val note = arguments?.getFloat("note")
+            val nombreAvis = arguments?.getInt("nombreAvis")
+            val prixParNuit = arguments?.getDouble("prixParNuit")
+
+            if (typeChambre != null && description != null && note != null && nombreAvis != null && prixParNuit != null) {
+                typeChambreTextView.text = typeChambre
+                descriptionChambreTextView.text = description
+                noteTextView.text = "★ $note ($nombreAvis avis)"
+                descriptionCompleteTextView.text = description
+                commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
+                prixParNuitTextView.text = "$prixParNuit$ / nuit"
+            }
         }
 
         datesTextView.setOnClickListener {
@@ -136,61 +128,7 @@ class ReserverVue : Fragment() {
         }
     }
 
-
-
     private fun showDateRangePicker() {
-        val today = MaterialDatePicker.todayInUtcMilliseconds()
 
-        val constraintsBuilder = CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.from(today))
-
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("Sélectionnez une plage de dates")
-            .setCalendarConstraints(constraintsBuilder.build())
-            .setTheme(R.style.MaterialCalendarTheme)
-            .apply {
-                initialStartDate?.let {
-                    setSelection(
-                        Pair(
-                            it.timeInMillis,
-                            initialEndDate?.timeInMillis ?: it.timeInMillis
-                        )
-                    )
-                }
-            }
-            .build()
-
-        dateRangePicker.addOnPositiveButtonClickListener { selection ->
-            val startMillis = selection.first
-            val endMillis = selection.second
-
-            startDate = Calendar.getInstance().apply {
-                timeInMillis = startMillis
-                add(Calendar.DAY_OF_MONTH, 1)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            endDate = Calendar.getInstance().apply {
-                timeInMillis = endMillis
-                add(Calendar.DAY_OF_MONTH, 1)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-            val startText = startDate?.let { dateFormat.format(it.time) }
-            val endText = endDate?.let { dateFormat.format(it.time) }
-
-            datesTextView.text = "$startText - $endText"
-            val prixParNuit = arguments?.getDouble("prixParNuit", 0.0)
-            calculateTotal(startDate, endDate, prixParNuit)
-        }
-
-        dateRangePicker.show(parentFragmentManager, "date_range_picker")
     }
 }

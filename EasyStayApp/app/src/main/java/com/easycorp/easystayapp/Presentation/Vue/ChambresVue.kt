@@ -10,12 +10,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
-import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Presentateur.ListeChambresPresentateur
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 
-class ChambresVue : Fragment(), ChambresVueInterface {
+class ChambresVue : Fragment() {
 
     private lateinit var rechercher: EditText
     private lateinit var listViewChambres: ListView
@@ -53,22 +52,22 @@ class ChambresVue : Fragment(), ChambresVueInterface {
         presenter.chargerChambres()
     }
 
-    override fun afficherChambres(chambres: List<ChambreData>) {
+    fun afficherChambres(chambres: List<ChambreData>) {
         val adapter = ChambreAdapter(requireContext(), chambres.toMutableList()) { chambre ->
             presenter.ouvrirDetailsChambre(chambre)
         }
         listViewChambres.adapter = adapter
     }
 
-    override fun ouvrirDetailsChambre(actionId: Int, bundle: Bundle) {
-                findNavController().navigate(actionId, bundle)
+    fun ouvrirDetailsChambre(actionId: Int) {
+                findNavController().navigate(actionId)
     }
 
-    override fun afficherMessageErreur(message: String) {
+    fun afficherMessageErreur(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    override fun afficherFiltreDialog() {
+    fun afficherFiltreDialog() {
         presenter.afficherFilterDialog()
     }
 }
