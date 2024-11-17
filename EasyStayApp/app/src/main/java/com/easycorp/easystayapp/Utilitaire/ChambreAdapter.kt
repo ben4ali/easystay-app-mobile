@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.R
-import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAO
+import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 
 class ChambreAdapter(
     context: Context,
@@ -18,7 +18,7 @@ class ChambreAdapter(
     private val onImageClick: (ChambreData) -> Unit
 ) : ArrayAdapter<ChambreData>(context, 0, chambres) {
 
-    private val favorisDAO = FavorisDAO(context)
+    private val favorisDAO = FavorisDAOImpl(context)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_chambre, parent, false)
@@ -50,10 +50,10 @@ class ChambreAdapter(
 
         btnFavoris.setOnClickListener {
             if (favorisDAO.estFavoris(chambre.id)) {
-                favorisDAO.retirerFavoris(chambre.id)
+                favorisDAO.retirer(chambre.id)
                 btnFavoris.setImageResource(R.drawable.bookmark)
             } else {
-                favorisDAO.ajouterFavoris(chambre.id)
+                favorisDAO.ajouter(chambre.id)
                 btnFavoris.setImageResource(R.drawable.bookmark_fill)
             }
         }
