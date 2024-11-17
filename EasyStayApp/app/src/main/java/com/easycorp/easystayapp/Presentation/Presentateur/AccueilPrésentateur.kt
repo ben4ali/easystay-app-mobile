@@ -7,7 +7,7 @@ import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.AccueilVue
 import com.easycorp.easystayapp.R
-import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAO
+import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 import com.easycorp.easystayapp.Utilitaire.RéservationCourtAdapter
 
@@ -17,7 +17,7 @@ class AccueilPrésentateur(
     private val listViewChambres: ListView,
     private val vue: AccueilVue,
 ) : AccueilPrésentateurInterface {
-    private val favorisDAO = FavorisDAO(context)
+    private val favorisDAO = FavorisDAOImpl(context)
     private val modèle = Modèle.getInstance()
 
     override fun chargerReservationsCourte(clientId: Int) {
@@ -41,7 +41,7 @@ class AccueilPrésentateur(
     }
 
     override fun chargerChambresFavoris() {
-        val favoriteRoomIds = favorisDAO.obtenirTousLesFavoris()
+        val favoriteRoomIds = favorisDAO.obtenirTous()
         val favoriteChambres = modèle.obtenirChambres().filter { it.id in favoriteRoomIds }
         if (favoriteChambres.isEmpty()) {
             vue.textFavoris.layoutParams.height = 0

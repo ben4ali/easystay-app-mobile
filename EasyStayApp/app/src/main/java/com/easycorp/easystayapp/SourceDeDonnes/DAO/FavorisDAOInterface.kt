@@ -1,8 +1,11 @@
 package com.easycorp.easystayapp.SourceDeDonnes
 
-interface FavorisDAOInterface {
-    fun ajouterFavoris(roomId: Int)
-    fun retirerFavoris(roomId: Int)
+import com.easycorp.easystayapp.SourceDeDonnes.DAO.DAOInterface
+
+interface FavorisDAOInterface : DAOInterface<Int> {
+    override fun ajouter(roomId: Int)
+    override fun retirer(roomId: Int)
+    override fun obtenirTous(): List<Int>
     fun estFavoris(roomId: Int): Boolean
-    fun obtenirTousLesFavoris(): List<Int>
+    override fun modifier(roomId: Int)
 }

@@ -4,11 +4,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 
-class qFavorisDAO(context: Context) : FavorisDAOInterface {
+class FavorisDAOImpl(context: Context) : FavorisDAOInterface {
 
     private val dbHelper = DatabaseHelper(context)
 
-    override fun ajouterFavoris(roomId: Int) {
+    override fun ajouter(roomId: Int) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
             put(DatabaseHelper.COLUMN_ROOM_ID, roomId)
@@ -16,7 +16,7 @@ class qFavorisDAO(context: Context) : FavorisDAOInterface {
         db.insert(DatabaseHelper.TABLE_FAVORITES, null, values)
     }
 
-    override fun retirerFavoris(roomId: Int) {
+    override fun retirer(roomId: Int) {
         val db = dbHelper.writableDatabase
         db.delete(DatabaseHelper.TABLE_FAVORITES, "${DatabaseHelper.COLUMN_ROOM_ID} = ?", arrayOf(roomId.toString()))
     }
@@ -35,7 +35,11 @@ class qFavorisDAO(context: Context) : FavorisDAOInterface {
         return isFavorite
     }
 
-    override fun obtenirTousLesFavoris(): List<Int> {
+    override fun modifier(roomId: Int) {
+        // Pas besoin de modifier un favoris
+    }
+
+    override fun obtenirTous(): List<Int> {
         val db = dbHelper.readableDatabase
         val cursor: Cursor = db.query(DatabaseHelper.TABLE_FAVORITES, arrayOf(DatabaseHelper.COLUMN_ROOM_ID), null, null, null, null, null)
         val favorites = mutableListOf<Int>()
@@ -45,4 +49,6 @@ class qFavorisDAO(context: Context) : FavorisDAOInterface {
         cursor.close()
         return favorites
     }
+
+
 }

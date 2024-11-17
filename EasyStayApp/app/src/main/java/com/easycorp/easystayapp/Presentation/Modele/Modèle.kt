@@ -3,6 +3,7 @@ package com.easycorp.easystayapp.Presentation.Modele
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
+import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 
 class Modèle private constructor() {
@@ -46,6 +47,7 @@ class Modèle private constructor() {
     fun setChambreChoisieId(id: Int) {
         chambreChoisieId = id
     }
+
 
     fun getChambreChoisieId(): Int? {
         return chambreChoisieId
