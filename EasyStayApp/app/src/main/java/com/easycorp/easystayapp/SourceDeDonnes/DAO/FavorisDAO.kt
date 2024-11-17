@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 
-class FavorisDAO(context: Context) : FavorisDAOInterface {
+class qFavorisDAO(context: Context) : FavorisDAOInterface {
 
     private val dbHelper = DatabaseHelper(context)
 

@@ -1,6 +1,7 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,9 @@ class ReserverVue : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
+        val startDate = arguments?.getString("startDate")
+        val endDate = arguments?.getString("endDate")
+
         val reservationId = modèle.getReservationChoisieId()
         if (reservationId != null) {
             val reservation = modèle.obtenirReservationParId(reservationId)
@@ -72,7 +76,7 @@ class ReserverVue : Fragment() {
             descriptionCompleteTextView.text = chambre.description
             commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH)
+            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
 
             initialStartDate = Calendar.getInstance().apply {
                 time = dateFormat.parse(reservation.dateDébut)
@@ -94,6 +98,8 @@ class ReserverVue : Fragment() {
             val note = arguments?.getFloat("note")
             val nombreAvis = arguments?.getInt("nombreAvis")
             val prixParNuit = arguments?.getDouble("prixParNuit")
+            val startDateString = arguments?.getString("startDate")
+            val endDateString = arguments?.getString("endDate")
 
             if (typeChambre != null && description != null && note != null && nombreAvis != null && prixParNuit != null) {
                 typeChambreTextView.text = typeChambre
@@ -102,6 +108,23 @@ class ReserverVue : Fragment() {
                 descriptionCompleteTextView.text = description
                 commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
                 prixParNuitTextView.text = "$prixParNuit$ / nuit"
+            }
+
+            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+
+            initialStartDate = Calendar.getInstance().apply {
+                time = dateFormat.parse(startDateString)
+            }
+
+            initialEndDate = Calendar.getInstance().apply {
+                time = dateFormat.parse(endDateString)
+            }
+
+            if (initialStartDate != null && initialEndDate != null) {
+                val startText = dateFormat.format(initialStartDate!!.time)
+                val endText = dateFormat.format(initialEndDate!!.time)
+                datesTextView.text = "$startText - $endText"
+                calculateTotal(initialStartDate, initialEndDate, prixParNuit)
             }
         }
 
@@ -128,7 +151,7 @@ class ReserverVue : Fragment() {
         }
     }
 
-    private fun showDateRangePicker() {
+    fun showDateRangePicker() {
 
     }
 }
