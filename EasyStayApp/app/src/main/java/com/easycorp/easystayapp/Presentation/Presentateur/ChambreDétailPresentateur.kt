@@ -72,7 +72,7 @@ class ChambreDétailPresentateur(private val view: ChambreDetailsVue) : ChambreD
     }
 
     override fun navigateToBooking(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double, startDate: String, endDate: String) {
-        view.navigateToBooking(typeChambre, description, note, nombreAvis, prixParNuit, startDate, endDate)
+       // view.navigateToBooking(typeChambre, description, note, nombreAvis, prixParNuit, startDate, endDate)
     }
 
     override fun updateDateDisplay(startDate: String, endDate: String) {
