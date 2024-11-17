@@ -7,7 +7,6 @@ import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
-
 import org.junit.Assert.*
 
 class ModèleTest {
@@ -25,7 +24,13 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné que des chambres sont disponibles, lorsque obtenirChambres est appelé, on obtient une liste de toutes les chambres`() {
+    fun `Étant donné que les données sont chargées, vérifier que le singleton est bien instancié`() {
+        val instance = Modèle.getInstance()
+        assertNotNull(instance)
+    }
+
+    @Test
+    fun `Étant donné que des chambres sont disponibles, vérifier que obtenirChambres retourne toutes les chambres`() {
         val chambres = listOf(
             ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0),
             ChambreData(2, "Chambre Double", "Vue sur mer", 4.5f, 8, listOf("TV", "Balcon"), 150.0)
@@ -39,7 +44,7 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné un type de chambre spécifique, lorsque obtenirChambreParType est appelé, on obtient les chambres correspondantes`() {
+    fun `Étant donné un type de chambre, vérifier que obtenirChambreParType retourne les chambres correspondantes`() {
         val chambres = listOf(
             ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0)
         )
@@ -52,7 +57,7 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné l'ID d'une chambre, lorsque obtenirChambreParId est appelé, on obtient la chambre correspondante`() {
+    fun `Étant donné un ID de chambre, vérifier que obtenirChambreParId retourne la chambre correspondante`() {
         val chambre = ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0)
         `when`(sourceDeDonnées.obtenirChambreParId(1)).thenReturn(chambre)
 
@@ -63,15 +68,58 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné un ID de chambre choisi, lorsque setChambreChoisieId est appelé, alors getChambreChoisieId retourne cet ID`() {
-        modèle.setChambreChoisieId(2)
-        val id = modèle.getChambreChoisieId()
+    fun `Étant donné des chambres disponibles, vérifier que obtenirChambresDisponibles retourne les chambres disponibles`() {
+        val chambresDisponibles = listOf(
+            ChambreData(1, "Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "WiFi"), 150.0)
+        )
+        `when`(sourceDeDonnées.obtenirChambresDisponibles()).thenReturn(chambresDisponibles)
 
-        assertEquals(2, id)
+        val result = modèle.obtenirChambresDisponibles()
+
+        assertEquals(chambresDisponibles, result)
+        verify(sourceDeDonnées).obtenirChambresDisponibles()
     }
 
     @Test
-    fun `Étant donné une réservation valide, lorsque ajouterReservation est appelé, la réservation est ajoutée`() {
+    fun `Étant donné un ID de chambre choisi, vérifier que setChambreChoisieId le stocke et getChambreChoisieId le retourne`() {
+        modèle.setChambreChoisieId(3)
+
+        val id = modèle.getChambreChoisieId()
+
+        assertEquals(3, id)
+    }
+
+    @Test
+    fun `Étant donné un ID de réservation choisi, vérifier que setReservationChoisieId le stocke et getReservationChoisieId le retourne`() {
+        modèle.setReservationChoisieId(5)
+
+        val id = modèle.getReservationChoisieId()
+
+        assertEquals(5, id)
+    }
+
+    @Test
+    fun `Étant donné un ID de client, vérifier que obtenirClientParId retourne le client correspondant`() {
+        val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
+        `when`(sourceDeDonnées.obtenirClientParId(1)).thenReturn(client)
+
+        val result = modèle.obtenirClientParId(1)
+
+        assertEquals(client, result)
+        verify(sourceDeDonnées).obtenirClientParId(1)
+    }
+
+    @Test
+    fun `Étant donné un client, vérifier que modifierClient met à jour ses données`() {
+        val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
+
+        modèle.modifierClient(client)
+
+        verify(sourceDeDonnées).modifierClient(client)
+    }
+
+    @Test
+    fun `Étant donné une réservation, vérifier que ajouterReservation ajoute la réservation`() {
         val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
         val chambre = ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0)
         val reservation = ReservationData(1, client, chambre, "2024-11-16", "2024-11-20")
@@ -82,7 +130,7 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné un client existant, lorsque obtenirReservationsParClient est appelé, on obtient les réservations de ce client`() {
+    fun `Étant donné un client, vérifier que obtenirReservationsParClient retourne ses réservations`() {
         val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
         val reservations = listOf(
             ReservationData(1, client, ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0), "2024-11-16", "2024-11-20")
@@ -96,7 +144,7 @@ class ModèleTest {
     }
 
     @Test
-    fun `Étant donné une réservation existante, lorsque supprimerRéservation est appelé, la réservation est supprimée`() {
+    fun `Étant donné une réservation, vérifier que supprimerRéservation la supprime`() {
         val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
         val chambre = ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0)
         val reservation = ReservationData(1, client, chambre, "2024-11-16", "2024-11-20")
@@ -104,5 +152,16 @@ class ModèleTest {
         modèle.supprimerRéservation(reservation)
 
         verify(sourceDeDonnées).suppressionReservation(reservation)
+    }
+
+    @Test
+    fun `Étant donné une réservation, vérifier que modifierReservation met à jour ses données`() {
+        val client = ClientData(1, "John", "Doe", "johndoe@gmail.com", 0)
+        val chambre = ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0)
+        val reservation = ReservationData(1, client, chambre, "2024-11-16", "2024-11-20")
+
+        modèle.modifierReservation(reservation)
+
+        verify(sourceDeDonnées).modifierReservation(reservation)
     }
 }
