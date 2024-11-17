@@ -22,6 +22,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
@@ -75,7 +76,7 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
         })
 
         datePickerBtn.setOnClickListener {
-            showDateRangePicker()
+            presenter.showDateRangePicker()
         }
 
         backBtn.setOnClickListener {
@@ -117,12 +118,19 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
         prixTextView.text = "${prixParNuit}$ / nuit"
 
         réserverBtn.setOnClickListener {
-            if (startDate != null && endDate != null) {
-                val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-                val startDateString = dateFormat.format(startDate?.time)
-                val endDateString = dateFormat.format(endDate?.time)
+            if (presenter.areDatesValid()) {
+                val startDateString = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).format(presenter.startDate?.time ?: Date())
+                val endDateString = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).format(presenter.endDate?.time ?: Date())
 
-                presenter.onBookButtonClicked(typeChambre, description, note, nombreAvis, prixParNuit, startDateString, endDateString)
+                presenter.onBookButtonClicked(
+                    typeChambre = roomTitleTextView.text.toString(),
+                    description = descriptionTextView.text.toString(),
+                    note = noteTextView.text.toString().toFloat(),
+                    nombreAvis = nombreAvis,
+                    prixParNuit = prixTextView.text.toString().toDouble(),
+                    startDate = startDateString,
+                    endDate = endDateString
+                )
             } else {
                 Toast.makeText(requireContext(), "Il faut d'abord choisir une date", Toast.LENGTH_LONG).show()
             }
@@ -132,6 +140,14 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
 
     override fun updateDateDisplay(startDate: String, endDate: String) {
         dateShown.text = "$startDate - $endDate"
+    }
+
+    override fun showDateRangePicker() {
+        TODO("Not yet implemented")
+    }
+
+    override fun areDatesValid(): Boolean {
+        TODO("Not yet implemented")
     }
 
 
@@ -171,50 +187,5 @@ class ChambreDetailsVue : Fragment(), ChambreDétailPresentateurInterface {
             val dot = dotIndicators[i]
             dot.setBackgroundColor(if (i == selectedPosition) Color.WHITE else Color.DKGRAY)
         }
-    }
-
-    private fun showDateRangePicker() {
-        val today = MaterialDatePicker.todayInUtcMilliseconds()
-
-        val constraintsBuilder = CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.from(today))
-
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("Sélectionnez une plage de dates")
-            .setCalendarConstraints(constraintsBuilder.build())
-            .setTheme(R.style.MaterialCalendarTheme)
-            .build()
-
-        dateRangePicker.addOnPositiveButtonClickListener { selection ->
-            val startMillis = selection.first
-            val endMillis = selection.second
-
-            startDate = Calendar.getInstance().apply {
-                timeInMillis = startMillis
-                add(Calendar.DAY_OF_MONTH, 1)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            endDate = Calendar.getInstance().apply {
-                timeInMillis = endMillis
-                add(Calendar.DAY_OF_MONTH, 1)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-            val startDateString = dateFormat.format(startDate?.time)
-            val endDateString = dateFormat.format(endDate?.time)
-
-            dateShown.text = "$startDateString - $endDateString"
-            presenter.onDateSelected(startDate, endDate)
-        }
-
-        dateRangePicker.show(parentFragmentManager, "date_range_picker")
     }
 }
