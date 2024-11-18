@@ -20,6 +20,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import androidx.navigation.fragment.findNavController
+import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 
 class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val contexte: Context) :
     ChambreDétailPresentateurInterface {
@@ -62,12 +63,17 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     override fun naviguerVersReservation(dateDebut: String, dateFin: String) {
         val chambreId = modèle.getChambreChoisieId()
         if (chambreId != null) {
-            modèle.setReservationChoisieId(chambreId)
-            val bundle = Bundle().apply {
-                putString("dateDebut", dateDebut)
-                putString("dateFin", dateFin)
-            }
-            vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment, bundle)
+            val nouvelleRéservation = ReservationData(
+                modèle.obtenirToutesLesReservations().size + 1,
+                modèle.obtenirClientParId(1),
+                modèle.obtenirChambreParId(chambreId),
+                dateDebut,
+                dateFin
+            )
+            modèle.ajouterReservation(nouvelleRéservation)
+            nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
+            modèle.setDates(dateDebut, dateFin)
+            vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
         }
     }
 

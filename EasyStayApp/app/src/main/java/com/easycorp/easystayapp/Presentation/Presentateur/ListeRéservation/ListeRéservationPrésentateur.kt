@@ -32,6 +32,7 @@ class ListeRéservationPrésentateur(
     fun ouvrirDetailsReservation(reservation: ReservationData, view: View) {
         reservation.id?.let { id ->
             modèle.setReservationChoisieId(id)
+            modèle.setDates(reservation.dateDébut, reservation.dateFin)
             vue.findNavController().navigate(R.id.action_fragment_listeReservations_to_reserverFragment)
         }
     }

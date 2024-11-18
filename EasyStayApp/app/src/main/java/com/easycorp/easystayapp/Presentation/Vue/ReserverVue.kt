@@ -16,21 +16,21 @@ import com.easycorp.easystayapp.R
 
 class ReserverVue : Fragment() {
 
-    private lateinit var typeChambreTextView: TextView
-    private lateinit var imageChambreImageView: ImageView
-    private lateinit var descriptionChambreTextView: TextView
-    private lateinit var noteTextView: TextView
-    private lateinit var descriptionCompleteTextView: TextView
-    private lateinit var commoditesTextView: TextView
-    private lateinit var datesTextView: TextView
-    private lateinit var invitesTextView: TextView
-    private lateinit var prixParNuitTextView: TextView
-    private lateinit var sousTotalTextView: TextView
-    private lateinit var taxesTextView: TextView
-    private lateinit var totalTextView: TextView
-    private lateinit var boutonReserver: Button
+    lateinit var typeChambreTextView: TextView
+    lateinit var imageChambreImageView: ImageView
+    lateinit var descriptionChambreTextView: TextView
+    lateinit var noteTextView: TextView
+    lateinit var descriptionCompleteTextView: TextView
+    lateinit var commoditesTextView: TextView
+    lateinit var datesTextView: TextView
+    lateinit var invitesTextView: TextView
+    lateinit var prixParNuitTextView: TextView
+    lateinit var sousTotalTextView: TextView
+    lateinit var taxesTextView: TextView
+    lateinit var totalTextView: TextView
+    lateinit var boutonReserver: Button
 
-    private lateinit var presentateur: ReserverPresentateurInterface
+    var presentateur = ReserverPresentateur(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +58,7 @@ class ReserverVue : Fragment() {
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
 
-        presentateur.ouvrirDetailsChambre()
+        presentateur.ouvrirDetailsRéservation()
 
         datesTextView.setOnClickListener {
             presentateur.afficherSelectionneurDates()
@@ -69,7 +69,7 @@ class ReserverVue : Fragment() {
         }
     }
 
-    fun modifierDetailsChambre(chambre: ChambreData, startDate: String, endDate: String) {
+    fun modifierDetailsChambre(chambre: ChambreData) {
         typeChambreTextView.text = chambre.typeChambre
         descriptionChambreTextView.text = chambre.description
         noteTextView.text = "★ ${chambre.note} (${chambre.nombreAvis} avis)"
@@ -77,7 +77,7 @@ class ReserverVue : Fragment() {
         commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
         prixParNuitTextView.text = "${chambre.prixParNuit}$ / nuit"
 
-        datesTextView.text = "${presentateur.dateFormatage(startDate)} - ${presentateur.dateFormatage(endDate)}"
+        datesTextView.text = "${presentateur.réservation.dateDébut} - ${presentateur.réservation.dateFin}"
 
         presentateur.calculerPrixTotale(presentateur.dateDebutInitiale, presentateur.dateFinInitiale, chambre.prixParNuit)
     }

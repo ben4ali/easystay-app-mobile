@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ReserverVue
@@ -15,35 +16,25 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import kotlin.text.format
 
 class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurInterface {
 
-    private val modèle = Modèle.getInstance()
+    val modèle = Modèle.getInstance()
 
-    override var dateDebut: Calendar? = null
-    override var dateFin: Calendar? = null
-    private val dateFormatage = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-    override var dateDebutInitiale: Calendar? = null
-    override var dateFinInitiale: Calendar? = null
-    val chambreId = modèle.getReservationChoisieId()
-    val chambre = chambreId?.let { modèle.obtenirChambreParId(it) }
+    var dateDebut: Calendar? = null
+    var dateFin: Calendar? = null
+    var chambreId: Int? = null
+    var dateDebutInitiale: Calendar? = null
+    var dateFinInitiale: Calendar? = null
 
-    override fun ouvrirDetailsChambre() {
-        val dateDebutTexte = (vue as Fragment).arguments?.getString("dateDebut") ?: ""
-        val dateFinTexte = (vue as Fragment).arguments?.getString("dateFin") ?: ""
+    lateinit var chambre : ChambreData
+    lateinit var réservation: ReservationData
 
-        dateDebutInitiale = Calendar.getInstance().apply {
-            time = dateFormatage.parse(dateDebutTexte)!!
-        }
-
-        dateFinInitiale = Calendar.getInstance().apply {
-            time = dateFormatage.parse(dateFinTexte)!!
-        }
-
-        if (chambre != null) {
-            vue.modifierDetailsChambre(chambre, dateDebutTexte, dateFinTexte)
-        }
+    override fun ouvrirDetailsRéservation() {
+        réservation = modèle.getReservationChoisieId()
+            ?.let { modèle.obtenirReservationParId(it) }!!
+        chambre = modèle.obtenirChambreParId(réservation.chambre.id)
+        vue.modifierDetailsChambre(chambre)
     }
 
     override fun afficherSelectionneurDates() {
@@ -80,7 +71,7 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
                 set(Calendar.MILLISECOND, 0)
             }
 
-            val dateFormatage = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+            val dateFormatage = SimpleDateFormat("dd-mm-yyyy", Locale.CANADA_FRENCH)
             val dateDebutTexte = dateFormatage.format(dateDebut?.time ?: Date())
             val dateFinTexte = dateFormatage.format(dateFin?.time ?: Date())
 
@@ -93,20 +84,13 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
             }
 
             if (chambre != null) {
-                vue.modifierDetailsChambre(chambre, dateDebutTexte, dateFinTexte)
+                vue.modifierDetailsChambre(chambre)
             }
         }
 
         (vue as Fragment).parentFragmentManager.let { fragmentManager ->
             plageDateSelectionneur.show(fragmentManager, "plage_date_selectionneur")
         }
-    }
-
-    override fun dateFormatage(dateTexte: String): String {
-        val date = Calendar.getInstance().apply {
-            time = dateFormatage.parse(dateTexte)!!
-        }
-        return dateFormatage.format(date.time)
     }
 
     override fun calculerPrixTotale(dateDebut: Calendar?, dateFin: Calendar?, prixParNuit: Double?) {
@@ -120,6 +104,10 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
 
             vue.modifierPrixTotale(prixParNuit, nuits, sousTotal, taxes, total)
         }
+    }
+
+    override fun dateFormatage(dateTexte: String): String {
+        TODO("Not yet implemented")
     }
 
     override fun gererConfirmationReservation() {

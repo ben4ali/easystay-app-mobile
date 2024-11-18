@@ -17,6 +17,7 @@ interface SourceDeDonnées {
     fun obtenirClientParId(id: Int): ClientData
     fun modifierClient(client: ClientData)
 
+    fun obtenirToutesLesReservations(): List<ReservationData>
     fun ajouterReservation(reservation: ReservationData)
     fun obtenirReservationsParClient(client: ClientData): List<ReservationData>
     fun obtenirReservationParId(id: Int): ReservationData

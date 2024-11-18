@@ -26,12 +26,12 @@ class SourceBidon : SourceDeDonnées{
 
         reservations.addAll(
             listOf(
-                ReservationData(1, client1, chambres[0], "2024-11-16", "2024-11-20"),
-                ReservationData(2, client1, chambres[1], "2024-11-27", "2024-12-01"),
-                ReservationData(3, client1, chambres[2], "2024-12-02", "2024-12-05"),
-                ReservationData(4, client1, chambres[3], "2024-12-10", "2024-12-15"),
-                ReservationData(5, client1, chambres[0], "2024-12-20", "2024-12-25"),
-                ReservationData(6, client1, chambres[1], "2024-12-27", "2024-12-31"),
+                ReservationData(1, client1, chambres[0], "16-11-2024", "20-11-2024"),
+                ReservationData(2, client1, chambres[1], "27-11-2024", "01-12-2024"),
+                ReservationData(3, client1, chambres[2], "02-12-2024", "05-12-2024"),
+                ReservationData(4, client1, chambres[3], "10-12-2024", "15-12-2024"),
+                ReservationData(5, client1, chambres[0], "20-12-2024", "25-12-2024"),
+                ReservationData(6, client1, chambres[1], "27-12-2024", "31-12-2024"),
             )
         )
     }
@@ -63,6 +63,10 @@ class SourceBidon : SourceDeDonnées{
     override fun modifierClient(client: ClientData){
         val index = clients.indexOfFirst { it.id == client.id }
         clients[index] = client
+    }
+
+    override fun obtenirToutesLesReservations(): List<ReservationData> {
+        return reservations
     }
 
     override fun ajouterReservation(reservation: ReservationData) {

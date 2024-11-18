@@ -13,6 +13,12 @@ class Modèle private constructor() {
     @Volatile
     private var reservationChoisieId: Int? = null
 
+    @Volatile
+    private var dateDébutChoisie: String? = null
+
+    @Volatile
+    private var dateFinChoisie: String? = null
+
     companion object {
         @Volatile
         private var instance: Modèle? = null
@@ -53,6 +59,10 @@ class Modèle private constructor() {
     }
 
     // reservations
+    fun obtenirToutesLesReservations(): List<ReservationData> {
+        return sourceDeDonnées.obtenirToutesLesReservations()
+    }
+
     fun setReservationChoisieId(id: Int) {
         reservationChoisieId = id
     }
@@ -91,6 +101,11 @@ class Modèle private constructor() {
 
     fun modifierReservation(réservation: ReservationData) {
         sourceDeDonnées.modifierReservation(réservation)
+    }
+
+    fun setDates(dateDébut: String, dateFin: String) {
+        dateDébutChoisie = dateDébut
+        dateFinChoisie = dateFin
     }
 
     fun updateClientSurname(newSurname: String) {
