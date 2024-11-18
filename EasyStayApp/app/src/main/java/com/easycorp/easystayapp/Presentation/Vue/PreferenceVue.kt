@@ -21,6 +21,10 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
     private lateinit var nomTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var photoProfilImageView: ImageView
+    private lateinit var editImageIcon: ImageView
+    private lateinit var editNomIcon: ImageView
+    private lateinit var editEmailIcon: ImageView
+    private lateinit var editPrenomIcon: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +41,24 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         nomTextView = view.findViewById(R.id.nomTextView)
         emailTextView = view.findViewById(R.id.emailTextView)
         photoProfilImageView = view.findViewById(R.id.photoProfilImageView)
-
+        editImageIcon = view.findViewById(R.id.editImageIcon)
+        editNomIcon = view.findViewById(R.id.editNomIcon)
+        editEmailIcon = view.findViewById(R.id.editEmailIcon)
+        editPrenomIcon = view.findViewById(R.id.editPrenomIcon)
         présentateur.afficherClient(clientId = 1)
 
-        photoProfilImageView.setOnClickListener {
+        editImageIcon.setOnClickListener {
             présentateur.ouvrirCamera(this)
+        }
+
+        editNomIcon.setOnClickListener {
+            présentateur.modifierNom(this,nomTextView.text.toString())
+        }
+        editEmailIcon.setOnClickListener {
+            présentateur.modifierEmail(this,emailTextView.text.toString())
+        }
+        editPrenomIcon.setOnClickListener {
+            présentateur.modifierPrenom(this,prénomTextView.text.toString())
         }
     }
 

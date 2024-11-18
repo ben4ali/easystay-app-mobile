@@ -3,7 +3,6 @@ package com.easycorp.easystayapp.Presentation.Modele
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
-import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 
 class Modèle private constructor() {
@@ -92,5 +91,17 @@ class Modèle private constructor() {
 
     fun modifierReservation(réservation: ReservationData) {
         sourceDeDonnées.modifierReservation(réservation)
+    }
+
+    fun updateClientSurname(newSurname: String) {
+        sourceDeDonnées.modifierClientSurname(newSurname)
+    }
+
+    fun updateClientName(newName: String) {
+        sourceDeDonnées.modifierClientName(newName)
+    }
+
+    fun updateClientEmail(newEmail: String) {
+        sourceDeDonnées.modifierClientEmail(newEmail)
     }
 }

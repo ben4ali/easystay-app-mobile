@@ -90,5 +90,17 @@ class SourceBidon : SourceDeDonnées{
         reservations[index] = reservation
     }
 
+    override fun modifierClientName(newName: String) {
+        clients[0].nom = newName
+    }
+
+    override fun modifierClientSurname(newSurname: String) {
+        clients[0].prénom = newSurname
+    }
+
+    override fun modifierClientEmail(newEmail: String) {
+        clients[0].email = newEmail
+    }
+
 
 }

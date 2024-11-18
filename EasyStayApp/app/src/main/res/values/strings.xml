@@ -33,4 +33,8 @@
     <string name="chambres">ROOMS</string>
     <string name="rechercher">Research</string>
     <string name="s_lectionner_une_date">Select a date</string>
+    <string name="edit_email">edit email</string>
+    <string name="edit_surname">edit surname</string>
+    <string name="edit_name">edit name</string>
+    <string name="edit_image">edit image</string>
 </resources>

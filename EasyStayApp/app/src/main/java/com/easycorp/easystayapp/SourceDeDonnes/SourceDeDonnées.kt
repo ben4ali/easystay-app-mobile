@@ -23,5 +23,8 @@ interface SourceDeDonnées {
     fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData>
     fun suppressionReservation(reservation: ReservationData)
     fun modifierReservation(reservation: ReservationData)
+    fun modifierClientName(newName: String)
+    fun modifierClientSurname(newSurname: String)
+    fun modifierClientEmail(newEmail: String)
 
 }

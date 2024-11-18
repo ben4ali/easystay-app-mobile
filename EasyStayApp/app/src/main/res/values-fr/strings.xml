@@ -31,5 +31,9 @@
     <string name="r_server">RÉSERVER</string>
     <string name="chambres">CHAMBRES</string>
     <string name="rechercher">Rechercher</string>
+    <string name="edit_email">modifier email</string>
+    <string name="edit_surname">modifier surname</string>
+    <string name="edit_name">modifier name</string>
+    <string name="edit_image">modifier image</string>
     <string name="s_lectionner_une_date">Sélectionner une date</string>
 </resources>
