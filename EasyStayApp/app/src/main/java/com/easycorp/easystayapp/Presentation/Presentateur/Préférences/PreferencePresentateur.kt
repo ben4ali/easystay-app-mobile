@@ -88,6 +88,25 @@ class PreferencePresentateur(
         constructeur.show()
     }
 
+    fun demanderAutorisationCamera(fragment: Fragment) {
+        val permission = android.Manifest.permission.CAMERA
+
+        if (fragment.requireContext().checkSelfPermission(permission) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            ouvrirCamera(fragment)
+        } else {
+            fragment.requestPermissions(arrayOf(permission), REQUEST_CAMERA_PERMISSION)
+        }
+    }
+
+    fun traiterResultatPermissionCamera(requestCode: Int, grantResults: IntArray, fragment: Fragment) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                ouvrirCamera(fragment)
+            } else {
+                Toast.makeText(fragment.requireContext(), "L'autorisation de la caméra est requise pour prendre des photos.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 
     fun traiterResultatCamera(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -96,8 +115,8 @@ class PreferencePresentateur(
             vue.afficherPhotoProfil(imageBitmap)
         }
     }
-
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 1
+        private const val REQUEST_CAMERA_PERMISSION = 2
     }
 }

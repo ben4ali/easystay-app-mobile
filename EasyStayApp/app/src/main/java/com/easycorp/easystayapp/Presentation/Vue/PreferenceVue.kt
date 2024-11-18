@@ -48,7 +48,7 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         présentateur.afficherClient(clientId = 1)
 
         editImageIcon.setOnClickListener {
-            présentateur.ouvrirCamera(this)
+            présentateur.demanderAutorisationCamera(this)
         }
 
         editNomIcon.setOnClickListener {
@@ -73,7 +73,14 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         emailTextView.text = email
         photoProfilImageView.setImageResource(photoResId)
     }
-
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        présentateur.traiterResultatPermissionCamera(requestCode, grantResults, this)
+    }
     override fun afficherPhotoProfil(photo: Bitmap) {
         photoProfilImageView.setImageBitmap(photo)
     }
