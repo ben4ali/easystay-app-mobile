@@ -1,7 +1,10 @@
 package com.easycorp.easystayapp.Presentation.Presentateur.Résérver
 
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ReserverVue
 import com.easycorp.easystayapp.R
@@ -12,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.text.format
 
 class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurInterface {
 
@@ -117,5 +121,28 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
             vue.modifierPrixTotale(prixParNuit, nuits, sousTotal, taxes, total)
         }
     }
+
+    override fun gererConfirmationReservation() {
+
+        val client = modèle.obtenirClientParId(1)
+        val formatageDateReservation = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateDebutReservation = formatageDateReservation.format(dateDebutInitiale!!.time)
+        val dateFinReservation = formatageDateReservation.format(dateFinInitiale!!.time)
+        val nouvelleReservation = ReservationData(7, client, chambre!!, dateDebutReservation, dateFinReservation)
+
+        if (chambreId != null && client != null && chambre != null && dateDebutInitiale != null && dateFinInitiale != null) {
+
+            modèle.ajouterReservation(nouvelleReservation)
+
+            (vue as Fragment).findNavController().navigate(R.id.action_reserverFragment_to_fragment_listeReservations)
+
+        } else {
+            (vue as Fragment).requireContext().let { context ->
+                Toast.makeText(context, "Erreur lors de la réservation. Veuillez vérifier les informations.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    }
+
 
 }

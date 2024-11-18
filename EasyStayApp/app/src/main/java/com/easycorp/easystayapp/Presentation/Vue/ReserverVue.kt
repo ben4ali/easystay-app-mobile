@@ -63,6 +63,10 @@ class ReserverVue : Fragment() {
         datesTextView.setOnClickListener {
             presentateur.afficherSelectionneurDates()
         }
+
+        boutonReserver.setOnClickListener {
+            presentateur.gererConfirmationReservation()
+        }
     }
 
     fun modifierDetailsChambre(chambre: ChambreData, startDate: String, endDate: String) {
