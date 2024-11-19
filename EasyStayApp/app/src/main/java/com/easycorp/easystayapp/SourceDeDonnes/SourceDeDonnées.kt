@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp.SourceDeDonnes
 
+import android.graphics.Bitmap
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
@@ -27,5 +28,6 @@ interface SourceDeDonnées {
     fun modifierClientName(newName: String)
     fun modifierClientSurname(newSurname: String)
     fun modifierClientEmail(newEmail: String)
+    fun modifierClientImage(newImage: Int)
 
 }

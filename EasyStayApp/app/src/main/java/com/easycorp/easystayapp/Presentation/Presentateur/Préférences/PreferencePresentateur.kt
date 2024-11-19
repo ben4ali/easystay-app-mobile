@@ -1,12 +1,12 @@
 package com.easycorp.easystayapp.Presentation.Presentateur.Préférences
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
-import com.easycorp.easystayapp.R
 import androidx.appcompat.app.AlertDialog
 import android.widget.EditText
 import android.widget.Toast
@@ -22,9 +22,7 @@ class PreferencePresentateur(
         vue.afficherClient(
             prénom = client.prénom,
             nom = client.nom,
-            email = client.email,
-            photoResId = client.photo ?: R.drawable.profil_icon
-        )
+            email = client.email)
     }
 
     fun ouvrirCamera(fragment: Fragment) {
@@ -37,7 +35,7 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier le nom",
             valeurActuelle = nom,
-            fonctionDeMiseAJour = { nouveauNom -> modèle.updateClientName(nouveauNom) }
+            fonctionDeMiseAJour = { nouveauNom -> modèle.modifierClientName(nouveauNom) }
         )
     }
 
@@ -46,7 +44,7 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier l'email",
             valeurActuelle = email,
-            fonctionDeMiseAJour = { nouvelEmail -> modèle.updateClientEmail(nouvelEmail) }
+            fonctionDeMiseAJour = { nouvelEmail -> modèle.modifierClientEmail(nouvelEmail) }
         )
     }
 
@@ -55,7 +53,7 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier le prénom",
             valeurActuelle = prénom,
-            fonctionDeMiseAJour = { nouveauPrenom -> modèle.updateClientSurname(nouveauPrenom) }
+            fonctionDeMiseAJour = { nouveauPrenom -> modèle.modifierClientSurname(nouveauPrenom) }
         )
     }
 
@@ -109,12 +107,24 @@ class PreferencePresentateur(
     }
 
 
-    fun traiterResultatCamera(requestCode: Int, resultCode: Int, data: Intent?) {
+    fun traiterResultatCamera(requestCode: Int, resultCode: Int, data: Intent?, context: Context) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
+            modèle.modifierClientImage(imageBitmap, context)
             vue.afficherPhotoProfil(imageBitmap)
         }
     }
+
+    fun afficherPhotoProfil(clientId: Int, context: Context) {
+        val clientImage = modèle.obtenirClientImage(context)
+        if (clientImage != null) {
+            vue.afficherPhotoProfil(clientImage)
+        } else {
+            val client = modèle.obtenirClientParId(clientId)
+            vue.afficherPhoto(client.photo!!)
+        }
+    }
+
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 1
         private const val REQUEST_CAMERA_PERMISSION = 2

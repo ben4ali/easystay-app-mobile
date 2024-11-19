@@ -1,10 +1,8 @@
 package com.easycorp.easystayapp.Presentation.Vue
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,33 +44,37 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         editEmailIcon = view.findViewById(R.id.editEmailIcon)
         editPrenomIcon = view.findViewById(R.id.editPrenomIcon)
         présentateur.afficherClient(clientId = 1)
+        présentateur.afficherPhotoProfil(clientId = 1, requireContext())
 
         editImageIcon.setOnClickListener {
             présentateur.demanderAutorisationCamera(this)
         }
 
         editNomIcon.setOnClickListener {
-            présentateur.modifierNom(this,nomTextView.text.toString())
+            présentateur.modifierNom(this, nomTextView.text.toString())
         }
         editEmailIcon.setOnClickListener {
-            présentateur.modifierEmail(this,emailTextView.text.toString())
+            présentateur.modifierEmail(this, emailTextView.text.toString())
         }
         editPrenomIcon.setOnClickListener {
-            présentateur.modifierPrenom(this,prénomTextView.text.toString())
+            présentateur.modifierPrenom(this, prénomTextView.text.toString())
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        présentateur.traiterResultatCamera(requestCode, resultCode, data)
+        présentateur.traiterResultatCamera(requestCode, resultCode, data, requireContext())
     }
 
-    override fun afficherClient(prénom: String, nom: String, email: String, photoResId: Int) {
+    override fun afficherClient(prénom: String, nom: String, email: String) {
         prénomTextView.text = prénom
         nomTextView.text = nom
         emailTextView.text = email
+    }
+    override fun afficherPhoto(photoResId: Int) {
         photoProfilImageView.setImageResource(photoResId)
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp.SourceDeDonnes
 
+import android.graphics.Bitmap
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
@@ -104,6 +105,10 @@ class SourceBidon : SourceDeDonnées{
 
     override fun modifierClientEmail(newEmail: String) {
         clients[0].email = newEmail
+    }
+
+    override fun modifierClientImage(newImage: Int) {
+        clients[0].photo = newImage
     }
 
 

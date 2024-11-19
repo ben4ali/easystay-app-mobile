@@ -1,9 +1,14 @@
 package com.easycorp.easystayapp.Presentation.Modele
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
+import java.io.ByteArrayOutputStream
 
 class Modèle private constructor() {
 
@@ -21,6 +26,9 @@ class Modèle private constructor() {
 
     @Volatile
     private var cheminVersFragment: Int? = null
+
+    @Volatile
+    private var clientImage: Bitmap? = null
 
     companion object {
         @Volatile
@@ -62,7 +70,6 @@ class Modèle private constructor() {
     fun setChambreChoisieId(id: Int) {
         chambreChoisieId = id
     }
-
 
     fun getChambreChoisieId(): Int? {
         return chambreChoisieId
@@ -118,17 +125,31 @@ class Modèle private constructor() {
         dateFinChoisie = dateFin
     }
 
-    fun updateClientSurname(newSurname: String) {
+    fun modifierClientSurname(newSurname: String) {
         sourceDeDonnées.modifierClientSurname(newSurname)
     }
 
-    fun updateClientName(newName: String) {
+    fun modifierClientName(newName: String) {
         sourceDeDonnées.modifierClientName(newName)
     }
 
-    fun updateClientEmail(newEmail: String) {
+    fun modifierClientEmail(newEmail: String) {
         sourceDeDonnées.modifierClientEmail(newEmail)
     }
 
+    fun modifierClientImage(newImage: Bitmap, context: Context) {
+        val editor = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE).edit()
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        newImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val imageString = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT)
+        editor.putString("client_image", imageString)
+        editor.apply()
+    }
 
+    fun obtenirClientImage(context: Context): Bitmap? {
+        val sharedPreferences = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE)
+        val imageString = sharedPreferences.getString("client_image", null) ?: return null
+        val imageBytes = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
 }

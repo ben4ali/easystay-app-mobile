@@ -7,7 +7,7 @@ data class ClientData(
     var prénom : String,
     var nom : String,
     var email: String,
-    val photo: Int? = R.drawable.photo_profil_1
+    var photo: Int? = R.drawable.photo_profil_1
  ) {
 
  }
