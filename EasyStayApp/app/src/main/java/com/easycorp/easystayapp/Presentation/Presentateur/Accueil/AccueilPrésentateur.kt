@@ -22,7 +22,7 @@ class AccueilPrésentateur(
 
     override fun chargerReservationsCourte(clientId: Int) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
-        val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 }
+        val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
         val adapter = RéservationCourtAdapter(context, filteredReservations)
         listViewReservations.adapter = adapter
     }
@@ -37,6 +37,7 @@ class AccueilPrésentateur(
 
     override fun ouvrirDetailsChambre(chambre: ChambreData) {
         modèle.setChambreChoisieId(chambre.id)
+        modèle.setCheminVersFragment(R.id.action_chambreDetailsFragment_to_fragment_accueil)
         vue.findNavController().navigate(R.id.action_fragment_accueil_to_chambreDetailsFragment)
     }
 

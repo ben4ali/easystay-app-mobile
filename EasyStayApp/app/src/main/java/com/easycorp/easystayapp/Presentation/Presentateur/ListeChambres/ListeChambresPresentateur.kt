@@ -45,6 +45,7 @@ class ListeChambresPresentateur(
 
     fun ouvrirDetailsChambre(chambre: ChambreData) {
         modèle.setChambreChoisieId(chambre.id)
+        modèle.setCheminVersFragment(R.id.action_chambreDetailsFragment_to_fragment_chambres)
         vue.findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment)
     }
 

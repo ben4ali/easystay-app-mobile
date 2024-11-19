@@ -29,6 +29,7 @@ class ReserverVue : Fragment() {
     lateinit var taxesTextView: TextView
     lateinit var totalTextView: TextView
     lateinit var boutonReserver: Button
+    lateinit var boutonRetourRéserver: ImageView
 
     var presentateur = ReserverPresentateur(this)
 
@@ -57,6 +58,7 @@ class ReserverVue : Fragment() {
         taxesTextView = view.findViewById(R.id.taxesAmountTextView)
         totalTextView = view.findViewById(R.id.totalAmountTextView)
         boutonReserver = view.findViewById(R.id.reserveButton)
+        boutonRetourRéserver = view.findViewById(R.id.backButton2)
 
         presentateur.ouvrirDetailsRéservation()
 
@@ -67,6 +69,10 @@ class ReserverVue : Fragment() {
         boutonReserver.setOnClickListener {
             presentateur.gererConfirmationReservation()
         }
+
+        boutonRetourRéserver.setOnClickListener {
+            presentateur.gererBoutonRetourCliquer()
+        }
     }
 
     fun modifierDetailsChambre(chambre: ChambreData) {
@@ -76,10 +82,8 @@ class ReserverVue : Fragment() {
         descriptionCompleteTextView.text = chambre.description
         commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
         prixParNuitTextView.text = "${chambre.prixParNuit}$ / nuit"
-
         datesTextView.text = "${presentateur.réservation.dateDébut} - ${presentateur.réservation.dateFin}"
-
-        presentateur.calculerPrixTotale(presentateur.dateDebutInitiale, presentateur.dateFinInitiale, chambre.prixParNuit)
+        presentateur.calculerPrixTotale()
     }
 
     fun modifierPrixTotale(prixParNuit: Double, nuits: Int, sousTotal: Double, taxes: Double, total: Double) {

@@ -19,6 +19,9 @@ class Modèle private constructor() {
     @Volatile
     private var dateFinChoisie: String? = null
 
+    @Volatile
+    private var cheminVersFragment: Int? = null
+
     companion object {
         @Volatile
         private var instance: Modèle? = null
@@ -31,6 +34,13 @@ class Modèle private constructor() {
     }
 
     private val sourceDeDonnées: SourceBidon = SourceBidon()
+
+    fun setCheminVersFragment(chemin: Int) {
+        cheminVersFragment = chemin
+    }
+    fun getCheminVersFragmentRéserver(): Int? {
+        return cheminVersFragment
+    }
 
     // chambres
     fun obtenirChambres(): List<ChambreData> {
@@ -119,4 +129,6 @@ class Modèle private constructor() {
     fun updateClientEmail(newEmail: String) {
         sourceDeDonnées.modifierClientEmail(newEmail)
     }
+
+
 }

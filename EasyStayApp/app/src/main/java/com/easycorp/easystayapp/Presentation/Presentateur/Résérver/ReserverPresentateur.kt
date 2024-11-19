@@ -93,17 +93,13 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
         }
     }
 
-    override fun calculerPrixTotale(dateDebut: Calendar?, dateFin: Calendar?, prixParNuit: Double?) {
-        if (dateDebut != null && dateFin != null && prixParNuit != null) {
-            val diffInMillis = dateFin.timeInMillis - dateDebut.timeInMillis
-            val nuits = (diffInMillis / (1000 * 60 * 60 * 24)).toInt()
+    override fun calculerPrixTotale() {
+        val nuits = réservation.calculerNombreDeNuits()
+        val sousTotal = réservation.chambre.prixParNuit * nuits
+        val taxes = sousTotal * 0.15
+        val total = sousTotal + taxes
 
-            val sousTotal = prixParNuit * nuits
-            val taxes = sousTotal * 0.15
-            val total = sousTotal + taxes
-
-            vue.modifierPrixTotale(prixParNuit, nuits, sousTotal, taxes, total)
-        }
+        vue.modifierPrixTotale(réservation.chambre.prixParNuit, nuits, sousTotal, taxes, total)
     }
 
     override fun dateFormatage(dateTexte: String): String {
@@ -130,6 +126,11 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
             }
         }
 
+    }
+
+    override fun gererBoutonRetourCliquer() {
+        println(modèle.getCheminVersFragmentRéserver())
+        modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
     }
 
 

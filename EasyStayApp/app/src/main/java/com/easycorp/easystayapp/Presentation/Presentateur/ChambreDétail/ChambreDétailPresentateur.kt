@@ -2,7 +2,6 @@ package com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétail
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,22 +56,25 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     }
 
     override fun gererBoutonRetourCliquer() {
-        vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_fragment_chambres)
+        modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
     }
 
     override fun naviguerVersReservation(dateDebut: String, dateFin: String) {
         val chambreId = modèle.getChambreChoisieId()
         if (chambreId != null) {
+            val dateDebutFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateDebut)!!)
+            val dateFinFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateFin)!!)
             val nouvelleRéservation = ReservationData(
                 modèle.obtenirToutesLesReservations().size + 1,
                 modèle.obtenirClientParId(1),
                 modèle.obtenirChambreParId(chambreId),
-                dateDebut,
-                dateFin
+                dateDebutFormatted,
+                dateFinFormatted
             )
             modèle.ajouterReservation(nouvelleRéservation)
             nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
-            modèle.setDates(dateDebut, dateFin)
+            modèle.setDates(dateDebutFormatted, dateFinFormatted)
+            modèle.setCheminVersFragment(R.id.action_reserverFragment_to_chambreDetailsFragment)
             vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
         }
     }

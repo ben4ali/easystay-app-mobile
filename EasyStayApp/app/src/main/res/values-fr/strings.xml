@@ -7,6 +7,7 @@
     <string name="button_logout_text">Déconnexion</string>
     <string name="bienvenue_chez_easystay">Bienvenue chez EasyStay</string>
     <string name="vos_r_servations">VOS RÉSERVATIONS</string>
+    <string name="vos_up_coming_reservations">VOS RÉSERVATIONS À VENIR</string>
     <string name="vos_favoris">VOS FAVORIS</string>
     <string name="pr_f_rences">Préférences</string>
     <string name="compte">Compte</string>

@@ -17,14 +17,14 @@ data class ReservationData(
     }
 
     fun calculerNombreDeNuits(): Int {
-        val dateDebut = LocalDate.parse(dateDébut)
-        val dateFin = LocalDate.parse(dateFin)
+        val dateDebut = LocalDate.parse(dateDébut, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        val dateFin = LocalDate.parse(dateFin, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
         return ChronoUnit.DAYS.between(dateDebut, dateFin).toInt()
     }
 
-fun obtenirNombreDeJours(): Int {
-    val dateDebut = LocalDate.parse(dateDébut, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-    val dateAujourdhui = LocalDate.now()
-    return ChronoUnit.DAYS.between(dateAujourdhui, dateDebut).toInt()
-}
+    fun obtenirNombreDeJours(): Int {
+        val dateDebut = LocalDate.parse(dateDébut, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        val dateAujourdhui = LocalDate.now()
+        return ChronoUnit.DAYS.between(dateAujourdhui, dateDebut).toInt()
+    }
 }

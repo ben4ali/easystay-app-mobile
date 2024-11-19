@@ -26,7 +26,7 @@ class SourceBidon : SourceDeDonnées{
 
         reservations.addAll(
             listOf(
-                ReservationData(1, client1, chambres[0], "16-11-2024", "20-11-2024"),
+                ReservationData(1, client1, chambres[0], "24-11-2024", "26-11-2024"),
                 ReservationData(2, client1, chambres[1], "27-11-2024", "01-12-2024"),
                 ReservationData(3, client1, chambres[2], "02-12-2024", "05-12-2024"),
                 ReservationData(4, client1, chambres[3], "10-12-2024", "15-12-2024"),
