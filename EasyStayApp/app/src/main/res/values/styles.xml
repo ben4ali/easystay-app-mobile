@@ -10,4 +10,7 @@
         <item name="rangeFillColor">@color/colorRangeFill</item>
     </style>
 
+    <style name="BottomNavigationView">
+        <item name="colorSecondaryContainer">@color/colorAccent</item>
+    </style>
 </resources>

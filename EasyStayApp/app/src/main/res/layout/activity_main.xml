@@ -5,12 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:navGraph="@navigation/fragment_nav"
     tools:context=".MainActivity">
 
     <!-- Conteneur de fragment principal -->
-
-    <!-- Conteneur de navigation principal -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -18,147 +15,26 @@
         android:layout_height="0dp"
         app:navGraph="@navigation/fragment_nav"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/customBottomMenu"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Menu en bas avec correction des IDs -->
-    <FrameLayout
-        android:id="@+id/customBottomMenu"
+    <!-- Vue navigation Materiel 3  -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="#050505"
-        android:padding="8dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorOnBackground"
+        android:elevation="8dp"
+        android:theme="@style/BottomNavigationView"
+        app:menu="@menu/menu_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <!-- Bouton Home -->
-            <FrameLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="25dp">
-
-                <ImageView
-                    android:id="@+id/imageViewHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/home_icon" />
-
-                <Button
-                    android:id="@+id/buttonHome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_home_text"
-                    android:background="#00FFFFFF" />
-
-            </FrameLayout>
-
-            <!-- Bouton Profil -->
-            <FrameLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="25dp">
-
-                <ImageView
-                    android:id="@+id/imageViewProfile"
-                    android:layout_width="82dp"
-                    android:layout_height="82dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/reserver_icon" />
-
-                <Button
-                    android:id="@+id/buttonProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00C73434"
-                    android:text="@string/button_profile_text" />
-            </FrameLayout>
-
-            <!-- Bouton Hôtel principal -->
-            <FrameLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp">
-
-                <ImageView
-                    android:id="@+id/imageViewHotel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/hotel_icon"
-                    android:layout_gravity="center" />
-
-                <Button
-                    android:id="@+id/buttonMainHotel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="0"
-                    android:background="@color/colorPrimary"
-                    android:text="@string/button_main_hotel_text"
-                    app:cornerRadius="100dp" />
-
-            </FrameLayout>
-
-            <!-- Bouton Réglages -->
-            <FrameLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp">
-
-                <ImageView
-                    android:id="@+id/imageViewSettings"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/setting_icon" />
-
-                <Button
-                    android:id="@+id/buttonSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    android:text="@string/button_settings_text" />
-            </FrameLayout>
-
-            <!-- Bouton Déconnexion -->
-            <FrameLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp">
-
-                <ImageView
-                    android:id="@+id/imageViewLogout"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logout_icon" />
-
-                <Button
-                    android:id="@+id/buttonLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    android:text="@string/button_logout_text" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:itemIconTint="@color/colorBackground"
+        app:itemTextColor="@color/colorBackground"
+        app:itemRippleColor="@color/colorAccent"
+        app:labelVisibilityMode="labeled"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

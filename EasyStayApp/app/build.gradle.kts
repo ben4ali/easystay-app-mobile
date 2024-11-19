@@ -52,4 +52,6 @@ dependencies {
     testImplementation ("org.junit.jupiter:junit-jupiter:5.10.3")
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+    implementation("com.google.android.material:material:1.9.0")
+
 }
