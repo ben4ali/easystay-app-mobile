@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp.Presentation.Presentateur
 
+import androidx.fragment.app.Fragment
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Presentateur.Préférences.PreferencePresentateur
@@ -36,5 +37,18 @@ class PresentateurPreferenceTest {
         présentateur.afficherClient(clientId)
 
         assertEquals(clientAttendu, modèle.obtenirClientParId(clientId))
+    }
+
+    @Test
+    fun `Étant donnéee un ID de client, lorsque afficherClient est appelé, alors les données du client correctes doivent être retournées`() {
+        val clientId = 1
+        val client = ClientData(clientId, "John", "Doe", "johndoe@gmail.com", 0)
+
+        `when`(modèle.obtenirClientParId(clientId)).thenReturn(client)
+
+        présentateur.afficherClient(clientId)
+
+
+        verify(vue).afficherClient("John", "Doe", "johndoe@gmail.com")
     }
 }
