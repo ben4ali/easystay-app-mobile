@@ -60,7 +60,6 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     }
 
     override fun gererBoutonRetourCliquer() {
-        modèle.setCheminVersFragment(R.id.action_chambreDetailsFragment_to_fragment_chambres)
         modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
     }
 
