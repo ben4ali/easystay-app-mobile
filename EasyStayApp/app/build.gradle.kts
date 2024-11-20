@@ -53,5 +53,5 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
     implementation("com.google.android.material:material:1.9.0")
-
+    implementation("commons-codec:commons-codec:1.15")
 }
