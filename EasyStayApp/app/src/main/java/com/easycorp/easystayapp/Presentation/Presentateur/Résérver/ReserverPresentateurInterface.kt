@@ -9,7 +9,6 @@ interface ReserverPresentateurInterface {
     fun ouvrirDetailsRéservation()
     fun afficherSelectionneurDates()
     fun calculerPrixTotale()
-    fun dateFormatage(dateTexte: String): String
     fun gererConfirmationReservation()
     fun gererBoutonRetourCliquer()
 

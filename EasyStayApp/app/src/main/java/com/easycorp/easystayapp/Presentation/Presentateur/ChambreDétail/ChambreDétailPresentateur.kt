@@ -60,6 +60,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     }
 
     override fun gererBoutonRetourCliquer() {
+        modèle.setCheminVersFragment(R.id.action_chambreDetailsFragment_to_fragment_chambres)
         modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
     }
 
@@ -78,7 +79,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
             modèle.ajouterReservation(nouvelleRéservation)
             nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
             modèle.setDates(dateDebutFormatted, dateFinFormatted)
-            modèle.setCheminVersFragment(R.id.action_reserverFragment_to_chambreDetailsFragment)
+            modèle.sourcePage = Modèle.SourcePage.CHAMBRE_DETAILS
             vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
         }
     }

@@ -30,6 +30,14 @@ class Modèle private constructor() {
     @Volatile
     private var clientImage: Bitmap? = null
 
+    @Volatile
+    var sourcePage: SourcePage? = null
+
+    enum class SourcePage {
+        LISTE_RESERVATIONS,
+        CHAMBRE_DETAILS
+    }
+
     companion object {
         @Volatile
         private var instance: Modèle? = null

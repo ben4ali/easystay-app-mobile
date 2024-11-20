@@ -133,10 +133,6 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
         vue.modifierPrixTotale(réservation.chambre.prixParNuit, nuits, sousTotal, taxes, total)
     }
 
-    override fun dateFormatage(dateTexte: String): String {
-        TODO("Not yet implemented")
-    }
-
     override fun gererConfirmationReservation() {
 
         val client = modèle.obtenirClientParId(1)
@@ -160,8 +156,18 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
     }
 
     override fun gererBoutonRetourCliquer() {
-        println(modèle.getCheminVersFragmentRéserver())
-        modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
+        val cheminVersFragment = when (modèle.sourcePage) {
+            Modèle.SourcePage.LISTE_RESERVATIONS -> R.id.action_reserverFragment_to_fragment_listeReservations
+            Modèle.SourcePage.CHAMBRE_DETAILS -> R.id.action_reserverFragment_to_chambreDetailsFragment
+            else -> null
+        }
+
+        cheminVersFragment?.let {
+            modèle.setCheminVersFragment(it)
+            vue.findNavController().navigate(it)
+        } ?: run {
+            vue.requireActivity().onBackPressedDispatcher
+        }
     }
 
 

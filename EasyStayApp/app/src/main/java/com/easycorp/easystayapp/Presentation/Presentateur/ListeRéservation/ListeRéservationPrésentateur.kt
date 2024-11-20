@@ -34,6 +34,7 @@ class ListeRéservationPrésentateur(
             modèle.setReservationChoisieId(id)
             modèle.setDates(reservation.dateDébut, reservation.dateFin)
             modèle.setCheminVersFragment(R.id.action_reserverFragment_to_fragment_listeReservations)
+            modèle.sourcePage = Modèle.SourcePage.LISTE_RESERVATIONS
             vue.findNavController().navigate(R.id.action_fragment_listeReservations_to_reserverFragment)
         }
     }
