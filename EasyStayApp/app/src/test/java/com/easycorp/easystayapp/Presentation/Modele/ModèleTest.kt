@@ -229,5 +229,23 @@ class ModèleTest {
         verify(sourceDeDonnées).modifierClientSurname(newSurname)
     }
 
+    @Test
+    fun `Étant donné un nouveau prénom, vérifier que modifierClientName le met à jour`() {
+        val newName = "Michael"
+
+        modèle.modifierClientName(newName)
+
+        verify(sourceDeDonnées).modifierClientName(newName)
+    }
+
+    @Test
+    fun `Étant donné un nouvel email, vérifier que modifierClientEmail le met à jour`() {
+        val newEmail = "michael.smith@gmail.com"
+
+        modèle.modifierClientEmail(newEmail)
+
+        verify(sourceDeDonnées).modifierClientEmail(newEmail)
+    }
+
 
 }
