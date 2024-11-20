@@ -3,12 +3,12 @@ package com.easycorp.easystayapp.Presentation.Modele
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Base64
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 import java.io.ByteArrayOutputStream
+import org.apache.commons.codec.binary.Base64
 
 class Modèle private constructor() {
 
@@ -36,6 +36,14 @@ class Modèle private constructor() {
     enum class SourcePage {
         LISTE_RESERVATIONS,
         CHAMBRE_DETAILS
+    }
+
+    fun getDateDébutChoisie(): String? {
+        return dateDébutChoisie
+    }
+
+    fun getDateFinChoisie(): String? {
+        return dateFinChoisie
     }
 
     companion object {
@@ -149,7 +157,7 @@ class Modèle private constructor() {
         val editor = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE).edit()
         val byteArrayOutputStream = ByteArrayOutputStream()
         newImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val imageString = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT)
+        val imageString = Base64.encodeBase64String(byteArrayOutputStream.toByteArray())
         editor.putString("client_image", imageString)
         editor.apply()
     }
@@ -157,7 +165,7 @@ class Modèle private constructor() {
     fun obtenirClientImage(context: Context): Bitmap? {
         val sharedPreferences = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE)
         val imageString = sharedPreferences.getString("client_image", null) ?: return null
-        val imageBytes = Base64.decode(imageString, Base64.DEFAULT)
+        val imageBytes = Base64.decodeBase64(imageString)
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 }
