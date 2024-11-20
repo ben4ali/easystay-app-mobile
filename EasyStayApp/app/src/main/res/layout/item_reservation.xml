@@ -121,7 +121,7 @@
                     android:layout_marginRight="10dp"
                     android:alpha="1"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Voir Réservation"
+                    android:text="@string/voir_r_servation"
                     android:textColor="#FFFFFF"
                     app:cornerRadius="8dp" />
 
@@ -132,7 +132,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="#00FFFFFF"
                     android:foreground="@drawable/bordure_boutton"
-                    android:text="Supprimer"
+                    android:text="@string/supprimer"
                     android:textColor="@color/colorPrimary"
                     app:cornerRadius="15dp"
                     app:strokeColor="@color/colorPrimary"
