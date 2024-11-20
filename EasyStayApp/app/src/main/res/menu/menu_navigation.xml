@@ -6,28 +6,28 @@
     <item
         android:id="@+id/fragment_accueil"
         android:icon="@drawable/home_icon"
-        android:title="Accueil"
+        android:title="@string/accueil"
         app:showAsAction="ifRoom" />
 
     <!-- Chambres -->
     <item
         android:id="@+id/fragment_chambres"
         android:icon="@drawable/bed_icon"
-        android:title="Chambres"
+        android:title="@string/chambres_menu"
         app:showAsAction="ifRoom" />
 
     <!-- Reservations -->
     <item
         android:id="@+id/fragment_listeReservations"
         android:icon="@drawable/hotel_icon"
-        android:title="Reservations"
+        android:title="@string/reservations_menu"
         app:showAsAction="ifRoom" />
 
     <!-- Preferences -->
     <item
         android:id="@+id/fragment_preference3"
         android:icon="@drawable/profil_icon"
-        android:title="Preferences"
+        android:title="@string/pr_f_rences"
         app:showAsAction="ifRoom" />
 
 </menu>
