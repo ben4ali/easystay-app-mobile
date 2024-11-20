@@ -82,7 +82,7 @@ class ReserverVue : Fragment() {
         descriptionCompleteTextView.text = chambre.description
         commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
         prixParNuitTextView.text = "${chambre.prixParNuit}$ / nuit"
-        datesTextView.text = "${presentateur.réservation.dateDébut} - ${presentateur.réservation.dateFin}"
+        datesTextView.text = "${presentateur.dateDebutFormatter} - ${presentateur.dateFinFormatter}"
         presentateur.calculerPrixTotale()
     }
 

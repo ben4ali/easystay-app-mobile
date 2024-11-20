@@ -2,6 +2,7 @@ package com.easycorp.easystayapp.Presentation.Presentateur.Résérver
 
 import android.util.Log
 import android.widget.Toast
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
@@ -26,6 +27,8 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
     var chambreId: Int? = null
     var dateDebutInitiale: Calendar? = null
     var dateFinInitiale: Calendar? = null
+    lateinit var dateDebutFormatter: String
+    lateinit var dateFinFormatter: String
 
     lateinit var chambre : ChambreData
     lateinit var réservation: ReservationData
@@ -34,6 +37,16 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
         réservation = modèle.getReservationChoisieId()
             ?.let { modèle.obtenirReservationParId(it) }!!
         chambre = modèle.obtenirChambreParId(réservation.chambre.id)
+
+        val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
+        val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+
+        val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
+        val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
+
+        dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
+        dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
+
         vue.modifierDetailsChambre(chambre)
     }
 
@@ -43,9 +56,24 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
         val constraintsBuilder = CalendarConstraints.Builder()
             .setValidator(DateValidatorPointForward.from(dateAujourdhui))
 
+        val formattageDateInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
+        val formatageDateAffichage = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+
+        val dateDebutCalendar = Calendar.getInstance().apply {
+            time = formattageDateInitiale.parse(réservation.dateDébut)!!
+        }
+
+        val dateFinCalendar = Calendar.getInstance().apply {
+            time = formattageDateInitiale.parse(réservation.dateFin)!!
+        }
+
         val plageDateSelectionneur = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText("Sélectionnez une plage de dates")
             .setCalendarConstraints(constraintsBuilder.build())
+            .setSelection(Pair(
+                dateDebutCalendar.timeInMillis,
+                dateFinCalendar.timeInMillis
+            ))
             .setTheme(R.style.MaterialCalendarTheme)
             .build()
 
@@ -71,7 +99,7 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
                 set(Calendar.MILLISECOND, 0)
             }
 
-            val dateFormatage = SimpleDateFormat("dd-mm-yyyy", Locale.CANADA_FRENCH)
+            val dateFormatage = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
             val dateDebutTexte = dateFormatage.format(dateDebut?.time ?: Date())
             val dateFinTexte = dateFormatage.format(dateFin?.time ?: Date())
 
@@ -83,9 +111,12 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
                 time = dateFormatage.parse(dateFinTexte)!!
             }
 
-            if (chambre != null) {
-                vue.modifierDetailsChambre(chambre)
-            }
+            dateDebutFormatter = formatageDateAffichage.format(dateDebut?.time ?: Date())
+            dateFinFormatter = formatageDateAffichage.format(dateFin?.time ?: Date())
+            réservation.dateDébut = dateDebutTexte
+            réservation.dateFin = dateFinTexte
+
+            vue.modifierDetailsChambre(chambre)
         }
 
         (vue as Fragment).parentFragmentManager.let { fragmentManager ->
