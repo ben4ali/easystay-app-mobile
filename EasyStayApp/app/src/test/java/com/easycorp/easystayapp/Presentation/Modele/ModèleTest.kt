@@ -1,5 +1,8 @@
 package com.easycorp.easystayapp.Presentation.Modele
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Bitmap
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
@@ -164,4 +167,38 @@ class ModèleTest {
 
         verify(sourceDeDonnées).modifierReservation(reservation)
     }
+
+    @Test
+    fun `Étant donné une image Bitmap et un contexte, vérifier que modifierClientImage stocke l'image encodée en Base64 dans les SharedPreferences`() {
+        modèle = Modèle.getInstance()
+        val mockContext = mock(Context::class.java)
+        val mockEditor = mock(SharedPreferences.Editor::class.java)
+        val mockPreferences = mock(SharedPreferences::class.java)
+        val mockBitmap = mock(Bitmap::class.java)
+
+        `when`(mockContext.getSharedPreferences("client_prefs", Context.MODE_PRIVATE)).thenReturn(mockPreferences)
+        `when`(mockPreferences.edit()).thenReturn(mockEditor)
+        `when`(mockEditor.putString(anyString(), anyString())).thenReturn(mockEditor)
+
+        modèle.modifierClientImage(mockBitmap,mockContext)
+
+        verify(mockEditor).putString(eq("client_image"), anyString())
+        verify(mockEditor).apply()
+    }
+
+    @Test
+    fun `Étant donné que des réservations existent, vérifier que obtenirToutesLesReservations retourne toutes les réservations`() {
+        val reservations = listOf(
+            ReservationData(1, ClientData(1, "John", "Doe", "johndoe@gmail.com", 0), ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0), "2024-11-16", "2024-11-20"),
+            ReservationData(2, ClientData(2, "Jane", "Doe", "janedoe@gmail.com", 0), ChambreData(2, "Chambre Double", "Vue sur mer", 4.5f, 8, listOf("TV", "Balcon"), 150.0), "2024-12-01", "2024-12-05")
+        )
+        `when`(sourceDeDonnées.obtenirToutesLesReservations()).thenReturn(reservations)
+
+        val result = modèle.obtenirToutesLesReservations()
+
+        assertEquals(reservations, result)
+        verify(sourceDeDonnées).obtenirToutesLesReservations()
+    }
+
+
 }
