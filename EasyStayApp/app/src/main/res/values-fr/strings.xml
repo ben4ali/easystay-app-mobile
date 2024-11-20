@@ -5,9 +5,9 @@
     <string name="button_main_hotel_text">Hôtel principal</string>
     <string name="button_settings_text">Réglages</string>
     <string name="button_logout_text">Déconnexion</string>
-    <string name="bienvenue_chez_easystay">Bienvenue chez EasyStay</string>
+    <string name="bienvenue_chez_easystay">Découvrez votre séjour parfait avec East Stay</string>
     <string name="vos_r_servations">VOS RÉSERVATIONS</string>
-    <string name="vos_up_coming_reservations">VOS RÉSERVATIONS À VENIR</string>
+    <string name="vos_up_coming_reservations">VOS RÉSERVATIONS \nÀ VENIR</string>
     <string name="vos_favoris">VOS FAVORIS</string>
     <string name="pr_f_rences">Préférences</string>
     <string name="compte">Compte</string>

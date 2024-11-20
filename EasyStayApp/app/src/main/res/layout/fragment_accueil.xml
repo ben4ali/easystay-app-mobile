@@ -14,111 +14,133 @@
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:background="@color/colorPrimary" />
+            android:layout_height="260dp"
+            android:background="@color/colorBackgroundOpposite" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="264dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
             android:elevation="15dp"
-            android:fadingEdgeLength="20dp"
-            app:cardCornerRadius="8dp"
+            android:translationY="-200dp"
+            app:cardCornerRadius="25dp"
             app:cardElevation="15dp"
             app:cardMaxElevation="25dp">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:foreground="@drawable/radial_gradient"
-                android:foregroundTint="#49040404"
-                android:src="@drawable/montreal" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="197dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/bienvenue_chez_easystay"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp"
-                android:translationX="15dp"
-                android:translationY="125dp" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="267dp"
+                    android:layout_height="400dp"
+                    android:foreground="@drawable/bottom_gradient"
+                    android:foregroundTint="#49040404"
+                    android:foregroundTintMode="src_over"
+                    android:src="@drawable/home_page_image" />
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="227dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/bienvenue_chez_easystay"
+                    android:textColor="@color/colorJustWhite"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="0"
-                android:scaleX="1.85"
-                android:scaleY="1.85"
-                android:src="@drawable/reserver_icon"
-                android:tint="@color/colorAccent" />
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:translationY="-160dp"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_weight="0.9"
                 android:text="@string/vos_up_coming_reservations"
                 android:textColor="@color/colorText"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="0.1"
+                android:scaleX="1.85"
+                android:scaleY="1.85"
+                android:src="@drawable/reserver_icon"
+                app:tint="@color/colorText" />
         </LinearLayout>
+
 
         <ListView
             android:id="@+id/RAList"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_weight="0"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:translationY="-160dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="0"
-                android:alpha="0.9"
-                android:src="@drawable/bookmark"
-                android:tint="@color/colorAccent" />
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:translationY="-160dp"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/textFavoris"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.9"
                 android:text="@string/vos_favoris"
                 android:textColor="@color/colorText"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="0.1"
+                android:scaleX="1.10"
+                android:scaleY="1.10"
+                android:src="@drawable/bookmark"
+                app:tint="@color/colorText" />
+
         </LinearLayout>
 
         <ListView
             android:id="@+id/RAListChambre"
             android:layout_width="match_parent"
-            android:layout_height="600dp" />
+            android:layout_height="600dp"
+            android:translationY="-160dp"/>
 
     </LinearLayout>
 </ScrollView>

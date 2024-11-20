@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.R
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class RéservationCourtAdapter(
     context: Context,
@@ -23,13 +25,22 @@ class RéservationCourtAdapter(
         val indicateur = view.findViewById<View>(R.id.RSIndicateur)
 
         when (réservation.obtenirNombreDeJours()) {
-            in 0..7 -> indicateur.setBackgroundColor(Color.parseColor("#5AE44F"))
-            in 8..13 -> indicateur.setBackgroundColor(Color.parseColor("#F7E24A"))
-            in 14..19 -> indicateur.setBackgroundColor(Color.parseColor("#F7A24A"))
+            in 0..7 -> indicateur.setBackgroundColor(Color.parseColor("#9cef95"))
+            in 8..13 -> indicateur.setBackgroundColor(Color.parseColor("#f9efa8"))
+            in 14..19 -> indicateur.setBackgroundColor(Color.parseColor("#fabb53"))
         }
 
+        val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
+        val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+
+        val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
+        val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
+
+        val dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
+        val dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
+
         textType.text = "${réservation.chambre.id} - ${réservation.chambre.typeChambre}"
-        textDates.text = "${réservation.dateDébut} - ${réservation.dateFin}"
+        textDates.text = "${dateDebutFormatter} - ${dateFinFormatter}"
 
         return view
     }

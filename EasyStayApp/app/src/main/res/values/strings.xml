@@ -6,9 +6,9 @@
     <string name="button_main_hotel_text">Main Hotel</string>
     <string name="button_settings_text">Settings</string>
     <string name="button_logout_text">Logout</string>
-    <string name="bienvenue_chez_easystay">Welcome to EasyStay</string>
+    <string name="bienvenue_chez_easystay">Discover your perfect stay with East Stay</string>
     <string name="vos_r_servations">YOUR BOOKINGS</string>
-    <string name="vos_up_coming_reservations">YOUR UPCOMING BOOKINGS</string>
+    <string name="vos_up_coming_reservations">YOUR UPCOMING \nBOOKINGS</string>
     <string name="vos_favoris">YOUR FAVORITES</string>
     <string name="pr_f_rences">Preferences</string>
     <string name="compte">Account</string>

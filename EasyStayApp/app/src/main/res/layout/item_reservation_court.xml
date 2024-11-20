@@ -43,13 +43,15 @@
                     android:id="@+id/RSIDTypeChambre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="708 - CHAMBRES 2 LITS" />
+                    android:text="708 - CHAMBRES 2 LITS"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/RSDateDebut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2024-11-03" />
+                    android:text="2024-11-03"
+                    android:textStyle="italic" />
 
             </LinearLayout>
         </LinearLayout>
