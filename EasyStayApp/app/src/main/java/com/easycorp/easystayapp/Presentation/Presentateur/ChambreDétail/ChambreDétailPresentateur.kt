@@ -2,7 +2,6 @@ package com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétail
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     }
 
     override fun gererBoutonRetourCliquer() {
-        modèle.getCheminVersFragmentRéserver()?.let { vue.findNavController().navigate(it) }
+        modèle.getCheminVersChambreDetails()?.let { vue.findNavController().navigate(it) }
     }
 
     override fun naviguerVersReservation(dateDebut: String, dateFin: String) {
@@ -78,7 +77,6 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
             modèle.ajouterReservation(nouvelleRéservation)
             nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
             modèle.setDates(dateDebutFormatted, dateFinFormatted)
-            modèle.sourcePage = Modèle.SourcePage.CHAMBRE_DETAILS
             vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
         }
     }

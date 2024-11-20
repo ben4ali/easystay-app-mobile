@@ -1,6 +1,5 @@
 package com.easycorp.easystayapp.Presentation.Presentateur.Résérver
 
-import android.util.Log
 import android.widget.Toast
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
@@ -156,18 +155,7 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
     }
 
     override fun gererBoutonRetourCliquer() {
-        val cheminVersFragment = when (modèle.sourcePage) {
-            Modèle.SourcePage.LISTE_RESERVATIONS -> R.id.action_reserverFragment_to_fragment_listeReservations
-            Modèle.SourcePage.CHAMBRE_DETAILS -> R.id.action_reserverFragment_to_chambreDetailsFragment
-            else -> null
-        }
-
-        cheminVersFragment?.let {
-            modèle.setCheminVersFragment(it)
-            vue.findNavController().navigate(it)
-        } ?: run {
-            vue.requireActivity().onBackPressedDispatcher
-        }
+        modèle.getCheminVersReservation()?.let { vue.findNavController().navigate(it) }
     }
 
 

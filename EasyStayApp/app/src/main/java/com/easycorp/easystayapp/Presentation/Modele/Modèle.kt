@@ -25,18 +25,13 @@ class Modèle private constructor() {
     private var dateFinChoisie: String? = null
 
     @Volatile
-    private var cheminVersFragment: Int? = null
+    private var cheminVersReservation: Int? = null
+
+    @Volatile
+    private var cheminVersChambreDetails: Int? = null
 
     @Volatile
     private var clientImage: Bitmap? = null
-
-    @Volatile
-    var sourcePage: SourcePage? = null
-
-    enum class SourcePage {
-        LISTE_RESERVATIONS,
-        CHAMBRE_DETAILS
-    }
 
     fun getDateDébutChoisie(): String? {
         return dateDébutChoisie
@@ -59,11 +54,18 @@ class Modèle private constructor() {
 
     private val sourceDeDonnées: SourceBidon = SourceBidon()
 
-    fun setCheminVersFragment(chemin: Int) {
-        cheminVersFragment = chemin
+    fun setCheminVersReservation(chemin: Int) {
+        cheminVersReservation = chemin
     }
-    fun getCheminVersFragmentRéserver(): Int? {
-        return cheminVersFragment
+    fun getCheminVersReservation(): Int? {
+        return cheminVersReservation
+    }
+
+    fun setCheminVersChambreDetails(chemin: Int) {
+        cheminVersChambreDetails = chemin
+    }
+    fun getCheminVersChambreDetails(): Int? {
+        return cheminVersChambreDetails
     }
 
     // chambres

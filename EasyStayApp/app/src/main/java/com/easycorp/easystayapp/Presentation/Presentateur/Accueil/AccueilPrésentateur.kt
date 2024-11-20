@@ -37,7 +37,8 @@ class AccueilPrésentateur(
 
     override fun ouvrirDetailsChambre(chambre: ChambreData) {
         modèle.setChambreChoisieId(chambre.id)
-        modèle.setCheminVersFragment(R.id.action_chambreDetailsFragment_to_fragment_accueil)
+        modèle.setCheminVersChambreDetails(R.id.action_chambreDetailsFragment_to_fragment_accueil)
+        modèle.setCheminVersReservation(R.id.action_reserverFragment_to_chambreDetailsFragment)
         vue.findNavController().navigate(R.id.action_fragment_accueil_to_chambreDetailsFragment)
     }
 
