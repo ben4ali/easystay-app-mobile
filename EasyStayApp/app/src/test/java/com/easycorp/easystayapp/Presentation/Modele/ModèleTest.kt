@@ -200,5 +200,34 @@ class ModèleTest {
         verify(sourceDeDonnées).obtenirToutesLesReservations()
     }
 
+    @Test
+    fun `Étant donné un ID de réservation, vérifier que obtenirReservationParId retourne la réservation correspondante`() {
+        val reservation = ReservationData(1, ClientData(1, "John", "Doe", "johndoe@gmail.com", 0), ChambreData(1, "Chambre Simple", "Vue sur jardin", 4.0f, 10, listOf("WiFi", "Climatisation"), 100.0), "2024-11-16", "2024-11-20")
+        `when`(sourceDeDonnées.obtenirReservationParId(1)).thenReturn(reservation)
+
+        val result = modèle.obtenirReservationParId(1)
+
+        assertEquals(reservation, result)
+        verify(sourceDeDonnées).obtenirReservationParId(1)
+    }
+
+    @Test
+    fun `Étant donné une date de début et de fin, vérifier que setDates les stocke correctement`() {
+        modèle.setDates("2024-11-01", "2024-11-10")
+
+
+        assertEquals("2024-11-01", modèle.getDateDébutChoisie())
+        assertEquals("2024-11-10", modèle.getDateFinChoisie())
+    }
+
+    @Test
+    fun `Étant donné un nouveau nom de famille, vérifier que modifierClientSurname le met à jour`() {
+        val newSurname = "Smith"
+
+        modèle.modifierClientSurname(newSurname)
+
+        verify(sourceDeDonnées).modifierClientSurname(newSurname)
+    }
+
 
 }
