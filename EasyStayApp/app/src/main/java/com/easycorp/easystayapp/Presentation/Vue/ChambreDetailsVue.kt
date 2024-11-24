@@ -14,6 +14,7 @@ import com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétail.Chambre
 import com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétail.ChambreDétailPresentateurInterface
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.Utilitaire.ImageSliderAdapter
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 class ChambreDetailsVue : Fragment() {
 
@@ -28,6 +29,7 @@ class ChambreDetailsVue : Fragment() {
     private lateinit var TitreChambreTexte: TextView
     private lateinit var boutonRetour: ImageView
     private lateinit var boutonRéserver: Button
+    private lateinit var wormDotsIndicator: WormDotsIndicator
 
     private lateinit var presentateur: ChambreDétailPresentateurInterface
 
@@ -35,7 +37,7 @@ class ChambreDetailsVue : Fragment() {
         val vue = inflater.inflate(R.layout.fragment_chambre_details, container, false)
 
         viewPager = vue.findViewById(R.id.viewPagerImages)
-        dotIndicatorLayout = vue.findViewById(R.id.dotIndicatorLayout)
+        wormDotsIndicator = vue.findViewById(R.id.worm_dots_indicator)
         dateSelectionAffichage = vue.findViewById(R.id.datePickerLayout)
         dateAfficher = vue.findViewById(R.id.dateTextView)
         typeChambreTexte = vue.findViewById(R.id.bedTypeTextView)
@@ -46,21 +48,14 @@ class ChambreDetailsVue : Fragment() {
         boutonRetour = vue.findViewById(R.id.backButton)
         boutonRéserver = vue.findViewById(R.id.bookButton)
 
-        presentateur = ChambreDétailPresentateur(this, requireContext())
+        presentateur = ChambreDétailPresentateur(this, requireContext(), wormDotsIndicator)
 
         presentateur.importerDetailsChambre()
 
         val images = intArrayOf(R.drawable.chambre_exemple1, R.drawable.chambre_exemple2, R.drawable.chambre_exemple3)
         val adapteur = ImageSliderAdapter(requireContext(), images)
         viewPager.adapter = adapteur
-        créerIndicateurImages(images.size)
-
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                modifierIndicateurImages(position)
-            }
-        })
+        wormDotsIndicator.attachTo(viewPager)
 
         dateSelectionAffichage.setOnClickListener {
             presentateur.afficherSelectionneurDates()
@@ -87,13 +82,5 @@ class ChambreDetailsVue : Fragment() {
 
     fun modifierDateAfficher(dateDebut: String, dateFin: String) {
         dateAfficher.text = "$dateDebut - $dateFin"
-    }
-
-    private fun créerIndicateurImages(count: Int) {
-        presentateur.créerIndicateurImages(requireContext(), dotIndicatorLayout, count)
-    }
-
-    private fun modifierIndicateurImages(positionSelectionner: Int) {
-        presentateur.modifierIndicateurImages(positionSelectionner)
     }
 }

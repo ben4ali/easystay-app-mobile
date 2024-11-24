@@ -1,6 +1,7 @@
 package com.easycorp.easystayapp.Presentation.Presentateur.Accueil
 
 import android.content.Context
+import android.view.View
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -11,12 +12,16 @@ import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 import com.easycorp.easystayapp.Utilitaire.RéservationCourtAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class AccueilPrésentateur(
     private val context: Context,
     private val listViewReservations: ViewPager2,
     private val listViewChambres: ListView,
     private val vue: AccueilVue,
+    private val dotsIndicator: DotsIndicator
 ) : AccueilPrésentateurInterface {
     var favorisDAO = FavorisDAOImpl(context)
     private val modèle = Modèle.getInstance()
@@ -26,6 +31,7 @@ class AccueilPrésentateur(
         val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
         val adapter = RéservationCourtAdapter(viewPager.context, filteredReservations)
         viewPager.adapter = adapter
+        dotsIndicator.attachTo(viewPager)
     }
 
 
@@ -54,5 +60,26 @@ class AccueilPrésentateur(
             ouvrirDetailsChambre(chambre)
         }
         listViewChambres.adapter = adapter
+
+        setListViewHeightBasedOnItems(listViewChambres)
+    }
+
+    private fun setListViewHeightBasedOnItems(listView: ListView) {
+        val listAdapter = listView.adapter ?: return
+
+        var totalHeight = 0
+        for (i in 0 until listAdapter.count) {
+            val listItem = listAdapter.getView(i, null, listView)
+            listItem.measure(
+                View.MeasureSpec.makeMeasureSpec(listView.width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.UNSPECIFIED
+            )
+            totalHeight += listItem.measuredHeight
+        }
+
+        val params = listView.layoutParams
+        params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
+        listView.layoutParams = params
+        listView.requestLayout()
     }
 }

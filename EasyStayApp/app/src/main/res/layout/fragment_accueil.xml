@@ -61,7 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -74,8 +74,8 @@
                 android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.9"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="0.75"
                 android:text="@string/vos_up_coming_reservations"
                 android:textColor="@color/colorText"
                 android:textSize="25sp"
@@ -85,7 +85,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.2"
                 android:scaleX="1.85"
                 android:scaleY="1.85"
                 android:src="@drawable/reserver_icon"
@@ -100,11 +100,31 @@
             android:translationY="-160dp"
             tools:visibility="visible" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:translationY="-160dp">
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="@color/colorText"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="11dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:progressMode="false"
+                app:selectedDotColor="@color/colorSecondary" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -117,8 +137,8 @@
                 android:id="@+id/textFavoris"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.9"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="0.75"
                 android:text="@string/vos_favoris"
                 android:textColor="@color/colorText"
                 android:textSize="25sp"
@@ -128,7 +148,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.2"
                 android:scaleX="1.10"
                 android:scaleY="1.10"
                 android:src="@drawable/bookmark"
@@ -139,8 +159,10 @@
         <ListView
             android:id="@+id/RAListChambre"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:translationY="-160dp"/>
+            android:layout_height="match_parent"
+            android:translationY="-160dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp" />
 
     </LinearLayout>
 </ScrollView>

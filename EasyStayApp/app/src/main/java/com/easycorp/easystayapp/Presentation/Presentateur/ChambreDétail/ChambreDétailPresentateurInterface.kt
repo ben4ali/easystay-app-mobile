@@ -18,6 +18,4 @@ interface ChambreDétailPresentateurInterface {
     fun gererBoutonReservationCliquer()
     fun gererBoutonRetourCliquer()
     fun verifierDatesValide(): Boolean
-    fun créerIndicateurImages(contexte: Context, dotIndicatorLayout: ViewGroup, compte: Int)
-    fun modifierIndicateurImages(positionSelectionner: Int)
 }

@@ -16,13 +16,24 @@
             android:layout_height="260dp" />
 
         <LinearLayout
-            android:id="@+id/dotIndicatorLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:paddingBottom="14dp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                android:id="@+id/worm_dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:dotsColor="@color/colorBackground"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="11dp"
+                app:dotsSpacing="4dp"
+                app:dotsStrokeColor="@color/colorBackground"
+                app:dotsStrokeWidth="2dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/backButtonLayout"

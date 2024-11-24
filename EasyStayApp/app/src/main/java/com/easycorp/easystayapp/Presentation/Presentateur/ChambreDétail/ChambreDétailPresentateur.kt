@@ -2,6 +2,7 @@ package com.easycorp.easystayapp.Presentation.Presentateur.ChambreDétail
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,16 +21,17 @@ import java.util.Locale
 import java.util.TimeZone
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val contexte: Context,
-                                private val toast: Toast = Toast.makeText(contexte, "", Toast.LENGTH_SHORT)) :
+                                wormDotsIndicator: WormDotsIndicator
+) :
     ChambreDétailPresentateurInterface {
 
     private val modèle = Modèle.getInstance()
 
     override var dateDebut: Calendar? = null
     override var dateFin: Calendar? = null
-    private var indicateursImages: List<View> = emptyList()
 
     override fun importerDetailsChambre() {
         val chambreId = modèle.getChambreChoisieId() ?: return
@@ -52,9 +54,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
 
             naviguerVersReservation(dateDebutTexte, dateFinTexte)
         } else {
-            toast.setText("Il faut d'abord choisir une date")
-            toast.setDuration(Toast.LENGTH_LONG)
-            toast.show()
+            Log.i("Erreur", "Les dates sont nulles")
         }
     }
 
@@ -93,9 +93,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
 
             vue.modifierDateAfficher(dateDebutTexte, dateFinTexte)
         } else {
-            toast.setText("Il faut d'abord choisir une date")
-            toast.setDuration(Toast.LENGTH_LONG)
-            toast.show()
+            Log.i("Erreur", "Les dates sont nulles")
         }
     }
 
@@ -147,23 +145,6 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
 
     override fun verifierDatesValide(): Boolean {
         return dateDebut != null && dateFin != null
-    }
-
-    override fun créerIndicateurImages(contexte: Context, dotIndicatorLayout: ViewGroup, compte: Int) {
-        indicateursImages = List(compte) {
-            val point = LayoutInflater.from(contexte).inflate(R.layout.dot_indicator, dotIndicatorLayout, false)
-            point.setBackgroundResource(R.drawable.dot_background)
-            dotIndicatorLayout.addView(point)
-            point
-        }
-        modifierIndicateurImages(0)
-    }
-
-    override fun modifierIndicateurImages(positionSelectionner: Int) {
-        for (i in indicateursImages.indices) {
-            val point = indicateursImages[i]
-            point.setBackgroundColor(if (i == positionSelectionner) Color.WHITE else Color.DKGRAY)
-        }
     }
 
 }

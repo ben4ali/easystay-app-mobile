@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.Presentation.Presentateur.Accueil.AccueilPrésentateur
 import com.easycorp.easystayapp.R
+import com.google.android.material.tabs.TabLayout
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class AccueilVue : Fragment() {
 
@@ -17,6 +19,7 @@ class AccueilVue : Fragment() {
      lateinit var listeChambres: ListView
      lateinit var textFavoris : TextView
      lateinit var présentateur: AccueilPrésentateur
+     lateinit var dotsIndicator: DotsIndicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +34,8 @@ class AccueilVue : Fragment() {
         listeChambres = view.findViewById(R.id.RAListChambre)
         listeReservations = view.findViewById(R.id.RAList)
         textFavoris = view.findViewById(R.id.textFavoris)
-        présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres, this)
+        dotsIndicator = view.findViewById(R.id.dots_indicator)
+        présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres, this, dotsIndicator)
         présentateur.chargerReservationsCourte(1, listeReservations)
         présentateur.chargerChambres()
         présentateur.chargerChambresFavoris()
