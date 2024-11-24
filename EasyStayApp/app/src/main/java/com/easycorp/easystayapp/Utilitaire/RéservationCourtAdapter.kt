@@ -2,46 +2,70 @@ package com.easycorp.easystayapp.Utilitaire
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 class RéservationCourtAdapter(
-    context: Context,
+    private val context: Context,
     private val réservations: List<ReservationData>,
-) : ArrayAdapter<ReservationData>(context, 0, réservations) {
+) : RecyclerView.Adapter<RéservationCourtAdapter.ReservationViewHolder>() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val réservation = getItem(position) ?: return convertView ?: View(context)
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_reservation_court, parent, false)
-        val textType = view.findViewById<TextView>(R.id.RSIDTypeChambre)
-        val textDates = view.findViewById<TextView>(R.id.RSDateDebut)
-        val indicateur = view.findViewById<View>(R.id.RSIndicateur)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.item_reservation_court, parent, false)
+        view.layoutParams =
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        return ReservationViewHolder(view)
+    }
 
-        when (réservation.obtenirNombreDeJours()) {
-            in 0..7 -> indicateur.setBackgroundColor(Color.parseColor("#9cef95"))
-            in 8..13 -> indicateur.setBackgroundColor(Color.parseColor("#f9efa8"))
-            in 14..19 -> indicateur.setBackgroundColor(Color.parseColor("#fabb53"))
+    override fun onBindViewHolder(holder: ReservationViewHolder, position: Int) {
+        val réservation = réservations[position]
+        holder.bind(réservation)
+    }
+
+    override fun getItemCount(): Int = réservations.size
+
+    inner class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textType: TextView = itemView.findViewById(R.id.RSIDTypeChambre)
+        private val textDates: TextView = itemView.findViewById(R.id.RSDateDebut)
+        private val indicateur: View = itemView.findViewById(R.id.RSIndicateur)
+
+        fun bind(réservation: ReservationData) {
+            val shape = GradientDrawable()
+            shape.shape = GradientDrawable.OVAL
+            shape.setSize(20, 20)
+
+            when (réservation.obtenirNombreDeJours()) {
+                in 0..7 -> shape.setColor(Color.parseColor("#9cef95"))
+                in 8..13 -> shape.setColor(Color.parseColor("#f9efa8"))
+                in 14..19 -> shape.setColor(Color.parseColor("#fabb53"))
+            }
+
+            indicateur.background = shape
+
+            val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
+            val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+
+            val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
+            val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
+
+            val dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
+            val dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
+
+            textType.text = "${réservation.chambre.typeChambre}"
+            textDates.text = "$dateDebutFormatter - $dateFinFormatter"
         }
-
-        val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
-        val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
-
-        val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
-        val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
-
-        val dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
-        val dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
-
-        textType.text = "${réservation.chambre.id} - ${réservation.chambre.typeChambre}"
-        textDates.text = "${dateDebutFormatter} - ${dateFinFormatter}"
-
-        return view
     }
 }

@@ -3,6 +3,7 @@ package com.easycorp.easystayapp.Presentation.Presentateur.Accueil
 import android.content.Context
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.AccueilVue
@@ -13,19 +14,20 @@ import com.easycorp.easystayapp.Utilitaire.RéservationCourtAdapter
 
 class AccueilPrésentateur(
     private val context: Context,
-    private val listViewReservations: ListView,
+    private val listViewReservations: ViewPager2,
     private val listViewChambres: ListView,
     private val vue: AccueilVue,
 ) : AccueilPrésentateurInterface {
     var favorisDAO = FavorisDAOImpl(context)
     private val modèle = Modèle.getInstance()
 
-    override fun chargerReservationsCourte(clientId: Int) {
+    override fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
         val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
-        val adapter = RéservationCourtAdapter(context, filteredReservations)
-        listViewReservations.adapter = adapter
+        val adapter = RéservationCourtAdapter(viewPager.context, filteredReservations)
+        viewPager.adapter = adapter
     }
+
 
     override fun chargerChambres() {
         val chambres = modèle.obtenirChambres()

@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.Presentation.Presentateur.Accueil.AccueilPrésentateur
 import com.easycorp.easystayapp.R
 
 class AccueilVue : Fragment() {
 
-     lateinit var listeReservations: ListView
+     lateinit var listeReservations: ViewPager2
      lateinit var listeChambres: ListView
      lateinit var textFavoris : TextView
      lateinit var présentateur: AccueilPrésentateur
@@ -31,14 +32,14 @@ class AccueilVue : Fragment() {
         listeReservations = view.findViewById(R.id.RAList)
         textFavoris = view.findViewById(R.id.textFavoris)
         présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres, this)
-        présentateur.chargerReservationsCourte(1)
+        présentateur.chargerReservationsCourte(1, listeReservations)
         présentateur.chargerChambres()
         présentateur.chargerChambresFavoris()
     }
 
     override fun onResume() {
         super.onResume()
-        présentateur.chargerReservationsCourte(1)
+        présentateur.chargerReservationsCourte(1, listeReservations)
         présentateur.chargerChambres()
         présentateur.chargerChambresFavoris()
     }

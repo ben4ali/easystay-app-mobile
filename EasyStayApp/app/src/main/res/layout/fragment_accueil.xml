@@ -93,13 +93,13 @@
         </LinearLayout>
 
 
-        <ListView
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/RAList"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_weight="0"
-            tools:visibility="visible"
-            android:translationY="-160dp"/>
+            android:layout_height="match_parent"
+            android:translationY="-160dp"
+            tools:visibility="visible" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
