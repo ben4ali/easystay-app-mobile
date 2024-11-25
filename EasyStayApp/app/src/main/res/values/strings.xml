@@ -38,7 +38,7 @@
     <string name="edit_surname">edit surname</string>
     <string name="edit_name">edit name</string>
     <string name="edit_image">edit image</string>
-    <string name="supprimer">Delete</string>
+    <string name="supprimer">Cancel</string>
     <string name="voir_r_servation">See Reservation</string>
     <string name="reservations_menu">Bookings</string>
     <string name="accueil">Home</string>

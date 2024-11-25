@@ -37,7 +37,7 @@
     <string name="edit_name">modifier name</string>
     <string name="edit_image">modifier image</string>
     <string name="s_lectionner_une_date">Sélectionner une date</string>
-    <string name="supprimer">Supprimer</string>
+    <string name="supprimer">Annuler</string>
     <string name="voir_r_servation">Voir Réservation</string>
     <string name="reservations_menu">Réservation</string>
     <string name="accueil">Accueil</string>

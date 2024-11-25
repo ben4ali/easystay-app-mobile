@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
@@ -27,7 +28,7 @@ class RéservationAdapter(
         val textAvis = view.findViewById<TextView>(R.id.RNote)
         val textPrix = view.findViewById<TextView>(R.id.RPrix)
         val textDates = view.findViewById<TextView>(R.id.RDates)
-        val btnVoir = view.findViewById<TextView>(R.id.btnVoirRes)
+        val btnVoir = view.findViewById<CardView>(R.id.btnVoirRes)
         val btnSupprimer = view.findViewById<TextView>(R.id.btnSupprimer)
 
         textType.text = réservation.chambre.typeChambre

@@ -25,16 +25,16 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorOnBackground"
+        android:background="#000000"
         android:elevation="8dp"
         android:theme="@style/BottomNavigationView"
-        app:menu="@menu/menu_navigation"
+        app:itemIconTint="#EDEDED"
+        app:itemRippleColor="#121212"
+        app:itemTextColor="#CCCBCB"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:itemIconTint="@color/colorBackground"
-        app:itemTextColor="@color/colorBackground"
-        app:itemRippleColor="@color/colorAccent"
-        app:labelVisibilityMode="labeled"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
