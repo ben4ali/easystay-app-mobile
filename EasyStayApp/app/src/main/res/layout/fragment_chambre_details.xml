@@ -27,11 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
-                app:dotsColor="@color/colorBackground"
+                app:dotsColor="@color/colorJustWhite"
                 app:dotsCornerRadius="8dp"
                 app:dotsSize="11dp"
                 app:dotsSpacing="4dp"
-                app:dotsStrokeColor="@color/colorBackground"
+                app:dotsStrokeColor="@color/colorJustWhite"
                 app:dotsStrokeWidth="2dp" />
         </LinearLayout>
 
@@ -77,21 +77,21 @@
         android:text="CHAMBRES 2 LITS"
         android:textColor="@color/colorText"
         android:textSize="28sp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp">
+        android:paddingLeft="18dp"
+        android:paddingTop="30dp">
 
         <ImageView
             android:id="@+id/starIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/etoile" />
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            app:srcCompat="@drawable/etoile"
+            app:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/ratingTextView"
@@ -101,20 +101,15 @@
             android:text="75%"
             android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/reviewsDivider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="." />
-
-        <TextView
-            android:id="@+id/reviewCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="22 reviews" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/reviewCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="2dp"
+        android:text="22 reviews" />
 
     <TextView
         android:id="@+id/locationTextView"
@@ -129,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorPrimary" />
 
@@ -138,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="50dp"
         android:text="Chambre avec vue sur la ville"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -237,6 +232,9 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:text="@string/r_server"
+            android:textColor="@color/colorJustWhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:cornerRadius="8dp" />
 
         <LinearLayout
@@ -260,7 +258,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/s_lectionner_une_date"
-                android:textColor="#0035FF"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

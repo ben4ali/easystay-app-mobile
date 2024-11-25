@@ -7,33 +7,51 @@ android:layout_height="match_parent"
 android:background="@color/colorBackground"
 tools:context=".Presentation.Vue.ListeReservationsVue">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <View
-        android:id="@+id/view6"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimary" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/vos_r_servations"
-        android:textColor="@color/colorText"
-        android:textSize="28sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="40dp">
 
-    <ListView
-        android:id="@+id/RList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/vos_r_servations"
+                android:textColor="@color/colorText"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-</LinearLayout>
+            <View
+                android:id="@+id/view4"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:background="@color/colorText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/RList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
