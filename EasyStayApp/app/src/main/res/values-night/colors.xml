@@ -10,4 +10,5 @@
     <color name="colorAccentOverlay">#B4B4B4</color>
     <color name="colorRangeFill">#B3FF5A5A</color>
     <color name="colorJustWhite">#F0F0F0</color>
+    <color name="dotIndicatorsSelected">#D5D5D5</color>
 </resources>
