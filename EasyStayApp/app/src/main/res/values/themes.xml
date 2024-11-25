@@ -9,4 +9,10 @@
     </style>
 
     <style name="Theme.EasyStayApp" parent="Base.Theme.EasyStayApp" />
+
+    <style name="Theme.app.ouverture" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorBackground</item>
+        <item name="postSplashScreenTheme">@style/Theme.EasyStayApp</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo_animer</item>
+    </style>
 </resources>

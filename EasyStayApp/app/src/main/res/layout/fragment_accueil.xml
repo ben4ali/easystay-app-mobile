@@ -8,14 +8,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:background="@color/colorBackgroundOpposite" />
+            android:background="@color/colorHomePageGraphic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-60dp"
+            android:gravity="start"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:translationY="-250dp">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo" />
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -118,7 +134,7 @@
                 app:dotsSpacing="4dp"
                 app:dotsWidthFactor="2.5"
                 app:progressMode="false"
-                app:selectedDotColor="@color/colorSecondary" />
+                app:selectedDotColor="@color/colorJustWhite" />
         </LinearLayout>
 
         <LinearLayout
@@ -160,9 +176,10 @@
             android:id="@+id/RAListChambre"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:translationY="-160dp"
+            android:layout_marginBottom="-160dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="10dp" />
+            android:dividerHeight="10dp"
+            android:translationY="-160dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -67,19 +67,15 @@ class AccueilPrésentateur(
     private fun setListViewHeightBasedOnItems(listView: ListView) {
         val listAdapter = listView.adapter ?: return
 
-        var totalHeight = 0
-        for (i in 0 until listAdapter.count) {
-            val listItem = listAdapter.getView(i, null, listView)
-            listItem.measure(
-                View.MeasureSpec.makeMeasureSpec(listView.width, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.UNSPECIFIED
-            )
-            totalHeight += listItem.measuredHeight
-        }
+        val density = listView.context.resources.displayMetrics.density
+        val itemHeightInPx = (380 * density).toInt()
+
+        val totalHeight = itemHeightInPx * listAdapter.count
 
         val params = listView.layoutParams
         params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))
         listView.layoutParams = params
         listView.requestLayout()
     }
+
 }
