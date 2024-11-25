@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +20,7 @@ class ChambreAdapter(
 ) : ArrayAdapter<ChambreData>(context, 0, chambres) {
 
     private val favorisDAO = FavorisDAOImpl(context)
+    private val animatedPositions = mutableSetOf<Int>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_chambre, parent, false)
@@ -56,6 +58,13 @@ class ChambreAdapter(
                 favorisDAO.ajouter(chambre.id)
                 btnFavoris.setImageResource(R.drawable.bookmark_fill)
             }
+        }
+
+        if (!animatedPositions.contains(position)) {
+            val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            animation.startOffset = (position * 100).toLong()
+            view.startAnimation(animation)
+            animatedPositions.add(position)
         }
 
         return view

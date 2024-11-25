@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +18,8 @@ class RéservationAdapter(
     private val réservations: List<ReservationData>,
     private val présentateur: ListeRéservationPrésentateur
 ) : ArrayAdapter<ReservationData>(context, 0, réservations) {
+
+    private val animatedPositions = mutableSetOf<Int>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_reservation, parent, false)
@@ -43,6 +46,13 @@ class RéservationAdapter(
         }
         btnSupprimer.setOnClickListener {
             présentateur.supprimerReservation(réservation)
+        }
+
+        if (!animatedPositions.contains(position)) {
+            val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+            animation.startOffset = (position * 100).toLong()
+            view.startAnimation(animation)
+            animatedPositions.add(position)
         }
 
         return view
