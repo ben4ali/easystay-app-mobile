@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EasyStay App</string>
+    <string name="app_name">EasyStay</string>
     <string name="button_home_text">Home</string>
     <string name="button_profile_text">Profile</string>
     <string name="button_main_hotel_text">Main Hotel</string>
