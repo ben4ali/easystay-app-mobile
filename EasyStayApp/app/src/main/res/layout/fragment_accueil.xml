@@ -34,6 +34,7 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/HeroCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,11 +48,12 @@
             app:cardMaxElevation="25dp">
 
             <FrameLayout
+                android:id="@+id/frameLayoutAccueil"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imageView125"
                     android:layout_width="267dp"
                     android:layout_height="400dp"
                     android:foreground="@drawable/bottom_gradient"

@@ -2,6 +2,7 @@ package com.easycorp.easystayapp.Presentation.Presentateur.Accueil
 
 import android.content.Context
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -41,6 +42,9 @@ class AccueilPrésentateur(
             ouvrirDetailsChambre(chambre)
         }
         listViewChambres.adapter = adapter
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+        animation.startOffset= 300
+        vue.heroImage.startAnimation(animation)
     }
 
     override fun ouvrirDetailsChambre(chambre: ChambreData) {
