@@ -13,9 +13,10 @@ import android.widget.Toast
 
 
 class PreferencePresentateur(
-    val vue: PreferencePresentateurInterface
+    val vue: PreferencePresentateurInterface,
+    context: Context
 ) {
-    var modèle = Modèle.getInstance()
+    var modèle = Modèle.getInstance(context)
 
     fun afficherClient(clientId: Int) {
         val client = modèle.obtenirClientParId(clientId)

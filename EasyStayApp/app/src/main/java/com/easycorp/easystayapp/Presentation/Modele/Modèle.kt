@@ -6,11 +6,16 @@ import android.graphics.BitmapFactory
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
+import com.easycorp.easystayapp.Domaine.Service.ServiceChambre
+import com.easycorp.easystayapp.Domaine.Service.ServiceClient
+import com.easycorp.easystayapp.Domaine.Service.ServiceReservation
+import com.easycorp.easystayapp.Domaine.Service.ServiceFavoris
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
-import java.io.ByteArrayOutputStream
+import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import org.apache.commons.codec.binary.Base64
+import java.io.ByteArrayOutputStream
 
-class Modèle private constructor() {
+class Modèle private constructor(context: Context) {
 
     @Volatile
     private var chambreChoisieId: Int? = null
@@ -45,14 +50,18 @@ class Modèle private constructor() {
         @Volatile
         private var instance: Modèle? = null
 
-        fun getInstance(): Modèle {
+        fun getInstance(context: Context): Modèle {
             return instance ?: synchronized(this) {
-                instance ?: Modèle().also { instance = it }
+                instance ?: Modèle(context).also { instance = it }
             }
         }
     }
 
     private val sourceDeDonnées: SourceBidon = SourceBidon()
+    private val serviceChambre = ServiceChambre(sourceDeDonnées)
+    private val serviceClient = ServiceClient(sourceDeDonnées)
+    private val serviceReservation = ServiceReservation(sourceDeDonnées)
+    private val serviceFavoris = ServiceFavoris(FavorisDAOImpl(context))
 
     fun setCheminVersReservation(chemin: Int) {
         cheminVersReservation = chemin
@@ -70,19 +79,19 @@ class Modèle private constructor() {
 
     // chambres
     fun obtenirChambres(): List<ChambreData> {
-        return sourceDeDonnées.obtenirChambres()
+        return serviceChambre.obtenirChambres()
     }
 
     fun obtenirChambreParType(type: String): List<ChambreData> {
-        return sourceDeDonnées.obtenirChambreParType(type)
+        return serviceChambre.obtenirChambreParType(type)
     }
 
     fun obtenirChambreParId(id: Int): ChambreData {
-        return sourceDeDonnées.obtenirChambreParId(id)
+        return serviceChambre.obtenirChambreParId(id)
     }
 
     fun obtenirChambresDisponibles(): List<ChambreData> {
-        return sourceDeDonnées.obtenirChambresDisponibles()
+        return serviceChambre.obtenirChambresDisponibles()
     }
 
     fun setChambreChoisieId(id: Int) {
@@ -95,7 +104,7 @@ class Modèle private constructor() {
 
     // reservations
     fun obtenirToutesLesReservations(): List<ReservationData> {
-        return sourceDeDonnées.obtenirToutesLesReservations()
+        return serviceReservation.obtenirToutesLesReservations()
     }
 
     fun setReservationChoisieId(id: Int) {
@@ -107,35 +116,35 @@ class Modèle private constructor() {
     }
 
     fun obtenirClientParId(id: Int): ClientData {
-        return sourceDeDonnées.obtenirClientParId(id)
+        return serviceClient.obtenirClientParId(id)
     }
 
     fun modifierClient(client: ClientData) {
-        sourceDeDonnées.modifierClient(client)
+        serviceClient.modifierClient(client)
     }
 
     fun ajouterReservation(réservation: ReservationData) {
-        sourceDeDonnées.ajouterReservation(réservation)
+        serviceReservation.ajouterReservation(réservation)
     }
 
     fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {
-        return sourceDeDonnées.obtenirReservationsParClient(client)
+        return serviceReservation.obtenirReservationsParClient(client)
     }
 
     fun obtenirReservationParId(id: Int): ReservationData {
-        return sourceDeDonnées.obtenirReservationParId(id)
+        return serviceReservation.obtenirReservationParId(id)
     }
 
     fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {
-        return sourceDeDonnées.obtenirReservationParChambre(chambre)
+        return serviceReservation.obtenirReservationParChambre(chambre)
     }
 
     fun supprimerRéservation(réservation: ReservationData) {
-        sourceDeDonnées.suppressionReservation(réservation)
+        serviceReservation.supprimerRéservation(réservation)
     }
 
     fun modifierReservation(réservation: ReservationData) {
-        sourceDeDonnées.modifierReservation(réservation)
+        serviceReservation.modifierReservation(réservation)
     }
 
     fun setDates(dateDébut: String, dateFin: String) {
@@ -144,15 +153,15 @@ class Modèle private constructor() {
     }
 
     fun modifierClientSurname(newSurname: String) {
-        sourceDeDonnées.modifierClientSurname(newSurname)
+        serviceClient.modifierClientSurname(newSurname)
     }
 
     fun modifierClientName(newName: String) {
-        sourceDeDonnées.modifierClientName(newName)
+        serviceClient.modifierClientName(newName)
     }
 
     fun modifierClientEmail(newEmail: String) {
-        sourceDeDonnées.modifierClientEmail(newEmail)
+        serviceClient.modifierClientEmail(newEmail)
     }
 
     fun modifierClientImage(newImage: Bitmap, context: Context) {
@@ -169,5 +178,22 @@ class Modèle private constructor() {
         val imageString = sharedPreferences.getString("client_image", null) ?: return null
         val imageBytes = Base64.decodeBase64(imageString)
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
+
+    // favoris
+    fun ajouterFavori(roomId: Int) {
+        serviceFavoris.ajouter(roomId)
+    }
+
+    fun retirerFavori(roomId: Int) {
+        serviceFavoris.retirer(roomId)
+    }
+
+    fun estFavori(roomId: Int): Boolean {
+        return serviceFavoris.estFavoris(roomId)
+    }
+
+    fun obtenirTousLesFavoris(): List<Int> {
+        return serviceFavoris.obtenirTous()
     }
 }

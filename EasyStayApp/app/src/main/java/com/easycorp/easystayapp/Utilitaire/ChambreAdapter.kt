@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
+import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 
@@ -19,7 +20,7 @@ class ChambreAdapter(
     private val onImageClick: (ChambreData) -> Unit
 ) : ArrayAdapter<ChambreData>(context, 0, chambres) {
 
-    private val favorisDAO = FavorisDAOImpl(context)
+    private val modèle = Modèle.getInstance(context)
     private val animatedPositions = mutableSetOf<Int>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -33,7 +34,7 @@ class ChambreAdapter(
         val textRoomDescription = view.findViewById<TextView>(R.id.text_Chambre_description)
         val btnFavoris = view.findViewById<ImageView>(R.id.btnFavoris)
 
-        if (favorisDAO.estFavoris(chambre.id)) {
+        if (modèle.estFavori(chambre.id)) {
             btnFavoris.setImageResource(R.drawable.bookmark_fill)
         } else {
             btnFavoris.setImageResource(R.drawable.bookmark)
@@ -51,11 +52,11 @@ class ChambreAdapter(
         }
 
         btnFavoris.setOnClickListener {
-            if (favorisDAO.estFavoris(chambre.id)) {
-                favorisDAO.retirer(chambre.id)
+            if (modèle.estFavori(chambre.id)) {
+                modèle.retirerFavori(chambre.id)
                 btnFavoris.setImageResource(R.drawable.bookmark)
             } else {
-                favorisDAO.ajouter(chambre.id)
+                modèle.ajouterFavori(chambre.id)
                 btnFavoris.setImageResource(R.drawable.bookmark_fill)
             }
         }

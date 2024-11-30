@@ -34,7 +34,7 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        présentateur = PreferencePresentateur(this)
+        présentateur = PreferencePresentateur(this, requireContext())
         prénomTextView = view.findViewById(R.id.prenomTextView)
         nomTextView = view.findViewById(R.id.nomTextView)
         emailTextView = view.findViewById(R.id.emailTextView)

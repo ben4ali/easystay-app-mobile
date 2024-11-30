@@ -24,8 +24,7 @@ class AccueilPrésentateur(
     private val vue: AccueilVue,
     private val dotsIndicator: DotsIndicator
 ) : AccueilPrésentateurInterface {
-    var favorisDAO = FavorisDAOImpl(context)
-    private val modèle = Modèle.getInstance()
+    private val modèle = Modèle.getInstance(context)
 
     override fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
@@ -55,7 +54,7 @@ class AccueilPrésentateur(
     }
 
     override fun chargerChambresFavoris() {
-        val favoriteRoomIds = favorisDAO.obtenirTous()
+        val favoriteRoomIds = modèle.obtenirTousLesFavoris()
         val favoriteChambres = modèle.obtenirChambres().filter { it.id in favoriteRoomIds }
         if (favoriteChambres.isEmpty()) {
             vue.textFavoris.layoutParams.height = 0

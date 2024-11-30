@@ -1,6 +1,5 @@
-package com.easycorp.easystayapp.Utilitaire
+package com.easycorp.easystayapp.Domaine.Service
 
-import android.util.Log
 import java.util.Properties
 import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication

@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Presentation.Presentateur.Résérver.ReserverPresentateur
-import com.easycorp.easystayapp.Presentation.Presentateur.Résérver.ReserverPresentateurInterface
+
 import com.easycorp.easystayapp.R
 
 class ReserverVue : Fragment() {
@@ -31,7 +31,7 @@ class ReserverVue : Fragment() {
     lateinit var boutonReserver: Button
     lateinit var boutonRetourRéserver: ImageView
 
-    var presentateur = ReserverPresentateur(this)
+    lateinit var presentateur : ReserverPresentateur
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,7 @@ class ReserverVue : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presentateur = ReserverPresentateur(this)
+        presentateur = ReserverPresentateur(this, requireContext())
 
         typeChambreTextView = view.findViewById(R.id.roomTypeTextView)
         imageChambreImageView = view.findViewById(R.id.roomImageView)

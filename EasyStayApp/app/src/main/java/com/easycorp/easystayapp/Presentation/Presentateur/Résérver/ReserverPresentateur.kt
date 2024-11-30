@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp.Presentation.Presentateur.Résérver
 
+import android.content.Context
 import android.widget.Toast
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
@@ -9,7 +10,7 @@ import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ReserverVue
 import com.easycorp.easystayapp.R
-import com.easycorp.easystayapp.Utilitaire.EmailService
+import com.easycorp.easystayapp.Domaine.Service.EmailService
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -18,9 +19,9 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurInterface {
+class ReserverPresentateur(private val vue: ReserverVue, private val context: Context) : ReserverPresentateurInterface {
 
-    val modèle = Modèle.getInstance()
+    val modèle = Modèle.getInstance(context)
 
     var dateDebut: Calendar? = null
     var dateFin: Calendar? = null

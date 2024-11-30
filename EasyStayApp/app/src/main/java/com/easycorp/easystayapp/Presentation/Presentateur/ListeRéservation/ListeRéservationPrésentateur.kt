@@ -16,7 +16,7 @@ class ListeRéservationPrésentateur(
     private val vue: ListeReservationsVue
 ) : ListeRéservationPrésentateurInterface {
 
-    private val modèle = Modèle.getInstance()
+    private val modèle = Modèle.getInstance(context)
 
     override fun chargerReservations(clientId: Int) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))

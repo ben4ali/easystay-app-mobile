@@ -28,7 +28,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
 ) :
     ChambreDétailPresentateurInterface {
 
-    private val modèle = Modèle.getInstance()
+    private val modèle = Modèle.getInstance(contexte)
 
     override var dateDebut: Calendar? = null
     override var dateFin: Calendar? = null

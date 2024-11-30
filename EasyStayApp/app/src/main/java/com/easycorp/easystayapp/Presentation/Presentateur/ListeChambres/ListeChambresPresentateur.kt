@@ -15,7 +15,7 @@ class ListeChambresPresentateur(
     private val vue: ChambresVue,
     private val context: Context,
 ) {
-    private val modèle = Modèle.getInstance()
+    private val modèle = Modèle.getInstance(context)
     private var maxPrice = 500
     private var selectedType: String? = null
     private var isFilterApplied = false
