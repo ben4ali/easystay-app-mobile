@@ -318,6 +318,6 @@
             android:text="@string/r_server_maintenant"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 </ScrollView>

@@ -9,6 +9,7 @@ import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ReserverVue
 import com.easycorp.easystayapp.R
+import com.easycorp.easystayapp.Utilitaire.EmailService
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -135,23 +136,41 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
     override fun gererConfirmationReservation() {
 
         val client = modèle.obtenirClientParId(1)
-        val formatageDateReservation = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val dateDebutReservation = formatageDateReservation.format(dateDebutInitiale!!.time)
-        val dateFinReservation = formatageDateReservation.format(dateFinInitiale!!.time)
-        val nouvelleReservation = ReservationData(7, client, chambre!!, dateDebutReservation, dateFinReservation)
+        val dateDebutReservation = réservation.dateDébut
+        val dateFinReservation = réservation.dateFin
 
-        if (chambreId != null && client != null && chambre != null && dateDebutInitiale != null && dateFinInitiale != null) {
+        val nouvelleReservation = ReservationData(
+            id = 7,
+            client = client,
+            chambre = chambre!!,
+            dateDébut = dateDebutReservation,
+            dateFin = dateFinReservation
+        )
 
-            modèle.ajouterReservation(nouvelleReservation)
+        modèle.ajouterReservation(nouvelleReservation)
 
-            (vue as Fragment).findNavController().navigate(R.id.action_reserverFragment_to_fragment_listeReservations)
+        val emailService = EmailService()
+        val sujet = "Confirmation de réservation"
+        val contenu = """
+        Bonjour ${client.nom},
 
-        } else {
-            (vue as Fragment).requireContext().let { context ->
-                Toast.makeText(context, "Erreur lors de la réservation. Veuillez vérifier les informations.", Toast.LENGTH_LONG).show()
+        Votre réservation pour la chambre ${chambre!!.typeChambre} a été confirmée.
+        Dates : $dateDebutReservation - $dateFinReservation
+        Prix total : ${chambre!!.prixParNuit * nouvelleReservation.calculerNombreDeNuits()} CAD.
+
+        Merci pour votre confiance.
+        L'équipe EasyStay
+    """.trimIndent()
+
+        emailService.envoyerEmail(client.email, sujet, contenu) {
+            vue.requireActivity().runOnUiThread {
+                Toast.makeText(vue.requireContext(), "Réservation confirmée", Toast.LENGTH_SHORT).show()
             }
         }
 
+        vue.requireActivity().runOnUiThread {
+            (vue as Fragment).findNavController().navigate(R.id.action_reserverFragment_to_fragment_listeReservations)
+        }
     }
 
     override fun gererBoutonRetourCliquer() {
