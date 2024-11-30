@@ -169,7 +169,8 @@ class ReserverPresentateur(private val vue: ReserverVue) : ReserverPresentateurI
         }
 
         vue.requireActivity().runOnUiThread {
-            (vue as Fragment).findNavController().navigate(R.id.action_reserverFragment_to_fragment_listeReservations)
+            modèle.getCheminVersReservation()
+                ?.let { (vue as Fragment).findNavController().navigate(it) }
         }
     }
 
