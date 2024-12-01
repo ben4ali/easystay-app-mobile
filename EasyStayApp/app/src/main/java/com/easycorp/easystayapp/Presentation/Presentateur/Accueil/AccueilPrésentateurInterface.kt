@@ -4,7 +4,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 
 interface AccueilPrésentateurInterface {
-    fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2)
+    suspend fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2)
     fun chargerChambres()
     fun ouvrirDetailsChambre(chambre: ChambreData)
     fun chargerChambresFavoris()

@@ -18,13 +18,13 @@ class ListeRéservationPrésentateur(
 
     private val modèle = Modèle.getInstance(context)
 
-    override fun chargerReservations(clientId: Int) {
+    override suspend fun chargerReservations(clientId: Int) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
         val adapter = RéservationAdapter(context, reservations, this)
         listView.adapter = adapter
     }
 
-    override fun supprimerReservation(réservation: ReservationData) {
+    override suspend fun supprimerReservation(réservation: ReservationData) {
         modèle.supprimerRéservation(réservation)
         chargerReservations(réservation.client.id)
     }

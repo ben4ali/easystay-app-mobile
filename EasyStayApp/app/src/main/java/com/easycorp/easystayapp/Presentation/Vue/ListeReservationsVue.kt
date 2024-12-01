@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.ListView
 import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ListeReservationsVue : Fragment() {
 
@@ -26,11 +29,15 @@ class ListeReservationsVue : Fragment() {
 
         listeReservations = view.findViewById(R.id.RList)
         présentateur = ListeRéservationPrésentateur(requireContext(), listeReservations, this)
-        présentateur.chargerReservations(1)
+        CoroutineScope(Dispatchers.IO).launch {
+            présentateur.chargerReservations(1)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        présentateur.chargerReservations(1)
+        CoroutineScope(Dispatchers.IO).launch {
+            présentateur.chargerReservations(1)
+        }
     }
 }

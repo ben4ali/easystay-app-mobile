@@ -12,6 +12,8 @@ import com.easycorp.easystayapp.Domaine.Service.ServiceReservation
 import com.easycorp.easystayapp.Domaine.Service.ServiceFavoris
 import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
+import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonneeAPI
+import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonnées
 import org.apache.commons.codec.binary.Base64
 import java.io.ByteArrayOutputStream
 
@@ -57,7 +59,8 @@ class Modèle private constructor(context: Context) {
         }
     }
 
-    private val sourceDeDonnées: SourceBidon = SourceBidon()
+//    private val sourceDeDonnées: SourceBidon = SourceBidon()
+    private val sourceDeDonnées: SourceDeDonnées = SourceDeDonneeAPI("http://idefix.dti.crosemont.quebec:9002", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkkzNzJZUHJaMkNTS2pQNVFkNWVZdSJ9.eyJpc3MiOiJodHRwczovL2Rldi1rcHBuemZnczZkNG5heTZqLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiI4RGM5WXNhZGpWb1NscHRLS081ZXFxQUc5VVc1SmYxdkBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2hvdGVsL2FwaSIsImlhdCI6MTczMzA3NzMzMiwiZXhwIjoxNzMzMTYzNzMyLCJzY29wZSI6InJlYWQ6Y2hhbWJyZXMgY3JlYXRlOmNoYW1icmVzIHVwZGF0ZTpjaGFtYnJlcyBkZWxldGU6Y2hhbWJyZXMgcmVhZDpyZXNlcnZhdGlvbnMgY3JlYXRlOnJlc2VydmF0aW9ucyB1cGRhdGU6cmVzZXJ2YXRpb25zIGRlbGV0ZTpyZXNlcnZhdGlvbnMgcmVhZDpjYXJhY3RlcmlzdGlxdWUiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiI4RGM5WXNhZGpWb1NscHRLS081ZXFxQUc5VVc1SmYxdiIsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2hhbWJyZXMiLCJjcmVhdGU6Y2hhbWJyZXMiLCJ1cGRhdGU6Y2hhbWJyZXMiLCJkZWxldGU6Y2hhbWJyZXMiLCJyZWFkOnJlc2VydmF0aW9ucyIsImNyZWF0ZTpyZXNlcnZhdGlvbnMiLCJ1cGRhdGU6cmVzZXJ2YXRpb25zIiwiZGVsZXRlOnJlc2VydmF0aW9ucyIsInJlYWQ6Y2FyYWN0ZXJpc3RpcXVlIl19.UW6eWyCF082Xx_pQmoTScpYbYVE4qDaex_W_D5jB1No25O7cKnlshZ-0Q7HlMrLyR-c5Jn1sCWfkyc2B8eccP7tQdsGN4kDdrHuEVLR_QAxDpQPKHJfeF6RM2ic3o2g9Yf-BNzeDUGyRzcfB_IPl90hl2SvJBfFp_av9c51cpdFlzU9ES5SU-VIqgZQMZuKSV-qsVXUYu8R99nEMVzecF5xJSebmkmgeZM5TPQofIojjz_JdtHWr69H3xGWjRao0LGKbTFs7X4JJZOvtz9Lunyto2NxyOpS9b85tr-_4Nqt-qd66D7wrAJNi8chpx7vCbpBi7BntvoIUzfmQivu54A")
     private val serviceChambre = ServiceChambre(sourceDeDonnées)
     private val serviceClient = ServiceClient(sourceDeDonnées)
     private val serviceReservation = ServiceReservation(sourceDeDonnées)
@@ -78,19 +81,19 @@ class Modèle private constructor(context: Context) {
     }
 
     // chambres
-    fun obtenirChambres(): List<ChambreData> {
+    fun obtenirChambres(): List<ChambreData>? {
         return serviceChambre.obtenirChambres()
     }
 
-    fun obtenirChambreParType(type: String): List<ChambreData> {
+    fun obtenirChambreParType(type: String): List<ChambreData>? {
         return serviceChambre.obtenirChambreParType(type)
     }
 
-    fun obtenirChambreParId(id: Int): ChambreData {
+    fun obtenirChambreParId(id: Int): ChambreData? {
         return serviceChambre.obtenirChambreParId(id)
     }
 
-    fun obtenirChambresDisponibles(): List<ChambreData> {
+    fun obtenirChambresDisponibles(): List<ChambreData>? {
         return serviceChambre.obtenirChambresDisponibles()
     }
 
@@ -103,7 +106,7 @@ class Modèle private constructor(context: Context) {
     }
 
     // reservations
-    fun obtenirToutesLesReservations(): List<ReservationData> {
+    fun obtenirToutesLesReservations(): List<ReservationData>? {
         return serviceReservation.obtenirToutesLesReservations()
     }
 
@@ -127,7 +130,7 @@ class Modèle private constructor(context: Context) {
         serviceReservation.ajouterReservation(réservation)
     }
 
-    fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {
+    suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {
         return serviceReservation.obtenirReservationsParClient(client)
     }
 
@@ -135,7 +138,7 @@ class Modèle private constructor(context: Context) {
         return serviceReservation.obtenirReservationParId(id)
     }
 
-    fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {
+    suspend fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {
         return serviceReservation.obtenirReservationParChambre(chambre)
     }
 

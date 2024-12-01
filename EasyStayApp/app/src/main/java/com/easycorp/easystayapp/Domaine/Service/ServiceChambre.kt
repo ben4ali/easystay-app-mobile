@@ -5,19 +5,19 @@ import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonnées
 
 class ServiceChambre(private val sourceDeDonnées: SourceDeDonnées) {
 
-    fun obtenirChambres(): List<ChambreData> {
+    fun obtenirChambres(): List<ChambreData>? {
         return sourceDeDonnées.obtenirChambres()
     }
 
-    fun obtenirChambreParType(type: String): List<ChambreData> {
+    fun obtenirChambreParType(type: String): List<ChambreData>? {
         return sourceDeDonnées.obtenirChambreParType(type)
     }
 
-    fun obtenirChambreParId(id: Int): ChambreData {
+    fun obtenirChambreParId(id: Int): ChambreData? {
         return sourceDeDonnées.obtenirChambreParId(id)
     }
 
-    fun obtenirChambresDisponibles(): List<ChambreData> {
+    fun obtenirChambresDisponibles(): List<ChambreData>? {
         return sourceDeDonnées.obtenirChambresDisponibles()
     }
 }

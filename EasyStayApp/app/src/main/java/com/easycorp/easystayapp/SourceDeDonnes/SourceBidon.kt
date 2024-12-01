@@ -72,7 +72,7 @@ class SourceBidon : SourceDeDonnées{
         reservations.add(reservation)
     }
 
-    override fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {
+    override suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {
         return reservations.filter { it.client == client }
     }
 
@@ -80,7 +80,7 @@ class SourceBidon : SourceDeDonnées{
         return reservations.find { it.id == id }!!
     }
 
-    override fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {
+    override suspend fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {
         return reservations.filter { it.chambre == chambre }
     }
 

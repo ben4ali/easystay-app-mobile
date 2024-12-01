@@ -23,13 +23,18 @@ class ListeChambresPresentateur(
 
     fun chargerChambres() {
         val chambres = modèle.obtenirChambres()
-        afficherChambres(chambres)
+        if (chambres != null) {
+            afficherChambres(chambres)
+        }
     }
 
     fun filtrerChambres(searchText: String) {
         val chambres = modèle.obtenirChambres()
-        val filteredChambres = chambres.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
-        afficherChambres(filteredChambres)
+        val filteredChambres =
+            chambres?.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
+        if (filteredChambres != null) {
+            afficherChambres(filteredChambres)
+        }
     }
 
     fun appliquerOuEffacerFiltres() {
@@ -37,7 +42,7 @@ class ListeChambresPresentateur(
             maxPrice = 500
             selectedType = null
             isFilterApplied = false
-            afficherChambres(modèle.obtenirChambres())
+            modèle.obtenirChambres()?.let { afficherChambres(it) }
         } else {
             afficherFilterDialog()
         }
@@ -57,7 +62,8 @@ class ListeChambresPresentateur(
         val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
         val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
 
-        val types = listOf("Toutes les chambres") + modèle.obtenirChambres().map { it.typeChambre }.distinct()
+        val types = listOf("Toutes les chambres") + (modèle.obtenirChambres()?.map { it.typeChambre }
+            ?.distinct() ?: emptyList())
         val adapterSpinner = ArrayAdapter(context, android.R.layout.simple_spinner_item, types)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapterSpinner

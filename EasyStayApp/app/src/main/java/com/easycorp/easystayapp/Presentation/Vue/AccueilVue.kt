@@ -9,10 +9,14 @@ import android.widget.FrameLayout
 import android.widget.ListView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.easycorp.easystayapp.Presentation.Presentateur.Accueil.AccueilPrésentateur
 import com.easycorp.easystayapp.R
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AccueilVue : Fragment() {
 
@@ -39,15 +43,20 @@ class AccueilVue : Fragment() {
         dotsIndicator = view.findViewById(R.id.dots_indicator)
         heroImage = view.findViewById(R.id.HeroCard)
         présentateur = AccueilPrésentateur(requireContext(), listeReservations, listeChambres, this, dotsIndicator)
-        présentateur.chargerReservationsCourte(1, listeReservations)
-        présentateur.chargerChambres()
-        présentateur.chargerChambresFavoris()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            présentateur.chargerReservationsCourte(1, listeReservations)
+            présentateur.chargerChambres()
+            présentateur.chargerChambresFavoris()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        présentateur.chargerReservationsCourte(1, listeReservations)
-        présentateur.chargerChambres()
-        présentateur.chargerChambresFavoris()
+        CoroutineScope(Dispatchers.IO).launch {
+            présentateur.chargerReservationsCourte(1, listeReservations)
+            présentateur.chargerChambres()
+            présentateur.chargerChambresFavoris()
+        }
     }
 }

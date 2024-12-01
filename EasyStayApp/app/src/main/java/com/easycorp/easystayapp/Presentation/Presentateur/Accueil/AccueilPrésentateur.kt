@@ -26,7 +26,7 @@ class AccueilPrésentateur(
 ) : AccueilPrésentateurInterface {
     private val modèle = Modèle.getInstance(context)
 
-    override fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2) {
+    override suspend fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2) {
         val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
         val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
         val adapter = RéservationCourtAdapter(viewPager.context, filteredReservations)
@@ -37,8 +37,10 @@ class AccueilPrésentateur(
 
     override fun chargerChambres() {
         val chambres = modèle.obtenirChambres()
-        val adapter = ChambreAdapter(context, chambres) { chambre ->
-            ouvrirDetailsChambre(chambre)
+        val adapter = chambres?.let {
+            ChambreAdapter(context, it) { chambre ->
+                ouvrirDetailsChambre(chambre)
+            }
         }
         listViewChambres.adapter = adapter
         val animation = AnimationUtils.loadAnimation(context, R.anim.slide_down)
@@ -55,12 +57,16 @@ class AccueilPrésentateur(
 
     override fun chargerChambresFavoris() {
         val favoriteRoomIds = modèle.obtenirTousLesFavoris()
-        val favoriteChambres = modèle.obtenirChambres().filter { it.id in favoriteRoomIds }
-        if (favoriteChambres.isEmpty()) {
-            vue.textFavoris.layoutParams.height = 0
+        val favoriteChambres = modèle.obtenirChambres()?.filter { it.id in favoriteRoomIds }
+        if (favoriteChambres != null) {
+            if (favoriteChambres.isEmpty()) {
+                vue.textFavoris.layoutParams.height = 0
+            }
         }
-        val adapter = ChambreAdapter(context, favoriteChambres) { chambre ->
-            ouvrirDetailsChambre(chambre)
+        val adapter = favoriteChambres?.let {
+            ChambreAdapter(context, it) { chambre ->
+                ouvrirDetailsChambre(chambre)
+            }
         }
         listViewChambres.adapter = adapter
 

@@ -37,7 +37,7 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
     override fun ouvrirDetailsRéservation() {
         réservation = modèle.getReservationChoisieId()
             ?.let { modèle.obtenirReservationParId(it) }!!
-        chambre = modèle.obtenirChambreParId(réservation.chambre.id)
+        chambre = modèle.obtenirChambreParId(réservation.chambre.id)!!
 
         val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
         val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)

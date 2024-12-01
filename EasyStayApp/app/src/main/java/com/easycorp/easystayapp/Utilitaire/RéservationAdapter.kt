@@ -12,6 +12,9 @@ import androidx.cardview.widget.CardView
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Presentation.Presentateur.ListeRéservation.ListeRéservationPrésentateur
 import com.easycorp.easystayapp.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RéservationAdapter(
     context: Context,
@@ -45,7 +48,9 @@ class RéservationAdapter(
             présentateur.ouvrirDetailsReservation(réservation, view)
         }
         btnSupprimer.setOnClickListener {
-            présentateur.supprimerReservation(réservation)
+            CoroutineScope(Dispatchers.IO).launch {
+                présentateur.supprimerReservation(réservation)
+            }
         }
 
         if (!animatedPositions.contains(position)) {
