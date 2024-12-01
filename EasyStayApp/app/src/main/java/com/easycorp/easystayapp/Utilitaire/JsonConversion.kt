@@ -1,6 +1,8 @@
 package com.easycorp.easystayapp.Utilitaire
 
 import android.util.JsonReader
+import android.util.JsonToken
+import android.util.Log
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
@@ -82,25 +84,42 @@ class JsonConversion {
             }
             reader.endObject()
 
-            return ChambreData(id, typeChambre, prixParNuit, statutDisponibilite, statutNettoyage, note, nombreAvis, caracteristique, equipement, photos)
+            return ChambreData(
+                id,
+                typeChambre,
+                prixParNuit,
+                statutDisponibilite,
+                statutNettoyage,
+                note,
+                nombreAvis,
+                caracteristique,
+                equipement,
+                photos
+            )
         }
 
         suspend fun jsonAReservations(json: String): List<ReservationData> {
-            val liste = mutableListOf<ReservationData>()
+            val liste = mutableListOf<ReservationData?>()
             val reader = JsonReader(StringReader(json))
 
             reader.beginArray()
             while (reader.hasNext()) {
-                liste.add(jsonAReservation(reader))
+                val reservation = try {
+                    jsonAReservation(reader)
+                } catch (e: Exception) {
+                    Log.e("jsonAReservations", "Erreur lors du traitement d'une réservation : ${e.message}", e)
+                    null
+                }
+                liste.add(reservation)
             }
             reader.endArray()
 
-            return liste
+            return liste.filterNotNull()
         }
 
         suspend fun jsonAReservation(reader: JsonReader): ReservationData {
             var id = 0
-            lateinit var client: ClientData
+            var client: ClientData? = null
             var chambreNumero = ""
             var dateDebut = ""
             var dateFin = ""
@@ -110,72 +129,103 @@ class JsonConversion {
             var statusPaiement = false
             var datePaiement = ""
 
+            try {
+                reader.beginObject()
+                while (reader.hasNext()) {
+                    val clé = reader.nextName()
+                    when (clé) {
+                        "id" -> id = reader.nextInt()
+                        "client" -> {
+                            client = if (reader.peek() == JsonToken.NULL) {
+                                reader.nextNull()
+                                ClientData(0, "unknown", "unknown", "unknown", null)
+                            } else {
+                                jsonAClient(reader)
+                            }
+                        }
+                        "chambreNumero" -> chambreNumero = reader.nextString()
+                        "dateDebut" -> dateDebut = reader.nextString()
+                        "dateFin" -> dateFin = reader.nextString()
+                        "prix_total" -> prixTotal = reader.nextDouble()
+                        "statut" -> statut = reader.nextString()
+                        "methode_paiement" -> methodePaiement = reader.nextString()
+                        "status_paiement" -> statusPaiement = reader.nextBoolean()
+                        "date_paiement" -> datePaiement = reader.nextString()
+                        else -> reader.skipValue()
+                    }
+                }
+                reader.endObject()
+
+                val chambre = withContext(Dispatchers.IO) {
+                    if (chambreNumero.isNotEmpty()) {
+                        try {
+                            source.obtenirChambreParId(chambreNumero.toInt())
+                        } catch (e: Exception) {
+                            Log.e("obtenirChambreParId", "Erreur lors de l'obtention de la chambre : ${e.message}", e)
+                            null
+                        }
+                    } else {
+                        null
+                    }
+                } ?: ChambreData(
+                    id = -1,
+                    typeChambre = "Inconnu",
+                    prixParNuit = 0.0,
+                    statutDisponibilite = "Indisponible",
+                    statutNettoyage = "Inconnu",
+                    note = 0,
+                    nombreAvis = 0,
+                    caracteristique = emptyList(),
+                    equipement = emptyList(),
+                    photos = emptyList()
+                )
+
+                return ReservationData(
+                    id,
+                    client ?: ClientData(0, "unknown", "unknown", "unknown", null),
+                    chambreNumero,
+                    dateDebut,
+                    dateFin,
+                    prixTotal,
+                    statut,
+                    methodePaiement,
+                    statusPaiement,
+                    datePaiement,
+                    chambre
+                )
+            } catch (e: Exception) {
+                Log.e("jsonAReservation", "Erreur lors du traitement : ${e.message}", e)
+                throw e
+            }
+        }
+
+        fun jsonAClient(reader: JsonReader): ClientData {
+            var id = 0
+            var courriel = ""
+            var prenom = ""
+            var nom = ""
+            var photo: String? = null
+
             reader.beginObject()
             while (reader.hasNext()) {
                 val clé = reader.nextName()
                 when (clé) {
                     "id" -> id = reader.nextInt()
-                    "client" -> {
-                        client = ClientData(0, "", "", "", "")
+                    "courriel" -> courriel = reader.nextString()
+                    "prenom" -> prenom = reader.nextString()
+                    "nom" -> nom = reader.nextString()
+                    "photo" -> photo = if (reader.peek() == JsonToken.NULL) {
+                        reader.nextNull()
+                        null
+                    } else {
+                        reader.nextString()
                     }
-                    "chambreNumero" -> chambreNumero = reader.nextString()
-                    "dateDebut" -> dateDebut = reader.nextString()
-                    "dateFin" -> dateFin = reader.nextString()
-                    "prix_total" -> prixTotal = reader.nextDouble()
-                    "statut" -> statut = reader.nextString()
-                    "methode_paiement" -> methodePaiement = reader.nextString()
-                    "status_paiement" -> statusPaiement = reader.nextBoolean()
-                    "date_paiement" -> datePaiement = reader.nextString()
                     else -> reader.skipValue()
                 }
             }
             reader.endObject()
 
-            val chambre = withContext(Dispatchers.IO) {
-                source.obtenirChambreParId(chambreNumero.toInt())
-            }
-
-            return ReservationData(id, client, chambreNumero, dateDebut, dateFin, prixTotal, statut, methodePaiement, statusPaiement, datePaiement, chambre!!)
+            return ClientData(id, courriel, prenom, nom, photo)
         }
-
-//        fun jsonAClient(reader: JsonReader): ClientData {
-//            var id = 0
-//            var courriel = ""
-//            var prenom = ""
-//            var nom = ""
-//            var photo: String? = null
-//
-//            reader.beginObject()
-//            while (reader.hasNext()) {
-//                if (reader.peek() == JsonReader.Token.NULL) {
-//                    reader.nextNull()
-//                    continue
-//                }
-//                val clé = reader.nextName()
-//                when (clé) {
-//                    "id" -> id = reader.nextInt()
-//                    "courriel" -> courriel = if (reader.peek() != JsonReader.Token.NULL) reader.nextString() else {
-//                        reader.nextNull()
-//                        ""
-//                    }
-//                    "prenom" -> prenom = if (reader.peek() != JsonReader.Token.NULL) reader.nextString() else {
-//                        reader.nextNull()
-//                        ""
-//                    }
-//                    "nom" -> nom = if (reader.peek() != JsonReader.Token.NULL) reader.nextString() else {
-//                        reader.nextNull()
-//                        ""
-//                    }
-//                    "photo" -> photo = if (reader.peek() != JsonReader.Token.NULL) reader.nextString() else {
-//                        reader.nextNull()
-//                        null
-//                    }
-//                    else -> reader.skipValue()
-//                }
-//            }
-//            reader.endObject()
-//
-//            return ClientData(id, prenom, nom, courriel, photo)
-//        }
     }
 }
