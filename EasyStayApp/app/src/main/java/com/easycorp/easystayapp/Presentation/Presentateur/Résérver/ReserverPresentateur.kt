@@ -143,9 +143,15 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
         val nouvelleReservation = ReservationData(
             id = 7,
             client = client,
-            chambre = chambre!!,
+            chambreNumero = chambre!!.id.toString(),
             dateDébut = dateDebutReservation,
-            dateFin = dateFinReservation
+            dateFin = dateFinReservation,
+            prixTotal = chambre!!.prixParNuit * réservation.calculerNombreDeNuits(),
+            statut = "Confirmée",
+            methodePaiement = "Carte de crédit",
+            statusPaiement = true,
+            datePaiement = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(Date()),
+            chambre = chambre!!
         )
 
         modèle.ajouterReservation(nouvelleReservation)
@@ -163,7 +169,7 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
         L'équipe EasyStay
     """.trimIndent()
 
-        emailService.envoyerEmail(client.email, sujet, contenu) {
+        emailService.envoyerEmail(client.courriel, sujet, contenu) {
             vue.requireActivity().runOnUiThread {
                 Toast.makeText(vue.requireContext(), "Réservation confirmée", Toast.LENGTH_SHORT).show()
             }

@@ -62,6 +62,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.google.android.material:material:1.9.0")
     implementation("commons-codec:commons-codec:1.15")
     implementation("com.tbuonomo:dotsindicator:5.1.0")

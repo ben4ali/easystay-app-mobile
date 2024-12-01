@@ -41,7 +41,7 @@ class ChambreAdapter(
         }
 
         textRoomType.text = chambre.typeChambre
-        textRoomDescription.text = chambre.description
+        textRoomDescription.text = chambre.typeChambre
         textRating.text = "${chambre.note} (${chambre.nombreAvis} avis)"
         textRoomPrice.text = "$${chambre.prixParNuit} CAD nuit"
 

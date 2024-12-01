@@ -35,7 +35,7 @@ class RéservationAdapter(
         val btnSupprimer = view.findViewById<TextView>(R.id.btnSupprimer)
 
         textType.text = réservation.chambre.typeChambre
-        textDesc.text = réservation.chambre.description
+        textDesc.text = réservation.chambre.typeChambre
         textAvis.text = "${réservation.chambre.note} (${réservation.chambre.nombreAvis} avis)"
         textPrix.text = "${réservation.chambre.prixParNuit}$/nuit"
         textDates.text = "${réservation.dateDébut} - ${réservation.dateFin}"

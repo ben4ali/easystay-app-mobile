@@ -37,7 +37,7 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
         val chambreId = modèle.getChambreChoisieId() ?: return
         val chambre = modèle.obtenirChambreParId(chambreId)
 
-        afficherDetailsChambre(chambre.typeChambre, chambre.description, chambre.note, chambre.nombreAvis, chambre.prixParNuit)
+        afficherDetailsChambre(chambre.typeChambre, chambre.typeChambre, chambre.note.toFloat(), chambre.nombreAvis, chambre.prixParNuit)
     }
 
     override fun afficherDetailsChambre(typeChambre: String, description: String, note: Float, nombreAvis: Int, prixParNuit: Double) {
@@ -70,9 +70,15 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
             val nouvelleRéservation = ReservationData(
                 modèle.obtenirToutesLesReservations().size + 1,
                 modèle.obtenirClientParId(1),
-                modèle.obtenirChambreParId(chambreId),
+                modèle.obtenirChambreParId(chambreId).id.toString(),
                 dateDebutFormatted,
-                dateFinFormatted
+                dateFinFormatted,
+                modèle.obtenirChambreParId(chambreId).prixParNuit * (SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateFinFormatted).time - SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateDebutFormatted).time) / (1000 * 60 * 60 * 24),
+                "Confirmée",
+                "Carte de crédit",
+                true,
+                SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(Date()),
+                modèle.obtenirChambreParId(chambreId)
             )
             modèle.ajouterReservation(nouvelleRéservation)
             nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }

@@ -1,10 +1,8 @@
 package com.easycorp.easystayapp.SourceDeDonnes
 
-import android.graphics.Bitmap
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
-import com.easycorp.easystayapp.R
 
 class SourceBidon : SourceDeDonnées{
 
@@ -15,24 +13,24 @@ class SourceBidon : SourceDeDonnées{
     init {
         chambres.addAll(
             listOf(
-                ChambreData(1,"Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0),
-                ChambreData(2,"Suite Junior", "Balcon privé", 3.5f, 5, listOf("TV", "Climatisation"), 50.0),
-                ChambreData(3,"Chambre Standard", "Lit queen-size", 4.0f, 8, listOf("TV", "Climatisation", "Balcon"), 100.0),
-                ChambreData(4,"Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0)
+                ChambreData(1, "Chambre Deluxe", 150.0, "Disponible", "Nettoyée", 5, 10, listOf("Vue sur la mer"), listOf("TV", "Climatisation", "Balcon"), listOf()),
+                ChambreData(2, "Suite Junior", 50.0, "Disponible", "Nettoyée", 4, 5, listOf("Balcon privé"), listOf("TV", "Climatisation"), listOf()),
+                ChambreData(3, "Chambre Standard", 100.0, "Disponible", "Nettoyée", 4, 8, listOf("Lit queen-size"), listOf("TV", "Climatisation", "Balcon"), listOf()),
+                ChambreData(4, "Chambre Deluxe", 150.0, "Disponible", "Nettoyée", 5, 10, listOf("Vue sur la mer"), listOf("TV", "Climatisation", "Balcon"), listOf())
             )
         )
 
-        val client1 = ClientData(1,"John", "Doe", "johndoe@gmail.com", R.drawable.photo_profil_1)
+        val client1 = ClientData(1,"John", "Doe", "johndoe@gmail.com", "daad")
         clients.add(client1)
 
         reservations.addAll(
             listOf(
-                ReservationData(1, client1, chambres[0], "24-11-2024", "26-11-2024"),
-                ReservationData(2, client1, chambres[1], "27-11-2024", "01-12-2024"),
-                ReservationData(3, client1, chambres[2], "02-12-2024", "05-12-2024"),
-                ReservationData(4, client1, chambres[3], "10-12-2024", "15-12-2024"),
-                ReservationData(5, client1, chambres[0], "20-12-2024", "25-12-2024"),
-                ReservationData(6, client1, chambres[1], "27-12-2024", "31-12-2024"),
+                ReservationData(1, client1, "1", "24-11-2024", "26-11-2024", 300.0, "Confirmée", "Carte de crédit", true, "23-11-2024", chambres[0]),
+                ReservationData(2, client1, "2", "27-11-2024", "01-12-2024", 400.0, "Confirmée", "PayPal", true, "26-11-2024", chambres[1]),
+                ReservationData(3, client1, "3", "02-12-2024", "05-12-2024", 500.0, "Confirmée", "Espèces", true, "01-12-2024", chambres[2]),
+                ReservationData(4, client1, "4", "10-12-2024", "15-12-2024", 600.0, "Confirmée", "Carte de crédit", true, "09-12-2024", chambres[3]),
+                ReservationData(5, client1, "1", "20-12-2024", "25-12-2024", 700.0, "Confirmée", "PayPal", true, "19-12-2024", chambres[0]),
+                ReservationData(6, client1, "2", "27-12-2024", "31-12-2024", 800.0, "Confirmée", "Espèces", true, "26-12-2024", chambres[1]),
             )
         )
     }
@@ -104,10 +102,10 @@ class SourceBidon : SourceDeDonnées{
     }
 
     override fun modifierClientEmail(newEmail: String) {
-        clients[0].email = newEmail
+        clients[0].courriel = newEmail
     }
 
-    override fun modifierClientImage(newImage: Int) {
+    override fun modifierClientImage(newImage: String) {
         clients[0].photo = newImage
     }
 

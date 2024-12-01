@@ -77,9 +77,9 @@ class ReserverVue : Fragment() {
 
     fun modifierDetailsChambre(chambre: ChambreData) {
         typeChambreTextView.text = chambre.typeChambre
-        descriptionChambreTextView.text = chambre.description
+        descriptionChambreTextView.text = chambre.typeChambre
         noteTextView.text = "★ ${chambre.note} (${chambre.nombreAvis} avis)"
-        descriptionCompleteTextView.text = chambre.description
+        descriptionCompleteTextView.text = chambre.typeChambre
         commoditesTextView.text = "Wi-Fi gratuit, Petit déjeuner inclus"
         prixParNuitTextView.text = "${chambre.prixParNuit}$ / nuit"
         datesTextView.text = "${presentateur.dateDebutFormatter} - ${presentateur.dateFinFormatter}"

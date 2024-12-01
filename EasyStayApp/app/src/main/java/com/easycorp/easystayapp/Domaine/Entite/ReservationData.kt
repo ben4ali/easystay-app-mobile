@@ -5,16 +5,19 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 data class ReservationData(
-        val id : Int?,
-        var client: ClientData,
-        var chambre: ChambreData,
-        var dateDébut: String,
-        var dateFin: String,
-    )
+    val id: Int,
+    var client: ClientData,
+    var chambreNumero: String,
+    var dateDébut: String,
+    var dateFin: String,
+    var prixTotal: Double,
+    var statut: String,
+    var methodePaiement: String,
+    var statusPaiement: Boolean,
+    var datePaiement: String,
+    var chambre: ChambreData
+)
 {
-    fun prixTotal(): Double {
-        return (chambre.prixParNuit * calculerNombreDeNuits()) * 1.15
-    }
 
     fun calculerNombreDeNuits(): Int {
         val dateDebut = LocalDate.parse(dateDébut, DateTimeFormatter.ofPattern("dd-MM-yyyy"))

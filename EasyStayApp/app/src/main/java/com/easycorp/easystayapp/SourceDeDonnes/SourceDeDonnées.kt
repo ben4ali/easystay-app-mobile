@@ -28,6 +28,6 @@ interface SourceDeDonnées {
     fun modifierClientName(newName: String)
     fun modifierClientSurname(newSurname: String)
     fun modifierClientEmail(newEmail: String)
-    fun modifierClientImage(newImage: Int)
+    fun modifierClientImage(newImage: String)
 
 }

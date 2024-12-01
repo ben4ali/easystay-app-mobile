@@ -23,7 +23,7 @@ class PreferencePresentateur(
         vue.afficherClient(
             prénom = client.prénom,
             nom = client.nom,
-            email = client.email)
+            email = client.courriel)
     }
 
     fun ouvrirCamera(fragment: Fragment) {
@@ -110,9 +110,9 @@ class PreferencePresentateur(
 
     fun traiterResultatCamera(requestCode: Int, resultCode: Int, data: Intent?, context: Context) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            modèle.modifierClientImage(imageBitmap, context)
-            vue.afficherPhotoProfil(imageBitmap)
+//            val imageBitmap = data?.extras?.get("data") as Bitmap
+//            modèle.modifierClientImage(imageBitmap, context)
+//            vue.afficherPhotoProfil(imageBitmap)
         }
     }
 
@@ -122,7 +122,7 @@ class PreferencePresentateur(
             vue.afficherPhotoProfil(clientImage)
         } else {
             val client = modèle.obtenirClientParId(clientId)
-            vue.afficherPhoto(client.photo!!)
+//            vue.afficherPhoto(client.photo!!)
         }
     }
 
