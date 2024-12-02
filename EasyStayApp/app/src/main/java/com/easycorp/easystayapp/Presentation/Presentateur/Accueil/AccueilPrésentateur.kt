@@ -16,10 +16,13 @@ import com.easycorp.easystayapp.Utilitaire.RéservationCourtAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AccueilPrésentateur(
     private val context: Context,
-    private val listViewReservations: ViewPager2,
+    private val listeReservations : ViewPager2,
     private val listViewChambres: ListView,
     private val vue: AccueilVue,
     private val dotsIndicator: DotsIndicator
@@ -27,25 +30,36 @@ class AccueilPrésentateur(
     private val modèle = Modèle.getInstance(context)
 
     override suspend fun chargerReservationsCourte(clientId: Int, viewPager: ViewPager2) {
-        val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
-        val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
-        val adapter = RéservationCourtAdapter(viewPager.context, filteredReservations)
-        viewPager.adapter = adapter
-        dotsIndicator.attachTo(viewPager)
+        CoroutineScope(Dispatchers.IO).launch {
+            val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
+            CoroutineScope(Dispatchers.Main).launch {
+                val filteredReservations = reservations.filter { it.obtenirNombreDeJours() <= 20 && it.obtenirNombreDeJours() >= 0 }
+                val adapter = RéservationCourtAdapter(viewPager.context, filteredReservations)
+                viewPager.adapter = adapter
+                dotsIndicator.attachTo(viewPager)
+            }
+
+        }
     }
 
 
     override fun chargerChambres() {
-        val chambres = modèle.obtenirChambres()
-        val adapter = chambres?.let {
-            ChambreAdapter(context, it) { chambre ->
-                ouvrirDetailsChambre(chambre)
+        CoroutineScope(Dispatchers.IO).launch {
+            val chambres = modèle.obtenirChambres()
+            CoroutineScope(Dispatchers.Main).launch {
+                val adapter = chambres?.let {
+                    ChambreAdapter(context, it) { chambre ->
+                        ouvrirDetailsChambre(chambre)
+                    }
+                }
+                listViewChambres.adapter = adapter
+                val animation = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+                animation.startOffset= 300
+                vue.heroImage.startAnimation(animation)
             }
+
         }
-        listViewChambres.adapter = adapter
-        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-        animation.startOffset= 300
-        vue.heroImage.startAnimation(animation)
+
     }
 
     override fun ouvrirDetailsChambre(chambre: ChambreData) {
@@ -56,21 +70,26 @@ class AccueilPrésentateur(
     }
 
     override fun chargerChambresFavoris() {
-        val favoriteRoomIds = modèle.obtenirTousLesFavoris()
-        val favoriteChambres = modèle.obtenirChambres()?.filter { it.id in favoriteRoomIds }
-        if (favoriteChambres != null) {
-            if (favoriteChambres.isEmpty()) {
-                vue.textFavoris.layoutParams.height = 0
-            }
-        }
-        val adapter = favoriteChambres?.let {
-            ChambreAdapter(context, it) { chambre ->
-                ouvrirDetailsChambre(chambre)
-            }
-        }
-        listViewChambres.adapter = adapter
+        CoroutineScope(Dispatchers.IO).launch {
+            val favoriteRoomIds = modèle.obtenirTousLesFavoris()
+            val favoriteChambres = modèle.obtenirChambres()?.filter { it.id in favoriteRoomIds }
+            CoroutineScope(Dispatchers.Main).launch {
+                if (favoriteChambres != null) {
+                    if (favoriteChambres.isEmpty()) {
+                        vue.textFavoris.layoutParams.height = 0
+                    }
+                }
+                val adapter = favoriteChambres?.let {
+                    ChambreAdapter(context, it) { chambre ->
+                        ouvrirDetailsChambre(chambre)
+                    }
+                }
+                listViewChambres.adapter = adapter
 
-        setListViewHeightBasedOnItems(listViewChambres)
+                setListViewHeightBasedOnItems(listViewChambres)
+            }
+
+        }
     }
 
     private fun setListViewHeightBasedOnItems(listView: ListView) {

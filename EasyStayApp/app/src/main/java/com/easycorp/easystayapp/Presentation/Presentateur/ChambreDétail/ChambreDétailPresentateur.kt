@@ -22,6 +22,9 @@ import java.util.TimeZone
 import androidx.navigation.fragment.findNavController
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val contexte: Context,
                                 wormDotsIndicator: WormDotsIndicator
@@ -34,11 +37,15 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     override var dateFin: Calendar? = null
 
     override fun importerDetailsChambre() {
-        val chambreId = modèle.getChambreChoisieId() ?: return
-        val chambre = modèle.obtenirChambreParId(chambreId)
+        CoroutineScope(Dispatchers.IO).launch {
+            val chambreId = modèle.getChambreChoisieId() ?: return@launch
+            val chambre = modèle.obtenirChambreParId(chambreId)
 
-        if (chambre != null) {
-            afficherDetailsChambre(chambre.typeChambre, chambre.typeChambre, chambre.note.toFloat(), chambre.nombreAvis, chambre.prixParNuit)
+            if (chambre != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    afficherDetailsChambre(chambre.typeChambre, chambre.typeChambre, chambre.note.toFloat(), chambre.nombreAvis, chambre.prixParNuit)
+                }
+            }
         }
     }
 
@@ -84,12 +91,14 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
                     it
                 )
             }
-            if (nouvelleRéservation != null) {
-                modèle.ajouterReservation(nouvelleRéservation)
-                nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
+            CoroutineScope(Dispatchers.IO).launch {
+                if (nouvelleRéservation != null) {
+                        modèle.ajouterReservation(nouvelleRéservation)
+                        nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
+                }
+                modèle.setDates(dateDebutFormatted, dateFinFormatted)
+                vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
             }
-            modèle.setDates(dateDebutFormatted, dateFinFormatted)
-            vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
         }
     }
 

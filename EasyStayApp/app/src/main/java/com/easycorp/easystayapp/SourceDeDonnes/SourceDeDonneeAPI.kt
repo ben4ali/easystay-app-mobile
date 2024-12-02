@@ -87,6 +87,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         TODO("Not yet implemented")
     }
 
+    //PAS BESOIN
     override fun ajouterClient(client: ClientData) {
         TODO("Not yet implemented")
     }
@@ -115,6 +116,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         }
     }
 
+    //PAS BESOIN
     override fun obtenirToutesLesReservations(): List<ReservationData>? {
         TODO("Not yet implemented")
     }
@@ -168,8 +170,19 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         }
     }
 
-    override fun obtenirReservationParId(id: Int): ReservationData {
-        TODO("Not yet implemented")
+    override suspend fun obtenirReservationParId(id: Int): ReservationData? {
+        val request = Request.Builder()
+            .url("$url_api/reservations/$id")
+            .addHeader("Authorization", "Bearer $bearerToken")
+            .build()
+
+        return client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            response.body?.string()?.let { json ->
+                return JsonConversion.jsonAReservation(JsonReader(StringReader(json)))
+            }
+        }
     }
 
     override suspend fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData> {

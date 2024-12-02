@@ -10,6 +10,9 @@ import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ChambresVue
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ListeChambresPresentateur(
     private val vue: ChambresVue,
@@ -22,19 +25,28 @@ class ListeChambresPresentateur(
 
 
     fun chargerChambres() {
-        val chambres = modèle.obtenirChambres()
-        if (chambres != null) {
-            afficherChambres(chambres)
+        CoroutineScope(Dispatchers.IO).launch {
+            val chambres = modèle.obtenirChambres()
+            CoroutineScope(Dispatchers.Main).launch {
+                if (chambres != null) {
+                    afficherChambres(chambres)
+                }
+            }
         }
-    }
 
+    }
     fun filtrerChambres(searchText: String) {
-        val chambres = modèle.obtenirChambres()
-        val filteredChambres =
-            chambres?.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
-        if (filteredChambres != null) {
-            afficherChambres(filteredChambres)
+        CoroutineScope(Dispatchers.IO).launch {
+            val chambres = modèle.obtenirChambres()
+            CoroutineScope(Dispatchers.Main).launch {
+                val filteredChambres =
+                    chambres?.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
+                if (filteredChambres != null) {
+                    afficherChambres(filteredChambres)
+                }
+            }
         }
+
     }
 
     fun appliquerOuEffacerFiltres() {

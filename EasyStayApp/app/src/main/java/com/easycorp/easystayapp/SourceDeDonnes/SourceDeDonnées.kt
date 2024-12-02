@@ -21,7 +21,7 @@ interface SourceDeDonnées {
     fun obtenirToutesLesReservations(): List<ReservationData>?
     fun ajouterReservation(reservation: ReservationData)
     suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData>
-    fun obtenirReservationParId(id: Int): ReservationData
+    suspend fun obtenirReservationParId(id: Int): ReservationData?
     suspend fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData>
     fun suppressionReservation(reservation: ReservationData)
     fun modifierReservation(reservation: ReservationData)

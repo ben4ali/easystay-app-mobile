@@ -19,7 +19,7 @@ class ServiceReservation(private val sourceDeDonnées: SourceDeDonnées) {
         return sourceDeDonnées.obtenirReservationsParClient(client)
     }
 
-    fun obtenirReservationParId(id: Int): ReservationData {
+    suspend fun obtenirReservationParId(id: Int): ReservationData? {
         return sourceDeDonnées.obtenirReservationParId(id)
     }
 

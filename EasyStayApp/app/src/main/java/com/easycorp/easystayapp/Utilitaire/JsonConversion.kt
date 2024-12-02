@@ -10,6 +10,7 @@ import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonneeAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.StringReader
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class JsonConversion {
@@ -122,8 +123,8 @@ class JsonConversion {
             var id = 0
             var client: ClientData? = null
             var chambreNumero = ""
-            var dateDebut: LocalDateTime? = null
-            var dateFin: LocalDateTime? = null
+            var dateDebut: LocalDate? = null
+            var dateFin: LocalDate? = null
             var prixTotal = 0.0
             var statut = ""
             var methodePaiement = ""
@@ -149,20 +150,40 @@ class JsonConversion {
                                     "nom" -> clientNom = reader.nextString()
                                     "prenom" -> clientPrenom = reader.nextString()
                                     "courriel" -> clientCourriel = reader.nextString()
-                                    "photo" -> clientPhoto = reader.nextString()
+                                    "photo" -> clientPhoto = if (reader.peek() == JsonToken.NULL) {
+                                        reader.nextNull()
+                                        null
+                                    } else {
+                                        reader.nextString()
+                                    }
                                 }
                             }
                             reader.endObject()
                             client = ClientData(clientId, clientNom, clientPrenom, clientCourriel, clientPhoto)
                         }
                         "chambreNumero" -> chambreNumero = reader.nextString()
-                        "dateDebut" -> dateDebut = LocalDateTime.parse(reader.nextString())
-                        "dateFin" -> dateFin = LocalDateTime.parse(reader.nextString())
+                        "dateDebut" -> dateDebut = if (reader.peek() == JsonToken.NULL) {
+                            reader.nextNull()
+                            null
+                        } else {
+                            LocalDate.parse(reader.nextString())
+                        }
+                        "dateFin" -> dateFin = if (reader.peek() == JsonToken.NULL) {
+                            reader.nextNull()
+                            null
+                        } else {
+                            LocalDate.parse(reader.nextString())
+                        }
                         "prixTotal" -> prixTotal = reader.nextDouble()
                         "statut" -> statut = reader.nextString()
                         "methodePaiement" -> methodePaiement = reader.nextString()
                         "statusPaiement" -> statusPaiement = reader.nextBoolean()
-                        "datePaiement" -> datePaiement = reader.nextString()
+                        "datePaiement" -> datePaiement = if (reader.peek() == JsonToken.NULL) {
+                            reader.nextNull()
+                            ""
+                        } else {
+                            reader.nextString()
+                        }
                         else -> reader.skipValue()
                     }
                 }

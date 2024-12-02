@@ -9,6 +9,9 @@ import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import com.easycorp.easystayapp.Presentation.Vue.ListeReservationsVue
 import com.easycorp.easystayapp.R
 import com.easycorp.easystayapp.Utilitaire.RéservationAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ListeRéservationPrésentateur(
     private val context: Context,
@@ -19,14 +22,24 @@ class ListeRéservationPrésentateur(
     private val modèle = Modèle.getInstance(context)
 
     override suspend fun chargerReservations(clientId: Int) {
-        val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
-        val adapter = RéservationAdapter(context, reservations, this)
-        listView.adapter = adapter
+        CoroutineScope(Dispatchers.IO).launch {
+            val reservations = modèle.obtenirReservationsParClient(modèle.obtenirClientParId(clientId))
+            CoroutineScope(Dispatchers.Main).launch {
+                val adapter = RéservationAdapter(context, reservations, this@ListeRéservationPrésentateur)
+                listView.adapter = adapter
+            }
+
+        }
+
     }
 
     override suspend fun supprimerReservation(réservation: ReservationData) {
-        modèle.supprimerRéservation(réservation)
-        chargerReservations(réservation.client.id)
+        CoroutineScope(Dispatchers.IO).launch {
+            modèle.supprimerRéservation(réservation)
+            CoroutineScope(Dispatchers.Main).launch {
+                chargerReservations(réservation.client.id)
+            }
+        }
     }
 
     fun ouvrirDetailsReservation(reservation: ReservationData, view: View) {

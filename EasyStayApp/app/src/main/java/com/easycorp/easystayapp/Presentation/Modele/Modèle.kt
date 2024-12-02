@@ -134,7 +134,7 @@ class Modèle private constructor(context: Context) {
         return serviceReservation.obtenirReservationsParClient(client)
     }
 
-    fun obtenirReservationParId(id: Int): ReservationData {
+    suspend fun obtenirReservationParId(id: Int): ReservationData? {
         return serviceReservation.obtenirReservationParId(id)
     }
 
