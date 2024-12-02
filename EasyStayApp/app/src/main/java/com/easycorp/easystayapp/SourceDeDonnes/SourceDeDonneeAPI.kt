@@ -58,6 +58,52 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             null
         }
     }
+    override fun rechercherChambresParMotCle(keyword: String): List<ChambreData>? {
+        val request = Request.Builder()
+            .url("$url_api/chambres?keyword=$keyword")
+            .addHeader("Authorization", "Bearer $bearerToken")
+            .build()
+
+        return try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                response.body?.string()?.let { json ->
+                    return JsonConversion.jsonAChambres(json)
+                }
+            }
+            null
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>? {
+        val urlBuilder = StringBuilder("$url_api/chambres?")
+        type?.let { urlBuilder.append("type=$it&") }
+        prix?.let { urlBuilder.append("prix=$it&") }
+        val url = urlBuilder.toString().removeSuffix("&")
+
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer $bearerToken")
+            .build()
+
+        return try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                response.body?.string()?.let { json ->
+                    JsonConversion.jsonAChambres(json)
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 
     suspend fun obtenirReservations(): List<ReservationData>? {
         val request = Request.Builder()

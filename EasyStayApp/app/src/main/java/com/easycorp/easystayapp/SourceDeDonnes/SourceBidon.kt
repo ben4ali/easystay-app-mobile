@@ -84,6 +84,18 @@ class SourceBidon : SourceDeDonnées{
         return reservations.filter { it.chambre == chambre }
     }
 
+    override fun rechercherChambresParMotCle(keyword: String): List<ChambreData>? {
+        return chambres.filter { it.typeChambre.contains(keyword) }
+    }
+
+    override fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>? {
+        if (prix != null) {
+            return chambres.filter { it.typeChambre == type && it.prixParNuit== prix.toDouble() }
+        }else{
+            return chambres.filter { it.typeChambre == type }
+        }
+    }
+
     override fun suppressionReservation(reservation: ReservationData) {
         reservations.remove(reservation)
     }

@@ -23,11 +23,14 @@ interface SourceDeDonnées {
     suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData>
     suspend fun obtenirReservationParId(id: Int): ReservationData?
     suspend fun obtenirReservationParChambre(chambre: ChambreData): List<ReservationData>
+    fun rechercherChambresParMotCle(keyword: String): List<ChambreData>?
+    fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>?
     fun suppressionReservation(reservation: ReservationData)
     fun modifierReservation(reservation: ReservationData)
     fun modifierClientName(newName: String)
     fun modifierClientSurname(newSurname: String)
     fun modifierClientEmail(newEmail: String)
     fun modifierClientImage(newImage: String)
+
 
 }
