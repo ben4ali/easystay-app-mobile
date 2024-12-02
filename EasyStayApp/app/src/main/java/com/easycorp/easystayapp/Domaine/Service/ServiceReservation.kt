@@ -7,12 +7,12 @@ import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonnées
 
 class ServiceReservation(private val sourceDeDonnées: SourceDeDonnées) {
 
-    fun obtenirToutesLesReservations(): List<ReservationData>? {
+    suspend fun obtenirToutesLesReservations(): List<ReservationData>? {
         return sourceDeDonnées.obtenirToutesLesReservations()
     }
 
-    fun ajouterReservation(réservation: ReservationData) {
-        sourceDeDonnées.ajouterReservation(réservation)
+    suspend fun ajouterReservation(réservation: ReservationData, clientData: ClientData, chambre: ChambreData) {
+        sourceDeDonnées.ajouterReservation(réservation, clientData, chambre)
     }
 
     suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {

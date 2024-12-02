@@ -64,11 +64,11 @@ class SourceBidon : SourceDeDonnées{
         clients[index] = client
     }
 
-    override fun obtenirToutesLesReservations(): List<ReservationData> {
+    override suspend fun obtenirToutesLesReservations(): List<ReservationData> {
         return reservations
     }
 
-    override fun ajouterReservation(reservation: ReservationData) {
+    override suspend fun ajouterReservation(reservation: ReservationData, clientData: ClientData, chambre: ChambreData) {
         reservations.add(reservation)
     }
 

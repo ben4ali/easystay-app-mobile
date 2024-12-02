@@ -165,7 +165,7 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
             )
             CoroutineScope(Dispatchers.IO).launch {
                 vue.modifierDetailsChambre(chambre)
-                modèle.ajouterReservation(nouvelleReservation)
+                modèle.ajouterReservation(nouvelleReservation, client, chambre)
 
                 val emailService = EmailService()
                 val sujet = "Confirmation de réservation"

@@ -106,7 +106,7 @@ class Modèle private constructor(context: Context) {
     }
 
     // reservations
-    fun obtenirToutesLesReservations(): List<ReservationData>? {
+    suspend fun obtenirToutesLesReservations(): List<ReservationData>? {
         return serviceReservation.obtenirToutesLesReservations()
     }
 
@@ -126,8 +126,8 @@ class Modèle private constructor(context: Context) {
         serviceClient.modifierClient(client)
     }
 
-    fun ajouterReservation(réservation: ReservationData) {
-        serviceReservation.ajouterReservation(réservation)
+    suspend fun ajouterReservation(réservation: ReservationData, clientData: ClientData, chambre: ChambreData) {
+        serviceReservation.ajouterReservation(réservation, clientData, chambre)
     }
 
     suspend fun obtenirReservationsParClient(client: ClientData): List<ReservationData> {

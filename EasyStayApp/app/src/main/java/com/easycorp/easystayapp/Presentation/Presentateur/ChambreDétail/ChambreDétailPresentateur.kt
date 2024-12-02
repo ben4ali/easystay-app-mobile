@@ -72,32 +72,35 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
     }
 
     override fun naviguerVersReservation(dateDebut: String, dateFin: String) {
-        val chambreId = modèle.getChambreChoisieId()
-        if (chambreId != null) {
-            val dateDebutFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateDebut)!!)
-            val dateFinFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateFin)!!)
-            val nouvelleRéservation = modèle.obtenirChambreParId(chambreId)?.let {
-                ReservationData(
-                    modèle.obtenirToutesLesReservations()!!.size + 1,
-                    modèle.obtenirClientParId(1),
-                    modèle.obtenirChambreParId(chambreId)!!.id.toString(),
-                    dateDebutFormatted,
-                    dateFinFormatted,
-                    modèle.obtenirChambreParId(chambreId)!!.prixParNuit * (SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateFinFormatted).time - SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateDebutFormatted).time) / (1000 * 60 * 60 * 24),
-                    "Confirmée",
-                    "Carte de crédit",
-                    true,
-                    SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(Date()),
-                    it
-                )
-            }
-            CoroutineScope(Dispatchers.IO).launch {
-                if (nouvelleRéservation != null) {
-                        modèle.ajouterReservation(nouvelleRéservation)
-                        nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
+        CoroutineScope(Dispatchers.IO).launch {
+            val chambreId = modèle.getChambreChoisieId()
+            if (chambreId != null) {
+                val dateDebutFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateDebut)!!)
+                val dateFinFormatted = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH).parse(dateFin)!!)
+
+                val nouvelleRéservation = modèle.obtenirChambreParId(chambreId)?.let {
+                    ReservationData(
+                        modèle.obtenirToutesLesReservations()!!.size + 1,
+                        modèle.obtenirClientParId(1),
+                        modèle.obtenirChambreParId(chambreId)!!.id.toString(),
+                        dateDebutFormatted,
+                        dateFinFormatted,
+                        modèle.obtenirChambreParId(chambreId)!!.prixParNuit * (SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateFinFormatted).time - SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(dateDebutFormatted).time) / (1000 * 60 * 60 * 24),
+                        "Confirmée",
+                        "Carte de crédit",
+                        true,
+                        SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(Date()),
+                        it
+                    )
                 }
-                modèle.setDates(dateDebutFormatted, dateFinFormatted)
-                vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
+                if (nouvelleRéservation != null) {
+                    modèle.ajouterReservation(nouvelleRéservation, modèle.obtenirClientParId(1), modèle.obtenirChambreParId(chambreId)!!)
+                    nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
+                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    modèle.setDates(dateDebutFormatted, dateFinFormatted)
+                    vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
+                }
             }
         }
     }

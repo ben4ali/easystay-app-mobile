@@ -1,5 +1,6 @@
 package com.easycorp.easystayapp.SourceDeDonnes
 
+import android.icu.text.SimpleDateFormat
 import android.util.JsonReader
 import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
@@ -12,6 +13,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 import java.io.StringReader
+import java.util.Locale
 
 class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDeDonnées {
     private val client = OkHttpClient()
@@ -38,7 +40,23 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     override fun obtenirChambreParType(typeChambre: String): List<ChambreData>? {
-        TODO("Not yet implemented")
+        val request = Request.Builder()
+            .url("$url_api/chambres?type=$typeChambre")
+            .addHeader("Authorization","Bearer $bearerToken")
+            .build()
+        return try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                response.body?.string()?.let { json ->
+                    return JsonConversion.jsonAChambres(json)
+                }
+            }
+            null
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
     }
 
     suspend fun obtenirReservations(): List<ReservationData>? {
@@ -67,7 +85,6 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             .url("$url_api/chambres/$numéro")
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()
-        println("URL: $url_api/chambres/$numéro")
         return try {
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
@@ -84,7 +101,23 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     override fun obtenirChambresDisponibles(): List<ChambreData>? {
-        TODO("Not yet implemented")
+        val request = Request.Builder()
+            .url("$url_api/chambres?statutDisponibilite=Disponible")
+            .addHeader("Authorization","Bearer $bearerToken")
+            .build()
+        return try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                response.body?.string()?.let { json ->
+                    return JsonConversion.jsonAChambres(json)
+                }
+            }
+            null
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
     }
 
     //PAS BESOIN
@@ -93,7 +126,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     override fun obtenirClientParId(id: Int): ClientData {
-        return ClientData(1, "johnDoe@gmail.com", "John", "Doe", "adad")
+        return ClientData(1, "DupontJ@gmail.com", "Jean", "Dupont", "dadadad")
     }
 
     override fun modifierClient(clientData: ClientData) {
@@ -117,33 +150,51 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     //PAS BESOIN
-    override fun obtenirToutesLesReservations(): List<ReservationData>? {
-        TODO("Not yet implemented")
+    override suspend fun obtenirToutesLesReservations(): List<ReservationData>? {
+        //reservations
+        val request = Request.Builder()
+            .url("$url_api/reservations")
+            .addHeader("Authorization","Bearer $bearerToken")
+            .build()
+        return client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            response.body?.string()?.let { json ->
+                return JsonConversion.jsonAReservations(json)
+            } ?: emptyList()
+        }
     }
 
-    override fun ajouterReservation(reservation: ReservationData) {
-        TODO("Not yet implemented")
-    }
 
-    fun ajouterReservation(reservationData: ReservationData, clientData: ClientData, chambre: ChambreData) {
-        val json =
-            "{" +
-                "\"client\": {" +
-                    "\"courriel\": \"${clientData.courriel}\"," +
-                    "\"prenom\": \"${clientData.prénom}\"," +
-                    "\"nom\": \"${clientData.nom}\"," +
-                    "\"photo\": \"${clientData.photo}\"" +
-                "}," +
-                "\"chambreId\": ${chambre.id}," +
-                "\"dateDebut\": \"${reservationData.dateDébut}\"," +
-                "\"dateFin\": \"${reservationData.dateFin}\"," +
-                "\"prix_total\": ${reservationData.prixTotal}," +
-                "\"statut\": \"${reservationData.statut}\"," +
-                "\"methode_paiement\": \"${reservationData.methodePaiement}\"," +
-                "\"status_paiement\": ${reservationData.statusPaiement}," +
-                "\"date_paiement\": \"${reservationData.datePaiement}\"" +
-            "}"
+    override suspend fun ajouterReservation(reservationData: ReservationData, clientData: ClientData, chambre: ChambreData) {
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.CANADA_FRENCH)
+
+        val dateDebutFormatted = dateFormatter.format(SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(reservationData.dateDébut))
+        val dateFinFormatted = dateFormatter.format(SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(reservationData.dateFin))
+        val datePaiementFormatted = dateFormatter.format(SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(reservationData.datePaiement))
+
+        val json = """
+            {
+                "client": {
+                    "id": ${clientData.id},
+                    "courriel": "${clientData.courriel}",
+                    "prenom": "${clientData.prénom}",
+                    "nom": "${clientData.nom}",
+                    "photo": "${clientData.photo}"
+                },
+                "chambreNumero": ${chambre.id},
+                "dateDebut": "${dateDebutFormatted}",
+                "dateFin": "${dateFinFormatted}",
+                "prix_total": ${reservationData.prixTotal},
+                "statut": "${reservationData.statut}",
+                "methode_paiement": "${reservationData.methodePaiement}",
+                "status_paiement": ${reservationData.statusPaiement},
+                "date_paiement": "${datePaiementFormatted}"
+            }
+        """.trimIndent()
+
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        println("MIGHT FAIL HERE---------------------------------------------$!@%*(!&@*#%(!@&%!@%!@%!@%!@%!@%")
         val request = Request.Builder()
             .url("$url_api/reservations")
             .post(body)
@@ -162,6 +213,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             .build()
 
         return client.newCall(request).execute().use { response ->
+            if (response.code == 404) return emptyList()
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
             response.body?.string()?.let { json ->
@@ -177,6 +229,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             .build()
 
         return client.newCall(request).execute().use { response ->
+            if (response.code == 404) return null
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
             response.body?.string()?.let { json ->
@@ -192,6 +245,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             .build()
 
         return client.newCall(request).execute().use { response ->
+            if (response.code == 404) return emptyList()
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
             response.body?.string()?.let { json ->
