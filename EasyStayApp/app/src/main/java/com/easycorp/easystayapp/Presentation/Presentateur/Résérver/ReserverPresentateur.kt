@@ -17,6 +17,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -34,7 +35,7 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
     lateinit var dateDebutFormatter: String
     lateinit var dateFinFormatter: String
 
-    lateinit var chambre : ChambreData
+    lateinit var chambre: ChambreData
     lateinit var réservation: ReservationData
 
     override fun ouvrirDetailsRéservation() {
@@ -49,15 +50,13 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
             val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
             val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
 
-            CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
                 dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
                 dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
 
                 vue.modifierDetailsChambre(chambre)
             }
-
         }
-
     }
 
     override fun afficherSelectionneurDates() {
@@ -80,10 +79,12 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
         val plageDateSelectionneur = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText("Sélectionnez une plage de dates")
             .setCalendarConstraints(constraintsBuilder.build())
-            .setSelection(Pair(
-                dateDebutCalendar.timeInMillis,
-                dateFinCalendar.timeInMillis
-            ))
+            .setSelection(
+                Pair(
+                    dateDebutCalendar.timeInMillis,
+                    dateFinCalendar.timeInMillis
+                )
+            )
             .setTheme(R.style.MaterialCalendarTheme)
             .build()
 
@@ -113,20 +114,15 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
             val dateDebutTexte = dateFormatage.format(dateDebut?.time ?: Date())
             val dateFinTexte = dateFormatage.format(dateFin?.time ?: Date())
 
-            dateDebutInitiale = Calendar.getInstance().apply {
-                time = dateFormatage.parse(dateDebutTexte)!!
-            }
-
-            dateFinInitiale = Calendar.getInstance().apply {
-                time = dateFormatage.parse(dateFinTexte)!!
-            }
-
             dateDebutFormatter = formatageDateAffichage.format(dateDebut?.time ?: Date())
             dateFinFormatter = formatageDateAffichage.format(dateFin?.time ?: Date())
+
             réservation.dateDébut = dateDebutTexte
             réservation.dateFin = dateFinTexte
 
-            vue.modifierDetailsChambre(chambre)
+            CoroutineScope(Dispatchers.Main).launch {
+                vue.modifierDetailsChambre(chambre)
+            }
         }
 
         (vue as Fragment).parentFragmentManager.let { fragmentManager ->
@@ -140,11 +136,12 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
         val taxes = sousTotal * 0.15
         val total = sousTotal + taxes
 
-        vue.modifierPrixTotale(réservation.chambre.prixParNuit, nuits, sousTotal, taxes, total)
+        CoroutineScope(Dispatchers.Main).launch {
+            vue.modifierPrixTotale(réservation.chambre.prixParNuit, nuits, sousTotal, taxes, total)
+        }
     }
 
     override fun gererConfirmationReservation() {
-
         CoroutineScope(Dispatchers.IO).launch {
             val client = modèle.obtenirClientParId(1)
             val dateDebutReservation = réservation.dateDébut
@@ -153,55 +150,50 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
             val nouvelleReservation = ReservationData(
                 id = 7,
                 client = client,
-                chambreNumero = chambre!!.id.toString(),
+                chambreNumero = chambre.id.toString(),
                 dateDébut = dateDebutReservation,
                 dateFin = dateFinReservation,
-                prixTotal = chambre!!.prixParNuit * réservation.calculerNombreDeNuits(),
+                prixTotal = chambre.prixParNuit * réservation.calculerNombreDeNuits(),
                 statut = "Confirmée",
                 methodePaiement = "Carte de crédit",
                 statusPaiement = true,
                 datePaiement = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).format(Date()),
-                chambre = chambre!!
+                chambre = chambre
             )
-            CoroutineScope(Dispatchers.IO).launch {
-                vue.modifierDetailsChambre(chambre)
-                modèle.ajouterReservation(nouvelleReservation, client, chambre)
 
-                val emailService = EmailService()
-                val sujet = "Confirmation de réservation"
-                val contenu =
-                    """
-                    Bonjour ${client.nom},
-            
-                    Votre réservation pour la chambre ${chambre!!.typeChambre} a été confirmée.
-                    Dates : $dateDebutReservation - $dateFinReservation
-                    Prix total : ${chambre!!.prixParNuit * nouvelleReservation.calculerNombreDeNuits()} CAD.
-            
-                    Merci pour votre confiance.
-                    L'équipe EasyStay
+            modèle.ajouterReservation(nouvelleReservation, client, chambre)
+
+            val emailService = EmailService()
+            val sujet = "Confirmation de réservation"
+            val contenu =
+                """
+                Bonjour ${client.nom},
+
+                Votre réservation pour la chambre ${chambre.typeChambre} a été confirmée.
+                Dates : $dateDebutReservation - $dateFinReservation
+                Prix total : ${chambre.prixParNuit * réservation.calculerNombreDeNuits()} CAD.
+
+                Merci pour votre confiance.
+                L'équipe EasyStay
                 """.trimIndent()
 
-                emailService.envoyerEmail(client.courriel, sujet, contenu) {
-                    vue.requireActivity().runOnUiThread {
-                        Toast.makeText(vue.requireContext(), "Réservation confirmée", Toast.LENGTH_SHORT).show()
-                    }
+            emailService.envoyerEmail(client.courriel, sujet, contenu) {
+                vue.requireActivity().runOnUiThread {
+                    Toast.makeText(vue.requireContext(), "Réservation confirmée", Toast.LENGTH_SHORT).show()
                 }
-                CoroutineScope(Dispatchers.Main).launch {
-                    vue.requireActivity().runOnUiThread {
-                        modèle.getCheminVersReservation()
-                            ?.let { (vue as Fragment).findNavController().navigate(it) }
-                    }
-                }
+            }
 
+            withContext(Dispatchers.Main) {
+                vue.modifierDetailsChambre(chambre)
+                Toast.makeText(context, "Réservation confirmée", Toast.LENGTH_SHORT).show()
+                modèle.getCheminVersReservation()?.let {
+                    (vue as Fragment).findNavController().navigate(it)
+                }
             }
         }
-
-
     }
 
     override fun gererBoutonRetourCliquer() {
         modèle.getCheminVersReservation()?.let { vue.findNavController().navigate(it) }
     }
-
-
 }

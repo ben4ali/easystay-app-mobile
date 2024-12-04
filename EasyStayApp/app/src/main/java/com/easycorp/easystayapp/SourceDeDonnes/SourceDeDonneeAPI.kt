@@ -206,7 +206,6 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         }
     }
 
-    //PAS BESOIN
     override suspend fun obtenirToutesLesReservations(): List<ReservationData>? {
         //reservations
         val request = Request.Builder()
@@ -224,7 +223,7 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
 
 
     override suspend fun ajouterReservation(reservationData: ReservationData, clientData: ClientData, chambre: ChambreData) {
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.CANADA_FRENCH)
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.CANADA_FRENCH)
 
         val dateDebutFormatted = dateFormatter.format(SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(reservationData.dateDébut))
         val dateFinFormatted = dateFormatter.format(SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH).parse(reservationData.dateFin))
