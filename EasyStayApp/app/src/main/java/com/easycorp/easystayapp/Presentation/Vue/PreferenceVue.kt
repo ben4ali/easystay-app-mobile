@@ -43,6 +43,7 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         editNomIcon = view.findViewById(R.id.editNomIcon)
         editEmailIcon = view.findViewById(R.id.editEmailIcon)
         editPrenomIcon = view.findViewById(R.id.editPrenomIcon)
+
         présentateur.afficherClient(clientId = 1)
         présentateur.afficherPhotoProfil(clientId = 1, requireContext())
 

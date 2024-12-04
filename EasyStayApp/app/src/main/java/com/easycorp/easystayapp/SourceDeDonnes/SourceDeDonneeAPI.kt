@@ -126,17 +126,28 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     override fun obtenirClientParId(id: Int): ClientData {
-        return ClientData(1, "DupontJ@gmail.com", "Jean", "Dupont", "dadadad")
+        val request = Request.Builder()
+            .url("$url_api/clients/$id")
+            .addHeader("Authorization", "Bearer $bearerToken")
+            .build()
+
+        return client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            response.body?.string()?.let { json ->
+                return JsonConversion.jsonAClient(JsonReader(StringReader(json)))
+            } ?: throw IOException("Unexpected code $response")
+        }
     }
 
     override fun modifierClient(clientData: ClientData) {
         val json =
-                "{" +
+            "{" +
                     "\"nom\": \"${clientData.nom}\"," +
                     "\"prénom\": \"${clientData.prénom}\"," +
                     "\"courriel\": \"${clientData.courriel}\"," +
                     "\"photo\": \"${clientData.photo}\"" +
-                "}"
+                    "}"
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
             .url("$url_api/clients/${clientData.id}")
@@ -281,10 +292,10 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
     }
 
     override fun modifierClientName(newName: String) {
-        val json = ""
+        val json = "{\"nom\": \"$newName\"}"
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
-            .url("$url_api/clients/name")
+            .url("$url_api/clients/nom")
             .put(body)
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()

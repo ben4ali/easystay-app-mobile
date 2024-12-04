@@ -10,6 +10,11 @@ import com.easycorp.easystayapp.Presentation.Modele.Modèle
 import androidx.appcompat.app.AlertDialog
 import android.widget.EditText
 import android.widget.Toast
+import com.easycorp.easystayapp.Domaine.Entite.ClientData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class PreferencePresentateur(
@@ -19,11 +24,17 @@ class PreferencePresentateur(
     var modèle = Modèle.getInstance(context)
 
     fun afficherClient(clientId: Int) {
-        val client = modèle.obtenirClientParId(clientId)
-        vue.afficherClient(
-            prénom = client.prénom,
-            nom = client.nom,
-            email = client.courriel)
+        CoroutineScope(Dispatchers.Main).launch {
+            val client = withContext(Dispatchers.IO) {
+                modèle.obtenirClientParId(clientId)
+            }
+            vue.afficherClient(
+                prénom = client.prénom,
+                nom = client.nom,
+                email = client.courriel
+
+            )
+        }
     }
 
     fun ouvrirCamera(fragment: Fragment) {
@@ -36,7 +47,14 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier le nom",
             valeurActuelle = nom,
-            fonctionDeMiseAJour = { nouveauNom -> modèle.modifierClientName(nouveauNom) }
+            fonctionDeMiseAJour = { nouveauNom ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.IO) {
+                        modèle.modifierClientName(nouveauNom)
+                    }
+                    afficherClient(clientId = 1)
+                }
+            }
         )
     }
 
@@ -45,7 +63,14 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier l'email",
             valeurActuelle = email,
-            fonctionDeMiseAJour = { nouvelEmail -> modèle.modifierClientEmail(nouvelEmail) }
+            fonctionDeMiseAJour = { nouvelEmail ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.IO) {
+                        modèle.modifierClientEmail(nouvelEmail)
+                    }
+                    afficherClient(clientId = 1)
+                }
+            }
         )
     }
 
@@ -54,7 +79,14 @@ class PreferencePresentateur(
             fragment,
             titre = "Modifier le prénom",
             valeurActuelle = prénom,
-            fonctionDeMiseAJour = { nouveauPrenom -> modèle.modifierClientSurname(nouveauPrenom) }
+            fonctionDeMiseAJour = { nouveauPrenom ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.IO) {
+                        modèle.modifierClientSurname(nouveauPrenom)
+                    }
+                    afficherClient(clientId = 1)
+                }
+            }
         )
     }
 
@@ -77,7 +109,6 @@ class PreferencePresentateur(
                 Toast.makeText(fragment.requireContext(), "Ce champ ne peut pas être vide", Toast.LENGTH_SHORT).show()
             } else {
                 fonctionDeMiseAJour(nouvelleValeur)
-                afficherClient(clientId = 1)
                 dialog.dismiss()
             }
         }
@@ -106,7 +137,6 @@ class PreferencePresentateur(
             }
         }
     }
-
 
     fun traiterResultatCamera(requestCode: Int, resultCode: Int, data: Intent?, context: Context) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {

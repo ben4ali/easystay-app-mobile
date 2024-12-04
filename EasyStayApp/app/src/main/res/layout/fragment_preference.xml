@@ -91,7 +91,8 @@
                         android:padding="4dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:translationX="40dp"
-                        android:translationY="-10dp" />
+                        android:translationY="-10dp"
+                        android:visibility="invisible" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -130,8 +131,9 @@
                             android:id="@+id/editNomIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:contentDescription="@string/edit_name"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:contentDescription="@string/edit_name" />
+                            android:visibility="invisible" />
                     </LinearLayout>
 
                     <!-- Prénom -->
@@ -163,8 +165,9 @@
                             android:id="@+id/editPrenomIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:contentDescription="@string/edit_surname"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:contentDescription="@string/edit_surname" />
+                            android:visibility="invisible" />
                     </LinearLayout>
 
                     <!-- Courriel -->
@@ -196,8 +199,9 @@
                             android:id="@+id/editEmailIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:contentDescription="@string/edit_email"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:contentDescription="@string/edit_email" />
+                            android:visibility="invisible" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
