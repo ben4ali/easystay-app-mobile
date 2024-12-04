@@ -93,6 +93,14 @@ class Modèle private constructor(context: Context) {
         return serviceChambre.obtenirChambreParId(id)
     }
 
+    fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>? {
+        return serviceChambre.filtrerChambres(type, prix)
+    }
+
+    fun rechercherChambresParMotCle(keyword: String): List<ChambreData>? {
+        return serviceChambre.rechercherChambresParMotCle(keyword)
+    }
+
     fun obtenirChambresDisponibles(): List<ChambreData>? {
         return serviceChambre.obtenirChambresDisponibles()
     }

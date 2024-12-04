@@ -13,69 +13,87 @@ import com.easycorp.easystayapp.Utilitaire.ChambreAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListeChambresPresentateur(
     private val vue: ChambresVue,
-    private val context: Context,
+    private val context: Context
 ) {
     private val modèle = Modèle.getInstance(context)
     private var maxPrice = 500
     private var selectedType: String? = null
     private var isFilterApplied = false
 
-
     fun chargerChambres() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val chambres = modèle.obtenirChambres()
-            CoroutineScope(Dispatchers.Main).launch {
-                if (chambres != null) {
-                    afficherChambres(chambres)
-                }
-            }
+        CoroutineScope(Dispatchers.Main).launch {
+            val chambres = withContext(Dispatchers.IO) { modèle.obtenirChambres() }
+            afficherChambresOuMessage(chambres)
         }
-
     }
-    fun filtrerChambres(searchText: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val chambres = modèle.obtenirChambres()
-            CoroutineScope(Dispatchers.Main).launch {
-                val filteredChambres =
-                    chambres?.filter { it.matchesFilter(searchText, maxPrice, selectedType) }
-                if (filteredChambres != null) {
-                    afficherChambres(filteredChambres)
-                }
-            }
-        }
 
+    fun rechercherChambres(keyword: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val chambres = withContext(Dispatchers.IO) { modèle.rechercherChambresParMotCle(keyword) }
+            afficherChambresOuMessage(chambres)
+        }
+    }
+
+    fun filtrerChambres(type: String?, maxPrice: Int?) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val chambres = withContext(Dispatchers.IO) { modèle.filtrerChambres(type, maxPrice) }
+            afficherChambresOuMessage(chambres)
+        }
     }
 
     fun appliquerOuEffacerFiltres() {
         if (isFilterApplied) {
-            maxPrice = 500
-            selectedType = null
-            isFilterApplied = false
-            modèle.obtenirChambres()?.let { afficherChambres(it) }
+            resetFiltres()
         } else {
             afficherFilterDialog()
         }
     }
 
-    fun ouvrirDetailsChambre(chambre: ChambreData) {
-        modèle.setChambreChoisieId(chambre.id)
-        modèle.setCheminVersChambreDetails(R.id.action_chambreDetailsFragment_to_fragment_chambres)
-        modèle.setCheminVersReservation(R.id.action_reserverFragment_to_chambreDetailsFragment)
-        vue.findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment)
+    private fun resetFiltres() {
+        maxPrice = 500
+        selectedType = null
+        isFilterApplied = false
+        chargerChambres()
     }
 
-    fun afficherFilterDialog() {
+    private fun afficherFilterDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_filter, null)
         val priceSeekBar = dialogView.findViewById<SeekBar>(R.id.priceSeekBar)
         val priceTextView = dialogView.findViewById<TextView>(R.id.priceTextView)
         val typeSpinner = dialogView.findViewById<Spinner>(R.id.typeSpinner)
         val applyButton = dialogView.findViewById<Button>(R.id.applyFilterButton)
 
-        val types = listOf("Toutes les chambres") + (modèle.obtenirChambres()?.map { it.typeChambre }
-            ?.distinct() ?: emptyList())
+        CoroutineScope(Dispatchers.Main).launch {
+            setupFilterDialog(priceSeekBar, priceTextView, typeSpinner)
+
+            val alertDialog = AlertDialog.Builder(context)
+                .setView(dialogView)
+                .create()
+
+            applyButton.setOnClickListener {
+                maxPrice = priceSeekBar.progress
+                selectedType = if (typeSpinner.selectedItem.toString() == "Toutes les chambres") null else typeSpinner.selectedItem.toString()
+                isFilterApplied = true
+                filtrerChambres(selectedType, maxPrice)
+                alertDialog.dismiss()
+            }
+            alertDialog.show()
+        }
+    }
+
+    private suspend fun setupFilterDialog(
+        priceSeekBar: SeekBar,
+        priceTextView: TextView,
+        typeSpinner: Spinner
+    ) {
+        val types = withContext(Dispatchers.IO) {
+            listOf("Toutes les chambres") + (modèle.obtenirChambres()?.map { it.typeChambre }?.distinct() ?: emptyList())
+        }
+
         val adapterSpinner = ArrayAdapter(context, android.R.layout.simple_spinner_item, types)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapterSpinner
@@ -87,35 +105,35 @@ class ListeChambresPresentateur(
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 priceTextView.text = "Prix maximum sélectionné : ${progress}$"
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-
-        val alertDialog = AlertDialog.Builder(context)
-            .setView(dialogView)
-            .create()
-
-        applyButton.setOnClickListener {
-            maxPrice = priceSeekBar.progress
-            selectedType = if (typeSpinner.selectedItem.toString() == "Toutes les chambres") null else typeSpinner.selectedItem.toString()
-            isFilterApplied = true
-            filtrerChambres("")
-            alertDialog.dismiss()
-        }
-        alertDialog.show()
     }
 
-    fun afficherChambres(chambres: List<ChambreData>) {
+    private fun afficherChambres(chambres: List<ChambreData>) {
         val adapter = ChambreAdapter(context, chambres.toMutableList()) { chambre ->
             ouvrirDetailsChambre(chambre)
         }
         vue.listViewChambres.adapter = adapter
     }
 
-    private fun ChambreData.matchesFilter(searchText: String, maxPrice: Int, selectedType: String?): Boolean {
-        val matchesPrice = prixParNuit <= maxPrice
-        val matchesType = selectedType == "Toutes les chambres" || selectedType == null || typeChambre == selectedType
-        val matchesSearch = searchText.isEmpty() || typeChambre.lowercase().contains(searchText)
-        return matchesPrice && matchesType && matchesSearch
+    private fun afficherChambresOuMessage(chambres: List<ChambreData>?) {
+        if (chambres.isNullOrEmpty()) {
+            afficherMessageErreur("Aucune chambre disponible.")
+        } else {
+            afficherChambres(chambres)
+        }
+    }
+
+    fun ouvrirDetailsChambre(chambre: ChambreData) {
+        modèle.setChambreChoisieId(chambre.id)
+        modèle.setCheminVersChambreDetails(R.id.action_chambreDetailsFragment_to_fragment_chambres)
+        modèle.setCheminVersReservation(R.id.action_reserverFragment_to_chambreDetailsFragment)
+        vue.findNavController().navigate(R.id.action_fragment_chambres_to_chambreDetailsFragment)
+    }
+
+    private fun afficherMessageErreur(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

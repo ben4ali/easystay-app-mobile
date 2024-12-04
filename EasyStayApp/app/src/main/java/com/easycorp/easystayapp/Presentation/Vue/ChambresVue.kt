@@ -36,7 +36,7 @@ class ChambresVue : Fragment() {
 
         rechercher.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                présentateur.filtrerChambres(s.toString().trim().lowercase())
+                présentateur.rechercherChambres(s.toString().trim().lowercase())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -49,6 +49,4 @@ class ChambresVue : Fragment() {
         présentateur = ListeChambresPresentateur(this, requireContext())
         présentateur.chargerChambres()
     }
-
-
 }
