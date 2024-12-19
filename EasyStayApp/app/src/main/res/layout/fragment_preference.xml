@@ -92,7 +92,7 @@
                         android:src="@android:drawable/ic_menu_edit"
                         android:translationX="40dp"
                         android:translationY="-10dp"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -133,7 +133,7 @@
                             android:layout_height="24dp"
                             android:contentDescription="@string/edit_name"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:visibility="invisible" />
+                            android:visibility="visible" />
                     </LinearLayout>
 
                     <!-- Prénom -->
@@ -167,7 +167,7 @@
                             android:layout_height="24dp"
                             android:contentDescription="@string/edit_surname"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:visibility="invisible" />
+                            android:visibility="visible" />
                     </LinearLayout>
 
                     <!-- Courriel -->
@@ -201,7 +201,7 @@
                             android:layout_height="24dp"
                             android:contentDescription="@string/edit_email"
                             android:src="@android:drawable/ic_menu_edit"
-                            android:visibility="invisible" />
+                            android:visibility="visible" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

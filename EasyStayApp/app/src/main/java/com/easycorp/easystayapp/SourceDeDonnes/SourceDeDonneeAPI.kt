@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import java.io.IOException
 import java.io.StringReader
 import java.util.Locale
@@ -336,44 +337,100 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         }
     }
 
-    override fun modifierClientName(newName: String) {
-        val json = "{\"nom\": \"$newName\"}"
+    fun recupererPhotoClient(clientId: Int): String? {
+        val request = Request.Builder()
+            .url("$url_api/clients/$clientId")
+            .get()
+            .addHeader("Authorization", "Bearer $bearerToken")
+            .build()
+
+        val okHttpClient = OkHttpClient()
+        okHttpClient.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            val responseBody = response.body?.string() ?: throw IOException("Empty response body")
+            val jsonObject = JSONObject(responseBody)
+
+            return jsonObject.optString("photo", null)
+        }
+    }
+
+
+    override fun modifierClientPrenom(clientId: Int, newPrenom: String) {
+        val clientData = obtenirClientParId(clientId)
+        val updatedPhoto = recupererPhotoClient(clientId) ?: "default_placeholder"
+
+        val json = """
+        {
+            "id": ${clientData.id},
+            "courriel": "${clientData.courriel}",
+            "prenom": "$newPrenom",
+            "nom": "${clientData.nom}",
+            "photo": "$updatedPhoto"
+        }
+    """.trimIndent()
+
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
-            .url("$url_api/clients/nom")
+            .url("$url_api/clients/$clientId")
             .put(body)
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()
 
-        client.newCall(request).execute().use { response ->
+        val okHttpClient = OkHttpClient()
+        okHttpClient.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
         }
     }
 
-    override fun modifierClientSurname(newSurname: String) {
-        val json = ""
+
+    override fun modifierClientCourriel(clientId: Int, newCourriel: String) {
+        val clientData = obtenirClientParId(clientId)
+        val updatedPhoto = recupererPhotoClient(clientId) ?: "default_placeholder"
+
+        val json = """
+        {
+            "id": ${clientData.id},
+            "courriel": "$newCourriel",
+            "prenom": "${clientData.prénom}",
+            "nom": "${clientData.nom}",
+            "photo": "$updatedPhoto"
+        }
+    """.trimIndent()
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
-            .url("$url_api/clients/surname")
+            .url("$url_api/clients/$clientId")
             .put(body)
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()
 
-        client.newCall(request).execute().use { response ->
+        val okHttpClient = OkHttpClient()
+        okHttpClient.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
         }
     }
 
-    override fun modifierClientEmail(newEmail: String) {
-        val json = ""
+    override fun modifierClientNom(clientId: Int, newNom: String) {
+        val clientData = obtenirClientParId(clientId)
+        val updatedPhoto = recupererPhotoClient(clientId) ?: "default_placeholder"
+        val json = """
+        {
+            "id": ${clientData.id},
+            "courriel": "${clientData.courriel}",
+            "prenom": "${clientData.prénom}",
+            "nom": "$newNom",
+            "photo": "$updatedPhoto"
+        }
+    """.trimIndent()
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
-            .url("$url_api/clients/email")
+            .url("$url_api/clients/$clientId")
             .put(body)
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()
 
-        client.newCall(request).execute().use { response ->
+        val okHttpClient = OkHttpClient()
+        okHttpClient.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
         }
     }

@@ -27,10 +27,10 @@ interface SourceDeDonnées {
     fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>?
     fun suppressionReservation(reservation: ReservationData)
     fun modifierReservation(reservation: ReservationData)
-    fun modifierClientName(newName: String)
-    fun modifierClientSurname(newSurname: String)
-    fun modifierClientEmail(newEmail: String)
     fun modifierClientImage(newImage: String)
+    fun modifierClientPrenom(clientId: Int,newPrenom: String)
+    fun modifierClientCourriel(clientId: Int, newCourriel: String)
+    fun modifierClientNom(clientId: Int, newNom: String)
 
 
 }
