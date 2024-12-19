@@ -17,16 +17,16 @@ class ServiceClient(private val sourceDeDonnées: SourceDeDonnées) {
         sourceDeDonnées.modifierClient(client)
     }
 
-    fun modifierClientName(newName: String) {
-        sourceDeDonnées.modifierClientName(newName)
+    fun modifierClientPrenom(clientId: Int,newPrenom: String) {
+        sourceDeDonnées.modifierClientPrenom(clientId,newPrenom)
     }
 
-    fun modifierClientSurname(newSurname: String) {
-        sourceDeDonnées.modifierClientSurname(newSurname)
+    fun modifierClientCourriel(clientId: Int, newCourriel: String) {
+        sourceDeDonnées.modifierClientCourriel(clientId,newCourriel)
     }
 
-    fun modifierClientEmail(newEmail: String) {
-        sourceDeDonnées.modifierClientEmail(newEmail)
+    fun modifierClientNom(clientId: Int, newNom: String) {
+        sourceDeDonnées.modifierClientNom(clientId,newNom)
     }
 
     fun modifierClientImage(newImage: String) {

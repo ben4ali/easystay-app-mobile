@@ -105,16 +105,16 @@ class SourceBidon : SourceDeDonnées{
         reservations[index] = reservation
     }
 
-    override fun modifierClientName(newName: String) {
-        clients[0].nom = newName
+    override fun modifierClientPrenom(clientId: Int, newPrenom: String) {
+        clients[0].prénom = newPrenom
     }
 
-    override fun modifierClientSurname(newSurname: String) {
-        clients[0].prénom = newSurname
+    override fun modifierClientCourriel(clientId: Int, newCourriel: String) {
+        clients[0].courriel = newCourriel
     }
 
-    override fun modifierClientEmail(newEmail: String) {
-        clients[0].courriel = newEmail
+    override fun modifierClientNom(clientId: Int, newNom: String) {
+        clients[0].nom = newNom
     }
 
     override fun modifierClientImage(newImage: String) {

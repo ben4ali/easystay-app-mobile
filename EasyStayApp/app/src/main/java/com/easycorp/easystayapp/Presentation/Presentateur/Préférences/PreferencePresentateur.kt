@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import android.widget.EditText
 import android.widget.Toast
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
+import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class PreferencePresentateur(
             fonctionDeMiseAJour = { nouveauNom ->
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.IO) {
-                        modèle.modifierClientName(nouveauNom)
+                        modèle.modifierClientNom(clientId = 1, nouveauNom)
                     }
                     afficherClient(clientId = 1)
                 }
@@ -66,7 +67,7 @@ class PreferencePresentateur(
             fonctionDeMiseAJour = { nouvelEmail ->
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.IO) {
-                        modèle.modifierClientEmail(nouvelEmail)
+                        modèle.modifierClientCourriel(clientId = 1, nouvelEmail)
                     }
                     afficherClient(clientId = 1)
                 }
@@ -82,7 +83,7 @@ class PreferencePresentateur(
             fonctionDeMiseAJour = { nouveauPrenom ->
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.IO) {
-                        modèle.modifierClientSurname(nouveauPrenom)
+                        modèle.modifierClientPrenom(clientId = 1, nouveauPrenom)
                     }
                     afficherClient(clientId = 1)
                 }
