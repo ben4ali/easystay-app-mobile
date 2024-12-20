@@ -42,4 +42,5 @@
     <string name="reservations_menu">Réservation</string>
     <string name="accueil">Accueil</string>
     <string name="chambres_menu">Chambres</string>
+    <string name="titre_reservation_confirmation">Confirmation de réservation</string>
 </resources>

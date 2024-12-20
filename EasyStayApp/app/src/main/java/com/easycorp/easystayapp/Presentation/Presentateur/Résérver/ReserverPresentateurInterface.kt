@@ -7,9 +7,8 @@ import java.util.Calendar
 interface ReserverPresentateurInterface {
 
     fun ouvrirDetailsRéservation()
-    fun afficherSelectionneurDates()
     fun calculerPrixTotale()
-    fun gererConfirmationReservation()
+    //fun gererConfirmationReservation()
     fun gererBoutonRetourCliquer()
 
 }

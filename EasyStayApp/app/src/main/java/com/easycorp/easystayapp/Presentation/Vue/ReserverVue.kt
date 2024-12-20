@@ -28,7 +28,6 @@ class ReserverVue : Fragment() {
     lateinit var sousTotalTextView: TextView
     lateinit var taxesTextView: TextView
     lateinit var totalTextView: TextView
-    lateinit var boutonReserver: Button
     lateinit var boutonRetourRéserver: ImageView
 
     lateinit var presentateur : ReserverPresentateur
@@ -57,18 +56,9 @@ class ReserverVue : Fragment() {
         sousTotalTextView = view.findViewById(R.id.subtotalTextView)
         taxesTextView = view.findViewById(R.id.taxesAmountTextView)
         totalTextView = view.findViewById(R.id.totalAmountTextView)
-        boutonReserver = view.findViewById(R.id.reserveButton)
         boutonRetourRéserver = view.findViewById(R.id.backButton2)
 
         presentateur.ouvrirDetailsRéservation()
-
-        datesTextView.setOnClickListener {
-            presentateur.afficherSelectionneurDates()
-        }
-
-        boutonReserver.setOnClickListener {
-            presentateur.gererConfirmationReservation()
-        }
 
         boutonRetourRéserver.setOnClickListener {
             presentateur.gererBoutonRetourCliquer()

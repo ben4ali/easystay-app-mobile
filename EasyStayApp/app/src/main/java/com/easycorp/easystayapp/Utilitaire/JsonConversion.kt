@@ -11,12 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.StringReader
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class JsonConversion {
     companion object {
 
-        var source = SourceDeDonneeAPI("http://idefix.dti.crosemont.quebec:9052", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFqWUJxeDZ1TjFHemlYTW54d2ZGeCJ9.eyJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbS9lbWFpbCI6InJvYmVydG1heGltZTFAaG90ZWwucWMuY2EiLCJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbS9yb2xlcyI6WyJBZG1pbiJdLCJpc3MiOiJodHRwczovL2Rldi0yNGhxM3ZiNmI4cnYyZjdkLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NzU1YzhhNTUxNjNiYjcxNWVlZmM5OWQiLCJhdWQiOiJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbSIsImlhdCI6MTczNDY2MTQ1OSwiZXhwIjoxNzM0NzQ3ODU5LCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlBMR2FmcnJkSlN5TExsbnZiaHNnOEpiSXU0Nk5QRkkzIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOmNoYW1icmVzIiwiY3JlYXRlOmNsaWVudHMiLCJjcmVhdGU6cmVzZXJ2YXRpb25zIiwiZGVsZXRlOmNoYW1icmVzIiwiZGVsZXRlOmNsaWVudHMiLCJkZWxldGU6cmVzZXJ2YXRpb25zIiwicmVhZDpjaGFtYnJlcyIsInJlYWQ6Y2xpZW50cyIsInJlYWQ6cmVzZXJ2YXRpb25zIiwidXBkYXRlOmNoYW1icmVzIiwidXBkYXRlOmNsaWVudHMiLCJ1cGRhdGU6cmVzZXJ2YXRpb25zIl19.HtZwmMYEUTgQNnPjW-iERCfFhCzm4M5dOy9yN0mRpp5bTrbgkBflJIsZQkrYP7545_Ff-uBWlTEEvXeteXdxVrqcQ5Kf0S78Glb-e4zryLNJcXL1sd1oSgzo_mqJvli8WEIhPi6niKAhan1sERhBbIct7pG19bOe2NCSev0wHZp45BuqyMcIbVky5JFZf7QPsF7dBbz4R0ak0bqQmDFtqQBClmdImkyfyEjqTsDYN8DtsQ8dUj5SnYr1bBnh8o9eqQ9Ga2qxFdMSUPasgxt-yiT8xwks3OfiVOZunfh0tGv36QbiaOi8zSC64IgMVsoEa6PXmBkPk-M3ynKhQbTvyA")
+        var source = SourceDeDonneeAPI("http://idefix.dti.crosemont.quebec:9022", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFqWUJxeDZ1TjFHemlYTW54d2ZGeCJ9.eyJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbS9lbWFpbCI6InJvYmVydG1heGltZUBob3RlbC5xYy5jYSIsImh0dHA6Ly9pc21haWxlbGFzcmFvdWkuY29tL3JvbGVzIjpbIkFkbWluIl0sImlzcyI6Imh0dHBzOi8vZGV2LTI0aHEzdmI2YjhydjJmN2QudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY3NTRiMWEwMTk1MjYyYjFjZTZmYmMzZiIsImF1ZCI6Imh0dHA6Ly9pc21haWxlbGFzcmFvdWkuY29tIiwiaWF0IjoxNzM0NjcxNDUwLCJleHAiOjE3MzQ3NTc4NTAsImd0eSI6InBhc3N3b3JkIiwiYXpwIjoiUExHYWZycmRKU3lMTGxudmJoc2c4SmJJdTQ2TlBGSTMiLCJwZXJtaXNzaW9ucyI6WyJjcmVhdGU6Y2hhbWJyZXMiLCJjcmVhdGU6Y2xpZW50cyIsImNyZWF0ZTpyZXNlcnZhdGlvbnMiLCJkZWxldGU6Y2hhbWJyZXMiLCJkZWxldGU6Y2xpZW50cyIsImRlbGV0ZTpyZXNlcnZhdGlvbnMiLCJyZWFkOmNoYW1icmVzIiwicmVhZDpjbGllbnRzIiwicmVhZDpyZXNlcnZhdGlvbnMiLCJ1cGRhdGU6Y2hhbWJyZXMiLCJ1cGRhdGU6Y2xpZW50cyIsInVwZGF0ZTpyZXNlcnZhdGlvbnMiXX0.DORF7BJtTIu0W2ofeNvPDORwZwtYEjfJRB-OdTGX3praMf1ka6AHSbNAA78nFELqJ7Cd-cbG_-LGHlyQPMqqd_fIDgbKZFcLWiUbjN1Mf5EBOdIqUX_GoobrNsc23cZm_JyDOWE6O4ylt07PrqrnxSBmZFyikRr-hYjMuOqgJwMlyCdduPOEzwprGzrOIRsbSo3trAEkxNORYsfbCm04GsSVH4zfjALbpFgx5zhWHs3jro1pNV4f7Pc1yQE6ni56T2vIrk8gpKvz9_ZdvXlWPBBH1CHwbI_HicytLbmWDq1w4xNAeGohqsloTtqXJsCALy43PwofwT9ujvaFmhSF7g")
 
         fun jsonAChambres(json: String): List<ChambreData> {
             val liste = mutableListOf<ChambreData>()
@@ -166,13 +165,15 @@ class JsonConversion {
                             reader.nextNull()
                             null
                         } else {
-                            LocalDate.parse(reader.nextString())
+                            val dateArriver: String = (reader.nextString()).substring(0, 10)
+                            LocalDate.parse(dateArriver)
                         }
                         "dateFin" -> dateFin = if (reader.peek() == JsonToken.NULL) {
                             reader.nextNull()
                             null
                         } else {
-                            LocalDate.parse(reader.nextString())
+                            val datePartir: String = (reader.nextString()).substring(0, 10)
+                            LocalDate.parse(datePartir)
                         }
                         "prixTotal" -> prixTotal = reader.nextDouble()
                         "statut" -> statut = reader.nextString()

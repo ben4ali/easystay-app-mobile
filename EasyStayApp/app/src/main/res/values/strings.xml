@@ -43,4 +43,5 @@
     <string name="reservations_menu">Bookings</string>
     <string name="accueil">Home</string>
     <string name="chambres_menu">Rooms</string>
+    <string name="titre_reservation_confirmation">Reservation Confirmation</string>
 </resources>
