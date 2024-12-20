@@ -22,8 +22,6 @@ class RéservationAdapter(
     private val présentateur: ListeRéservationPrésentateur
 ) : ArrayAdapter<ReservationData>(context, 0, réservations) {
 
-    private val animatedPositions = mutableSetOf<Int>()
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_reservation, parent, false)
         val réservation = getItem(position) ?: return view
@@ -53,12 +51,6 @@ class RéservationAdapter(
             }
         }
 
-        if (!animatedPositions.contains(position)) {
-            val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-            animation.startOffset = (position * 100).toLong()
-            view.startAnimation(animation)
-            animatedPositions.add(position)
-        }
 
         return view
     }

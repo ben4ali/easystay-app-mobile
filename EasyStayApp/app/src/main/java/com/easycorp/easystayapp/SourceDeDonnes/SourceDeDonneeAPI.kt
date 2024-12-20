@@ -6,6 +6,9 @@ import com.easycorp.easystayapp.Domaine.Entite.ChambreData
 import com.easycorp.easystayapp.Domaine.Entite.ClientData
 import com.easycorp.easystayapp.Domaine.Entite.ReservationData
 import com.easycorp.easystayapp.Utilitaire.JsonConversion
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -206,6 +209,8 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
         }
     }
+
+
 
     override suspend fun obtenirToutesLesReservations(): List<ReservationData>? {
         //reservations
@@ -435,16 +440,26 @@ class SourceDeDonneeAPI(val url_api: String, val bearerToken: String) : SourceDe
         }
     }
 
-    override fun modifierClientImage(newImage: String) {
-        val json = ""
+    override suspend fun modifierClientImage(newImageBase64: String, clientId: Int) {
+        val clientData = obtenirClientParId(clientId)
+        val json = """
+        {
+            "id": ${clientData.id},
+            "courriel": "${clientData.courriel}",
+            "prenom": "${clientData.prénom}",
+            "nom": "${clientData.prénom}",
+            "photo": "$newImageBase64"
+        }
+    """.trimIndent()
         val body: RequestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
-            .url("$url_api/clients/image")
+            .url("$url_api/clients/$clientId")
             .put(body)
             .addHeader("Authorization", "Bearer $bearerToken")
             .build()
 
-        client.newCall(request).execute().use { response ->
+        val okHttpClient = OkHttpClient()
+        okHttpClient.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
         }
     }

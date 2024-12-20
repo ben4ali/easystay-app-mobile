@@ -29,7 +29,7 @@ class ServiceClient(private val sourceDeDonnées: SourceDeDonnées) {
         sourceDeDonnées.modifierClientNom(clientId,newNom)
     }
 
-    fun modifierClientImage(newImage: String) {
-        sourceDeDonnées.modifierClientImage(newImage)
+    suspend fun modifierClientImage(newImage: String, clientId: Int) {
+        sourceDeDonnées.modifierClientImage(newImage,clientId)
     }
 }

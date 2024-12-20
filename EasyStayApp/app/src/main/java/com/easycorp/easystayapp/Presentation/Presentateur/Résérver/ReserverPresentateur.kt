@@ -40,21 +40,40 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
 
     override fun ouvrirDetailsRéservation() {
         CoroutineScope(Dispatchers.IO).launch {
-            réservation = modèle.getReservationChoisieId()
-                ?.let { modèle.obtenirReservationParId(it) }!!
-            chambre = modèle.obtenirChambreParId(réservation.chambre.id)!!
+            val id = modèle.getReservationChoisieId()
+            if (id != null) {
+                val reservation = modèle.obtenirReservationParId(id)
+                if (reservation != null) {
+                    réservation = reservation
+                    val chambreData = modèle.obtenirChambreParId(réservation.chambre.id)
+                    if (chambreData != null) {
+                        chambre = chambreData
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
+                            val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
 
-            val dateFormatageInitiale = SimpleDateFormat("dd-MM-yyyy", Locale.CANADA_FRENCH)
-            val dateFormatageAffichageFinal = SimpleDateFormat("d MMMM yyyy", Locale.CANADA_FRENCH)
+                            val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
+                            val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
 
-            val dateDebutFormattageInitiale = dateFormatageInitiale.parse(réservation.dateDébut)!!
-            val dateFinFormattageInitiale = dateFormatageInitiale.parse(réservation.dateFin)!!
+                            dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
+                            dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
 
-            withContext(Dispatchers.Main) {
-                dateDebutFormatter = dateFormatageAffichageFinal.format(dateDebutFormattageInitiale)
-                dateFinFormatter = dateFormatageAffichageFinal.format(dateFinFormattageInitiale)
-
-                vue.modifierDetailsChambre(chambre)
+                            vue.modifierDetailsChambre(chambre)
+                        }
+                    } else {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(context, "Erreur lors du chargement de la chambre", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(context, "Erreur lors du chargement des données de la réservation", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(context, "Erreur lors du chargement de la réservation", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -161,8 +180,21 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
                 chambre = chambre
             )
 
-            modèle.ajouterReservation(nouvelleReservation, client, chambre)
+            CoroutineScope(Dispatchers.IO).launch {
+                modèle.ajouterReservation(nouvelleReservation, client, chambre)
+                CoroutineScope(Dispatchers.Main).launch {
+                    vue.modifierDetailsChambre(chambre)
+                    Toast.makeText(context, "Réservation confirmée", Toast.LENGTH_SHORT).show()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        modèle.getCheminVersReservation()?.let {
+                            (vue as Fragment).findNavController().navigate(it)
+                        }
+                    }
+                }
+            }
 
+
+            /*
             val emailService = EmailService()
             val sujet = "Confirmation de réservation"
             val contenu =
@@ -182,14 +214,7 @@ class ReserverPresentateur(private val vue: ReserverVue, private val context: Co
                     Toast.makeText(vue.requireContext(), "Réservation confirmée", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            withContext(Dispatchers.Main) {
-                vue.modifierDetailsChambre(chambre)
-                Toast.makeText(context, "Réservation confirmée", Toast.LENGTH_SHORT).show()
-                modèle.getCheminVersReservation()?.let {
-                    (vue as Fragment).findNavController().navigate(it)
-                }
-            }
+            */
         }
     }
 

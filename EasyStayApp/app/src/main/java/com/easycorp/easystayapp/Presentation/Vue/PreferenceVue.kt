@@ -64,6 +64,7 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         présentateur.traiterResultatCamera(requestCode, resultCode, data, requireContext())
     }
 
@@ -72,8 +73,12 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
         nomTextView.text = nom
         emailTextView.text = email
     }
-    override fun afficherPhoto(photoResId: Int) {
-        photoProfilImageView.setImageResource(photoResId)
+    override fun afficherPhotoProfil(photo: Bitmap) {
+        photoProfilImageView.setImageBitmap(photo)
+    }
+
+    override fun afficherPhoto(photo: Bitmap) {
+        photoProfilImageView.setImageBitmap(photo)
     }
 
     override fun onRequestPermissionsResult(
@@ -83,8 +88,5 @@ class PreferenceVue : Fragment(), PreferencePresentateurInterface {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         présentateur.traiterResultatPermissionCamera(requestCode, grantResults, this)
-    }
-    override fun afficherPhotoProfil(photo: Bitmap) {
-        photoProfilImageView.setImageBitmap(photo)
     }
 }

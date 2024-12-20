@@ -96,10 +96,10 @@ class ChambreDétailPresentateur(private val vue: ChambreDetailsVue, private val
                 if (nouvelleRéservation != null) {
                     modèle.ajouterReservation(nouvelleRéservation, modèle.obtenirClientParId(1), modèle.obtenirChambreParId(chambreId)!!)
                     nouvelleRéservation.id?.let { modèle.setReservationChoisieId(it) }
-                }
-                CoroutineScope(Dispatchers.Main).launch {
-                    modèle.setDates(dateDebutFormatted, dateFinFormatted)
-                    vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        modèle.setDates(dateDebutFormatted, dateFinFormatted)
+                        vue.findNavController().navigate(R.id.action_chambreDetailsFragment_to_reserverFragment)
+                    }
                 }
             }
         }

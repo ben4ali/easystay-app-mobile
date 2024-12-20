@@ -117,7 +117,7 @@ class SourceBidon : SourceDeDonnées{
         clients[0].nom = newNom
     }
 
-    override fun modifierClientImage(newImage: String) {
+    override suspend fun modifierClientImage(newImage: String, clientId: Int) {
         clients[0].photo = newImage
     }
 

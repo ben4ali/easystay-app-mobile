@@ -27,7 +27,7 @@ interface SourceDeDonnées {
     fun filtrerChambres(type: String?, prix: Int?): List<ChambreData>?
     fun suppressionReservation(reservation: ReservationData)
     fun modifierReservation(reservation: ReservationData)
-    fun modifierClientImage(newImage: String)
+    suspend fun modifierClientImage(newImage: String, clientId: Int)
     fun modifierClientPrenom(clientId: Int,newPrenom: String)
     fun modifierClientCourriel(clientId: Int, newCourriel: String)
     fun modifierClientNom(clientId: Int, newNom: String)

@@ -10,10 +10,12 @@ import com.easycorp.easystayapp.Domaine.Service.ServiceChambre
 import com.easycorp.easystayapp.Domaine.Service.ServiceClient
 import com.easycorp.easystayapp.Domaine.Service.ServiceReservation
 import com.easycorp.easystayapp.Domaine.Service.ServiceFavoris
-import com.easycorp.easystayapp.SourceDeDonnes.SourceBidon
 import com.easycorp.easystayapp.SourceDeDonnes.FavorisDAOImpl
 import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonneeAPI
 import com.easycorp.easystayapp.SourceDeDonnes.SourceDeDonnées
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.apache.commons.codec.binary.Base64
 import java.io.ByteArrayOutputStream
 
@@ -60,7 +62,7 @@ class Modèle private constructor(context: Context) {
     }
 
 //    private val sourceDeDonnées: SourceBidon = SourceBidon()
-    private val sourceDeDonnées: SourceDeDonnées = SourceDeDonneeAPI("http://idefix.dti.crosemont.quebec:9017", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFqWUJxeDZ1TjFHemlYTW54d2ZGeCJ9.eyJpc3MiOiJodHRwczovL2Rldi0yNGhxM3ZiNmI4cnYyZjdkLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NzU0YjFhMDE5NTI2MmIxY2U2ZmJjM2YiLCJhdWQiOiJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbSIsImlhdCI6MTczMzY4MDc3OCwiZXhwIjoxNzMzNzY3MTc4LCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlBMR2FmcnJkSlN5TExsbnZiaHNnOEpiSXU0Nk5QRkkzIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOmNoYW1icmVzIiwiY3JlYXRlOmNsaWVudHMiLCJjcmVhdGU6cmVzZXJ2YXRpb25zIiwiZGVsZXRlOmNoYW1icmVzIiwiZGVsZXRlOmNsaWVudHMiLCJkZWxldGU6cmVzZXJ2YXRpb25zIiwicmVhZDpjaGFtYnJlcyIsInJlYWQ6Y2xpZW50cyIsInJlYWQ6cmVzZXJ2YXRpb25zIiwidXBkYXRlOmNoYW1icmVzIiwidXBkYXRlOmNsaWVudHMiLCJ1cGRhdGU6cmVzZXJ2YXRpb25zIl19.NyT42YHvORp_t1W9OwriNHQdmw2d-B87py-G0sw7jv7UfHQHckWZNwYuQ-LkWGNmy40JuqZVz6oAaPTAtea3UEZHrl9laJKelCEtlZjJ0x3JmNBFD4Dp5jdvMLOtQXOgYiDn9m-z97YDwRnT0b5T6_g3n3L3FdbkIIjNbRVCBPUQst2Y_nkcfYipTp2u_lxxlmhv5tjztEtlKLdt88sIveSiyY4-hUQsaSijifOefipr21Vbrph_DUhBA9lWbzEeWC4Rz5pfBR7sh6hFCJnmaE8puQgOMFY2JSn9FpgG4eYdV1sGE6zN_q5v2wQknkOtkmWEihBaqqimvcP8pFlfhA")
+    private val sourceDeDonnées: SourceDeDonnées = SourceDeDonneeAPI("http://idefix.dti.crosemont.quebec:9052", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFqWUJxeDZ1TjFHemlYTW54d2ZGeCJ9.eyJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbS9lbWFpbCI6InJvYmVydG1heGltZTFAaG90ZWwucWMuY2EiLCJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbS9yb2xlcyI6WyJBZG1pbiJdLCJpc3MiOiJodHRwczovL2Rldi0yNGhxM3ZiNmI4cnYyZjdkLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NzU1YzhhNTUxNjNiYjcxNWVlZmM5OWQiLCJhdWQiOiJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbSIsImlhdCI6MTczNDY2MTQ1OSwiZXhwIjoxNzM0NzQ3ODU5LCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlBMR2FmcnJkSlN5TExsbnZiaHNnOEpiSXU0Nk5QRkkzIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOmNoYW1icmVzIiwiY3JlYXRlOmNsaWVudHMiLCJjcmVhdGU6cmVzZXJ2YXRpb25zIiwiZGVsZXRlOmNoYW1icmVzIiwiZGVsZXRlOmNsaWVudHMiLCJkZWxldGU6cmVzZXJ2YXRpb25zIiwicmVhZDpjaGFtYnJlcyIsInJlYWQ6Y2xpZW50cyIsInJlYWQ6cmVzZXJ2YXRpb25zIiwidXBkYXRlOmNoYW1icmVzIiwidXBkYXRlOmNsaWVudHMiLCJ1cGRhdGU6cmVzZXJ2YXRpb25zIl19.HtZwmMYEUTgQNnPjW-iERCfFhCzm4M5dOy9yN0mRpp5bTrbgkBflJIsZQkrYP7545_Ff-uBWlTEEvXeteXdxVrqcQ5Kf0S78Glb-e4zryLNJcXL1sd1oSgzo_mqJvli8WEIhPi6niKAhan1sERhBbIct7pG19bOe2NCSev0wHZp45BuqyMcIbVky5JFZf7QPsF7dBbz4R0ak0bqQmDFtqQBClmdImkyfyEjqTsDYN8DtsQ8dUj5SnYr1bBnh8o9eqQ9Ga2qxFdMSUPasgxt-yiT8xwks3OfiVOZunfh0tGv36QbiaOi8zSC64IgMVsoEa6PXmBkPk-M3ynKhQbTvyA")
     private val serviceChambre = ServiceChambre(sourceDeDonnées)
     private val serviceClient = ServiceClient(sourceDeDonnées)
     private val serviceReservation = ServiceReservation(sourceDeDonnées)
@@ -175,11 +177,15 @@ class Modèle private constructor(context: Context) {
         serviceClient.modifierClientNom(clientId,newNom)
     }
 
-    fun modifierClientImage(newImage: Bitmap, context: Context) {
-        val editor = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE).edit()
+    suspend fun modifierClientImage(newImage: Bitmap, context: Context, clientId: Int) {
         val byteArrayOutputStream = ByteArrayOutputStream()
         newImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
         val imageString = Base64.encodeBase64String(byteArrayOutputStream.toByteArray())
+        CoroutineScope(Dispatchers.IO).launch {
+            sourceDeDonnées.modifierClientImage(imageString, clientId)
+        }
+        println("l'image a été envoyé a l'api")
+        val editor = context.getSharedPreferences("client_prefs", Context.MODE_PRIVATE).edit()
         editor.putString("client_image", imageString)
         editor.apply()
     }

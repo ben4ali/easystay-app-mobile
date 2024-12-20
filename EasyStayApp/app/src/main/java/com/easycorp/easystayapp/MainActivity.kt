@@ -84,33 +84,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-        println("**********************************************************--------------------TEST API------------------------")
-
-        val urlSource = "http://idefix.dti.crosemont.quebec:9017"
-        val bearer = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkFqWUJxeDZ1TjFHemlYTW54d2ZGeCJ9.eyJpc3MiOiJodHRwczovL2Rldi0yNGhxM3ZiNmI4cnYyZjdkLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NzU0YjFhMDE5NTI2MmIxY2U2ZmJjM2YiLCJhdWQiOiJodHRwOi8vaXNtYWlsZWxhc3Jhb3VpLmNvbSIsImlhdCI6MTczMzY4MDc3OCwiZXhwIjoxNzMzNzY3MTc4LCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlBMR2FmcnJkSlN5TExsbnZiaHNnOEpiSXU0Nk5QRkkzIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOmNoYW1icmVzIiwiY3JlYXRlOmNsaWVudHMiLCJjcmVhdGU6cmVzZXJ2YXRpb25zIiwiZGVsZXRlOmNoYW1icmVzIiwiZGVsZXRlOmNsaWVudHMiLCJkZWxldGU6cmVzZXJ2YXRpb25zIiwicmVhZDpjaGFtYnJlcyIsInJlYWQ6Y2xpZW50cyIsInJlYWQ6cmVzZXJ2YXRpb25zIiwidXBkYXRlOmNoYW1icmVzIiwidXBkYXRlOmNsaWVudHMiLCJ1cGRhdGU6cmVzZXJ2YXRpb25zIl19.NyT42YHvORp_t1W9OwriNHQdmw2d-B87py-G0sw7jv7UfHQHckWZNwYuQ-LkWGNmy40JuqZVz6oAaPTAtea3UEZHrl9laJKelCEtlZjJ0x3JmNBFD4Dp5jdvMLOtQXOgYiDn9m-z97YDwRnT0b5T6_g3n3L3FdbkIIjNbRVCBPUQst2Y_nkcfYipTp2u_lxxlmhv5tjztEtlKLdt88sIveSiyY4-hUQsaSijifOefipr21Vbrph_DUhBA9lWbzEeWC4Rz5pfBR7sh6hFCJnmaE8puQgOMFY2JSn9FpgG4eYdV1sGE6zN_q5v2wQknkOtkmWEihBaqqimvcP8pFlfhA"
-        val source = SourceDeDonneeAPI(urlSource, bearer)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val chambres = source.obtenirChambres()
-            val reservations = source.obtenirReservations()
-            val reservationDeClient = source.obtenirReservationsParClient(ClientData(1, "DupontJ@gmail.com", "Jean", "Dupont", "daad"))
-            val reservationParChambre = source.obtenirReservationParChambre(ChambreData(1, "Chambre deluxe", 0.0, "adawd", "adawd", 1, 1, listOf(), listOf(), listOf()))
-            val client = source.obtenirClientParId(1)
-            withContext(Dispatchers.Main) {
-                println("--------------------CHAMBRES------------------------")
-                println(chambres)
-                println("--------------------RESERVATIONS------------------------")
-                println(reservations)
-                println("--------------------RESERVATIONS DE CLIENT------------------------")
-                println(reservationDeClient)
-                println("--------------------RESERVATIONS PAR CHAMBRE ------------------------")
-                println(reservationParChambre)
-                println("--------------------CLIENT ------------------------")
-                println(client)
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
