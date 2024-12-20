@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
-    tools:context=".ReserverFragment">
+    tools:context=".Presentation.Vue.ReserverVue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,18 +13,51 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Titre pour l'image et le type de chambre -->
-        <TextView
-            android:id="@+id/roomTypeTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/titre_reservation_confirmation"
+                android:textColor="@color/colorText"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backButtonLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chambre Deluxe"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorText"
-            android:paddingBottom="8dp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/backButton2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:clickable="true"
+                android:src="@drawable/back"
+                android:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/roomTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Chambre Deluxe"
+                android:textColor="@color/colorText"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+        <!-- Titre pour l'image et le type de chambre -->
 
         <!-- Section image et détails de la chambre -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,17 +93,15 @@
                     android:id="@+id/roomDescriptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vue sur la ville, lit king-size, Wi-Fi gratuit"
-                    android:textSize="14sp"
+                    android:paddingTop="4dp"
                     android:textColor="@color/colorText"
-                    android:paddingTop="4dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/ratingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
-                    android:text="★ 4.9 (200 avis)"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -98,9 +129,8 @@
                 android:id="@+id/roomFullDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cette chambre deluxe offre une vue imprenable sur la ville, un lit king-size confortable et un accès Wi-Fi rapide. Profitez de commodités modernes, d'un mini-bar, et d'un espace de travail. Idéale pour les séjours d'affaires ou de loisirs."
-                android:textSize="16sp"
-                android:textColor="@color/colorText" />
+                android:textColor="@color/colorText"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Titre et Services inclus -->
@@ -126,10 +156,9 @@
                 android:id="@+id/amenitiesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="✓ Wi-Fi gratuit"
-                android:textSize="16sp"
+                android:paddingVertical="4dp"
                 android:textColor="@color/colorText"
-                android:paddingVertical="4dp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Titre et Informations de réservation -->
@@ -167,7 +196,7 @@
                     android:textColor="@color/colorText" />
 
                 <TextView
-                    android:id="@+id/datesTextView"
+                    android:id="@+id/RDates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -232,7 +261,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="$150 x 5 nuits"
                     android:textColor="@color/colorText"
                     android:textSize="16sp" />
 
@@ -240,9 +268,8 @@
                     android:id="@+id/subtotalTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$750"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -264,9 +291,8 @@
                     android:id="@+id/taxesAmountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$112.50"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -289,24 +315,12 @@
                     android:id="@+id/totalAmountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$862.50"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorText" />
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
         <!-- Bouton Réserver maintenant -->
-        <Button
-            android:id="@+id/reserveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:backgroundTint="@color/colorPrimary"
-            android:padding="12dp"
-            android:text="@string/r_server_maintenant"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

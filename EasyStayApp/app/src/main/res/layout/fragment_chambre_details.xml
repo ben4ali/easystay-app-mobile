@@ -16,13 +16,24 @@
             android:layout_height="260dp" />
 
         <LinearLayout
-            android:id="@+id/dotIndicatorLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:paddingBottom="14dp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                android:id="@+id/worm_dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:dotsColor="@color/colorJustWhite"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="11dp"
+                app:dotsSpacing="4dp"
+                app:dotsStrokeColor="@color/colorJustWhite"
+                app:dotsStrokeWidth="2dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/backButtonLayout"
@@ -66,21 +77,21 @@
         android:text="CHAMBRES 2 LITS"
         android:textColor="@color/colorText"
         android:textSize="28sp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp">
+        android:paddingLeft="18dp"
+        android:paddingTop="30dp">
 
         <ImageView
             android:id="@+id/starIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/etoile" />
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            app:srcCompat="@drawable/etoile"
+            app:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/ratingTextView"
@@ -90,20 +101,15 @@
             android:text="75%"
             android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/reviewsDivider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="." />
-
-        <TextView
-            android:id="@+id/reviewCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="22 reviews" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/reviewCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="2dp"
+        android:text="22 reviews" />
 
     <TextView
         android:id="@+id/locationTextView"
@@ -118,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorPrimary" />
 
@@ -127,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="50dp"
         android:text="Chambre avec vue sur la ville"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -153,6 +159,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/bed_icon" />
 
             <TextView
@@ -177,6 +184,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/wifi_icon" />
 
             <TextView
@@ -200,6 +208,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/television_icon" />
 
             <TextView
@@ -223,6 +232,9 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:text="@string/r_server"
+            android:textColor="@color/colorJustWhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:cornerRadius="8dp" />
 
         <LinearLayout
@@ -246,7 +258,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/s_lectionner_une_date"
-                android:textColor="#0035FF"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

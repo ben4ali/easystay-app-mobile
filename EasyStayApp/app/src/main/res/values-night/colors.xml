@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorText">#F0F0F0</color>
-    <color name="colorBackground">#000000</color>
-    <color name="colorPrimary">#FF5A5A</color>
+    <color name="colorBackground">#0D0D0D</color>
+    <color name="colorBackgroundOpposite">#F0F0F0</color>
+    <color name="colorHomePageGraphic">#D3D3D3</color>
+    <color name="colorPrimary">#D90D1B</color>
     <color name="colorSecondary">#161616</color>
     <color name="colorAccent">#D3D3D3</color>
-    <color name="colorAccentOverlay">#292929</color>
+    <color name="colorAccentOverlay">#B4B4B4</color>
+    <color name="colorRangeFill">#B3FF5A5A</color>
+    <color name="colorJustWhite">#F0F0F0</color>
+    <color name="dotIndicatorsSelected">#D5D5D5</color>
 </resources>

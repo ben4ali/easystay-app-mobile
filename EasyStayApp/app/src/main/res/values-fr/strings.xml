@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">EasyStay App</string>
+    <string name="app_name">EasyStay</string>
     <string name="button_home_text">Home</string>
     <string name="button_profile_text">Profil</string>
     <string name="button_main_hotel_text">Hôtel principal</string>
     <string name="button_settings_text">Réglages</string>
     <string name="button_logout_text">Déconnexion</string>
-    <string name="bienvenue_chez_easystay">Bienvenue chez EasyStay</string>
+    <string name="bienvenue_chez_easystay">Découvrez votre séjour parfait avec East Stay</string>
     <string name="vos_r_servations">VOS RÉSERVATIONS</string>
+    <string name="vos_up_coming_reservations">VOS RÉSERVATIONS \nÀ VENIR</string>
     <string name="vos_favoris">VOS FAVORIS</string>
     <string name="pr_f_rences">Préférences</string>
     <string name="compte">Compte</string>
@@ -31,5 +32,15 @@
     <string name="r_server">RÉSERVER</string>
     <string name="chambres">CHAMBRES</string>
     <string name="rechercher">Rechercher</string>
+    <string name="edit_email">modifier email</string>
+    <string name="edit_surname">modifier surname</string>
+    <string name="edit_name">modifier name</string>
+    <string name="edit_image">modifier image</string>
     <string name="s_lectionner_une_date">Sélectionner une date</string>
+    <string name="supprimer">Annuler</string>
+    <string name="voir_r_servation">Voir Réservation</string>
+    <string name="reservations_menu">Réservation</string>
+    <string name="accueil">Accueil</string>
+    <string name="chambres_menu">Chambres</string>
+    <string name="titre_reservation_confirmation">Confirmation de réservation</string>
 </resources>
