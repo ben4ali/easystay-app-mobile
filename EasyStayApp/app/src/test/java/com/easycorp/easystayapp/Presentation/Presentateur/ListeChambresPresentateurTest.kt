@@ -34,12 +34,12 @@ class ListeChambresPresentateurTest {
     @Test
     fun `Étant donné que des chambres sont disponibles dans le modèle, lorsque chargerChambres est appelé, on affiche la liste de toutes les chambres`() {
         val chambres = listOf(
-            ChambreData(1, "Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0),
-            ChambreData(2, "Suite Junior", "Balcon privé", 3.5f, 5, listOf("TV", "Climatisation"), 50.0),
-            ChambreData(3, "Chambre Standard", "Lit queen-size", 4.0f, 8, listOf("TV", "Climatisation", "Balcon"), 100.0)
+            ChambreData(1, "Chambre Deluxe", 150.0, "Available", "Clean", 4, 10, listOf("TV", "Climatisation", "Balcon"), listOf("Télévision", "Wi-fi", "Climatisation")),
+            ChambreData(2, "Suite Junior", 50.0, "Available", "Clean", 3, 5, listOf("TV", "Climatisation"), listOf("Télévision", "Wi-fi", "Climatisation")),
+            ChambreData(3, "Chambre Standard", 100.0, "Available", "Clean", 4, 8, listOf("TV", "Climatisation", "Balcon"), listOf("Télévision", "Wi-fi", "Climatisation"))
         )
 
-        modèle.obtenirChambres().toMutableList().apply {
+        modèle.obtenirChambres()?.toMutableList()?.apply {
             clear()
             addAll(chambres)
         }
@@ -52,17 +52,17 @@ class ListeChambresPresentateurTest {
     @Test
     fun `Étant donné un texte de recherche, lorsque filtrerChambres est appelé, on affiche les chambres correspondantes`() {
         val chambres = listOf(
-            ChambreData(1, "Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0),
-            ChambreData(2, "Suite Junior", "Balcon privé", 3.5f, 5, listOf("TV", "Climatisation"), 50.0),
-            ChambreData(3, "Chambre Standard", "Lit queen-size", 4.0f, 8, listOf("TV", "Climatisation", "Balcon"), 100.0)
+            ChambreData(1, "Chambre Deluxe", 150.0, "Available", "Clean", 4, 10, listOf("TV", "Climatisation", "Balcon"), listOf("Télévision", "Wi-fi", "Climatisation")),
+            ChambreData(2, "Suite Junior", 50.0, "Available", "Clean", 3, 5, listOf("TV", "Climatisation"), listOf("Télévision", "Wi-fi", "Climatisation")),
+            ChambreData(3, "Chambre Standard", 100.0, "Available", "Clean", 4, 8, listOf("TV", "Climatisation", "Balcon"), listOf("Télévision", "Wi-fi", "Climatisation"))
         )
 
-        modèle.obtenirChambres().toMutableList().apply {
+        modèle.obtenirChambres()?.toMutableList()?.apply {
             clear()
             addAll(chambres)
         }
 
-        présentateur.filtrerChambres("Deluxe")
+        présentateur.filtrerChambres("Deluxe",500)
 
         verify(listViewChambres).adapter = any(ChambreAdapter::class.java)
     }

@@ -12,6 +12,7 @@ import com.easycorp.easystayapp.Utilitaire.RéservationAdapter
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
+import kotlinx.coroutines.runBlocking
 
 class ListeRéservationPrésentateurTest {
 
@@ -31,15 +32,15 @@ class ListeRéservationPrésentateurTest {
     }
 
     @Test
-    fun `Étant donné que le client a des réservations, lorsque chargerReservations est appelé, on obtient une liste de réservations`() {
+    fun `Étant donné que le client a des réservations, lorsque chargerReservations est appelé, on obtient une liste de réservations`() = runBlocking {
         val clientId = 1
-        val client = ClientData(clientId, "John", "Doe", "johndoe@gmail.com", 0)
+        val client = ClientData(clientId, "John", "Doe", "johndoe@gmail.com", "0")
         val reservations = listOf(
-            ReservationData(1, client, ChambreData(1, "Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0), "2024-11-16", "2024-11-20"),
-            ReservationData(2, client, ChambreData(2, "Chambre Double", "Vue sur mer", 4.5f, 8, listOf("TV", "Balcon"), 150.0), "2024-11-27", "2024-12-01")
+            ReservationData(1, client, "1", "2024-11-16", "2024-11-20", 150.0, "Confirmed", "Credit Card", true, "2024-11-20", ChambreData(1, "Chambre Deluxe", 150.0, "Available", "Clean", 4, 10, listOf("TV", "Climatisation", "Balcon"), listOf())),
+            ReservationData(2, client, "2", "2024-11-27", "2024-12-01", 150.0, "Confirmed", "Credit Card", true, "2024-12-01", ChambreData(2, "Chambre Double", 150.0, "Available", "Clean", 4, 8, listOf("TV", "Balcon"), listOf()))
         )
         `when`(modèle.obtenirClientParId(clientId)).thenReturn(client)
-        `when`(modèle.obtenirReservationsParClient(client)).thenReturn(reservations)
+        `when`(runBlocking { modèle.obtenirReservationsParClient(client) }).thenReturn(reservations)
 
         présentateur.chargerReservations(clientId)
 
@@ -47,15 +48,15 @@ class ListeRéservationPrésentateurTest {
     }
 
     @Test
-    fun `Étant donné qu'une réservation est supprimée, lorsque supprimerReservation est appelé, la liste de réservations est mise à jour`() {
+    fun `Étant donné qu'une réservation est supprimée, lorsque supprimerReservation est appelé, la liste de réservations est mise à jour`() = runBlocking {
         val clientId = 1
-        val client = ClientData(clientId, "John", "Doe", "johndoe@gmail.com", 0)
-        val reservation = ReservationData(1, client, ChambreData(1, "Chambre Deluxe", "Vue sur la mer", 4.5f, 10, listOf("TV", "Climatisation", "Balcon"), 150.0), "2024-11-16", "2024-11-20")
+        val client = ClientData(clientId, "John", "Doe", "johndoe@gmail.com", "0")
+        val reservation = ReservationData(1, client, "1", "2024-11-16", "2024-11-20", 150.0, "Confirmed", "Credit Card", true, "2024-11-20", ChambreData(1, "Chambre Deluxe", 150.0, "Available", "Clean", 4, 10, listOf("TV", "Climatisation", "Balcon"), listOf()))
         `when`(modèle.obtenirClientParId(clientId)).thenReturn(client)
-        `when`(modèle.obtenirReservationsParClient(client)).thenReturn(emptyList())
+        `when`(runBlocking { modèle.obtenirReservationsParClient(client) }).thenReturn(emptyList())
 
         présentateur.supprimerReservation(reservation)
 
-        assert(modèle.obtenirReservationsParClient(client).isEmpty())
+        assert(runBlocking { modèle.obtenirReservationsParClient(client) }.isEmpty())
     }
 }
