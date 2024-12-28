@@ -1,0 +1,46 @@
+* Sprint 1
+|                                           | Note | Aziz | Jamil | Ismaïl | Ali |
+| Qualité du prototype d'interface :        | A    |      |       |        |     |
+|                                           |      |      |       |        |     |
+| Présentation :                            | A    |      |       |        |     |
+|                                           |      |      |       |        |     |
+| Évaluation du travail par les pairs (50%) | ×    | A    | A     | A      | A   |
+| Participation à la présentation     (50%) | ×    | A    | A     | A      | A   |
+|-------------------------------------------+------+------+-------+--------+-----|
+| Total                                     |      | 10   | 10    | 10     | 10  |
+
+* Sprint 2
+|                                           | Note | Ali | Ismaïl | Jamil | Aziz | Commentaires |
+| Qualité du produit :                      | A    |     |        |       |      |              |
+|                                           |      |     |        |       |      |              |
+| Présentation :                            | A    |     |        |       |      |              |
+|                                           |      |     |        |       |      |              |
+| Évaluation du travail par les pairs (33%) | ×    | A   | A      | A     | A    |              |
+| Participation à la présentation     (33%) | ×    | A   | A      | A     | A    |              |
+| Participation au développement      (33%) | ×    | A   | A      | A     | A    |              |
+|-------------------------------------------+------+-----+--------+-------+------+--------------|
+| Total                                     |      | 10  | 10     | 10    | 10   |              |
+
+* Sprint 3
+|                                           | Note | Ali                  | Ismaïl | Jamil | Aziz | Commentaires |
+| Qualité du produit :                      | A    |                      |        |       |      |              |
+|                                           |      |                      |        |       |      |              |
+| Présentation :                            | A    |                      |        |       |      |              |
+|                                           |      |                      |        |       |      |              |
+| Évaluation du travail par les pairs (33%) | ×    | E - pas d'évaluation | A      | A     | A    |              |
+| Participation à la présentation     (33%) | ×    | A                    | A      | A     | A    |              |
+| Participation au développement      (33%) | ×    | A                    | A      | A     | A    |              |
+|-------------------------------------------+------+----------------------+--------+-------+------+--------------|
+| Total                                     |      | 6.7                  | 10     | 10    | 10   |              |
+
+* Sprint 4
+|                                           | Note | Aziz | Ali | Jamil                | Ismaïl      | Commentaires |
+| Qualité du produit :                      | A    |      |     |                      |             |              |
+|                                           |      |      |     |                      |             |              |
+| Présentation :                            | A    |      |     |                      |             |              |
+|                                           |      |      |     |                      |             |              |
+| Évaluation du travail par les pairs (33%) | ×    | A    | A   | E - pas d'évaluation | A           |              |
+| Participation à la présentation     (33%) | ×    | A    | A   | A                    | A           |              |
+| Participation au développement      (33%) | ×    | A    | A   | A                    | C - minimal |              |
+|-------------------------------------------+------+------+-----+----------------------+-------------+--------------|
+| Total                                     |      | 10   | 10  | 6.7                  | 8.7         |              |
